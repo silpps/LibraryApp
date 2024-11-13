@@ -9,18 +9,18 @@ const {
   } = require("../controllers/userControllers")
 
 // ROUTES
-// GET /tours
+// GET /users
 router.get("/", getAllUsers);
 
-// POST /tours
+// POST /users
 router.post("/", createUser);
 
-// GET /tours/:tourId
+// GET /users/:userId
 router.get("/:userId", getUserById);
 
-// PUT /tours/:tourId
+// PUT /users/:userId
 router.put("/:userId", updateUser);
 
-// DELETE /tours/:tourId
+// DELETE /users/:userId
 router.delete("/:userId", deleteUser);
 module.exports = router;

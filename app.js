@@ -7,7 +7,7 @@ app.use(morgan("tiny"))
 
 // Middleware to parse JSON
 app.use(express.json());
-app.use('/users', userRouter);
+app.use('/bookhive/users', userRouter);
 
 
 const port = 4000;
