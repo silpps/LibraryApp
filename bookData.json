@@ -1,5 +1,6 @@
 [
     {
+      "id": 1,
       "title": "The Night Circus",
       "author": "Erin Morgenstern",
       "year": 2011,
@@ -8,6 +9,7 @@
       "imageLink": "https://covers.openlibrary.org/b/id/7818310-L.jpg"
     },
     {
+      "id": 2,
       "title": "Pachinko",
       "author": "Min Jin Lee",
       "year": 2017,
@@ -16,6 +18,7 @@
       "imageLink": "https://covers.openlibrary.org/b/id/7995394-L.jpg"
     },
     {
+      "id": 3,
       "title": "Sapiens: A Brief History of Humankind",
       "author": "Yuval Noah Harari",
       "year": 2014,
@@ -24,6 +27,7 @@
       "imageLink": "https://covers.openlibrary.org/b/id/8424236-L.jpg"
     },
     {
+      "id": 4,
       "title": "One Hundred Years of Solitude",
       "author": "Gabriel García Márquez",
       "year": 1967,
@@ -32,6 +36,7 @@
       "imageLink": "https://covers.openlibrary.org/b/id/9225412-L.jpg"
     },
     {
+      "id": 5,
       "title": "The Alchemist",
       "author": "Paulo Coelho",
       "year": 1988,
@@ -40,6 +45,7 @@
       "imageLink": "https://covers.openlibrary.org/b/id/8236525-L.jpg"
     },
     {
+      "id": 6,
       "title": "Becoming",
       "author": "Michelle Obama",
       "year": 2018,
