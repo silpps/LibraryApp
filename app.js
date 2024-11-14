@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const bookRouter = require('./routes/bookRouter');
+const bookRouter = require('./routers/bookRouter');
 
 const morgan = require("morgan")
 app.use(morgan("tiny"))

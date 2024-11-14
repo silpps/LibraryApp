@@ -1,12 +1,11 @@
 const Book = require('../models/bookModel.js');
 
 const getAllBooks = (req, res) => {
-    res.json(User.getAll());
+    res.json(Book.getAll());
 };
 
 const addBook = (req, res) => {
-    const {title, author, year, language, category, imageLink} = req.body;
-    const newBook = Book.addOne(title, author, year, language, category, imageLink);
+    const newBook = Book.addOne({ ...req.body }); //I had few problems here as there is few ways to handle the book data and I ended up mixing those.
     if (newBook) {
       res.status(201).json(newBook)
     } else {
@@ -15,7 +14,7 @@ const addBook = (req, res) => {
 };
 
 const getBookById = (req, res) => {
-    const bookId = req.params.userId;
+    const bookId = req.params.bookId;
     const book = Book.findById(bookId);
     if (book) {
       res.json(book);
