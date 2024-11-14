@@ -5,7 +5,9 @@
     "year": 1988,
     "language": "Portuguese",
     "category": "Fiction, Adventure",
-    "imageLink": "https://covers.openlibrary.org/b/id/8236525-L.jpg"
+    "imageLink": "https://covers.openlibrary.org/b/id/8236525-L.jpg",
+    "rating": 4,
+    "review": "Amazing Book!!"
   }
     */
 
@@ -17,7 +19,7 @@ function getAll() {
 }
 
 function addOne(bookData) {
-    const {title, author, year, language, category, imageLink} = bookData;
+    const {title, author, year, language, category, imageLink, rating, review} = bookData; //add error handler for the imageLink -> placeholder etc.
     // Check if any parameter is undefined
     if (!title || !author || !year || !language || !category || !imageLink) {
         return false;
