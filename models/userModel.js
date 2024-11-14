@@ -1,18 +1,18 @@
-const userArray = require('../bookhiveprofpage.json')
+let userArray = require('../bookhiveprofpage.json')
  
-let nextId = 1;
+let nextId = userArray.length + 1;
 
 const getAll = () => {
   return userArray;
 };
 
-const addOne = (name, email, password) => {
-  if (!name | !email | !password) {
+const addOne = (username, email, password) => {
+  if (!username | !email | !password) {
     return false;
   }
   const newUser = {
     id: nextId++,
-    name: name,
+    username: username,
     email,
     password,
   };
@@ -39,7 +39,7 @@ const updateOneById = (id, updatedData) => {
 const deleteOneById = (id) => {
   const user = findById(id);
   if (user) {
-    const initialLenght = userArray.length;
+    let initialLenght = userArray.length;
     userArray = userArray.filter((user) => user.id !== Number(id));
     return userArray.length < initialLenght;
   } else return false;

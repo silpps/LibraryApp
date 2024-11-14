@@ -5,8 +5,8 @@ const getAllUsers = (req, res) => {
   };
    
   const createUser = (req, res) => {
-    const { name, email, password} = req.body;
-    const newUser = User.addOne(name, email, password);
+    const { username, email, password} = req.body;
+    const newUser = User.addOne(username, email, password);
     if (newUser) {
       res.status(201).json(newUser)
     } else {

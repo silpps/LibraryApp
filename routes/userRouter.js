@@ -8,9 +8,11 @@ const {
     deleteUser,
   } = require("../controllers/userControllers")
 
+const { authorizeUsersAccess } = require("../middleware/auth");
+
 // ROUTES
 // GET /users
-router.get("/", getAllUsers);
+router.get("/", authorizeUsersAccess, getAllUsers);
 
 // POST /users
 router.post("/", createUser);
