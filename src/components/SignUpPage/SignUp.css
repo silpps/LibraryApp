@@ -1,9 +1,9 @@
-
-body{
+body {
     background-image: url('syksytausta.jpg');
 }
 
-.signup-container   {
+
+.container   {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,18 +12,23 @@ body{
     border-radius: 5%;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
-    height: 650px;
+
     padding: 20px;
 }
 
-.signup-form input {
+.form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
     padding: 10px;
-    margin: 5px 0 10px 0;
+    margin: 5px 0 15px 0;
     border: 1px solid #803503;
     border-radius: 15px;
     background-color: #f3e8de94;
-    width: 60%;
+    width: 90%;
 }
 
 .error-message {
@@ -34,9 +39,7 @@ body{
 
 .description {
     text-align: left;
-    margin-left: 70px;;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 0 0 0 0;
     color: #803503;
 }
 
@@ -44,4 +47,10 @@ h1 {
     text-align: center;
     color: #803503;
     margin-top: 0;
+}
+
+button {
+    margin-top: auto;
+    max-width: 100px;
+    align-self: center;
 }
