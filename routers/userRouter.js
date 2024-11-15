@@ -11,18 +11,23 @@ const {
 const { authorizeUsersAccess } = require("../middleware/auth");
 
 // ROUTES
-// GET /users
-router.get("/", authorizeUsersAccess, getAllUsers);
 
-// POST /users
-router.post("/", createUser);
 
-// GET /users/:userId
-router.get("/:userId", getUserById);
+// get all users (admin)
+//This can also be utilised for "forgot password" as the system can check if an email address is linked to an account or something
+router.get("/users", authorizeUsersAccess, getAllUsers);
 
-// PUT /users/:userId
-router.put("/:userId", updateUser);
+//In signup page, pressing the signup button calls this
+router.post("/signup", createUser);
 
-// DELETE /users/:userId
-router.delete("/:userId", deleteUser);
+//Is called from Log In button, will route to profile if correct, error otherwise
+router.get("/profile/:userId", getUserById);
+
+//Is called from the update changes button in profile settings
+router.put("/profile/settings/:userId", updateUser);
+
+// Is called from the delete profile button in profile settings
+router.delete("/profile/settings/:userId", deleteUser);
+
+
 module.exports = router;

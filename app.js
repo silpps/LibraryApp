@@ -11,7 +11,7 @@ connectDB();
 
 // Middleware to parse JSON
 app.use(express.json());
-app.use('/bookhive/users', userRouter);
+app.use('/bookhive', userRouter);
 app.use('/bookhive/books', bookRouter);
 
 
