@@ -1,54 +1,18 @@
-let userArray = require('../bookhiveprofpage.json')
- 
-let nextId = userArray.length + 1;
+const mongoose = require("mongoose");
 
-const getAll = () => {
-  return userArray;
-};
+const Schema = mongoose.Schema;
 
-const addOne = (username, email, password) => {
-  if (!username | !email | !password) {
-    return false;
-  }
-  const newUser = {
-    id: nextId++,
-    username: username,
-    email,
-    password,
-  };
-  userArray.push(newUser);
-  return newUser;
-};
+const userSchema = new Schema(
+  {
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true },
+    profilePicture : {type: String, required: false},
+    bookwormLevel: { type: Number, required: false},
+    favoriteGenres: { type: Array, required: false },
+    description: { type: String, required: false}
+  },
+  { timestamps: true }
+);
 
-const findById = (id) => {
-  const user = userArray.find((user) => user.id === Number(id));
-  if (user) {
-    return user;
-  } else return false;
-};
-
-const updateOneById = (id, updatedData) => {
-  const user = findById(id);
-  if (user) {
-    Object.assign(user, {...updatedData});
-    return user;
-  }
-  return false;
-};
-
-const deleteOneById = (id) => {
-  const user = findById(id);
-  if (user) {
-    let initialLenght = userArray.length;
-    userArray = userArray.filter((user) => user.id !== Number(id));
-    return userArray.length < initialLenght;
-  } else return false;
-};
-
-module.exports = {
-  getAll,
-  addOne,
-  findById,
-  updateOneById,
-  deleteOneById,
-};
+module.exports = mongoose.model("User", userSchema);
