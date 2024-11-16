@@ -12,7 +12,6 @@ const recentBooks = books
 const RecentBooks = () => {
     return (
         <div className='recently-added-div'>
-            <Header></Header>
             <h2>Recently Added</h2>
             {recentBooks.map((book) => (
                 <Book key={book.id} book={book} />
