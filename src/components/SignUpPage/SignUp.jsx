@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './SignUp.css';
+import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
@@ -10,6 +11,7 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState(false);
     const [strongPassword, setStrongPassword] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleUsernameChange = (e) => {
         const inputUsername = e.target.value;
@@ -46,8 +48,23 @@ const SignUp = () => {
         } else {
             console.log('Sign Up Failed');
         }
-    }
 
+    const newUser = {
+        username: username,
+        email: email,
+        password: password,
+      };
+      console.log('New User:', newUser);
+
+      setTimeout(() => {
+        setSuccessMessage('User created successfully!');
+        setErrorMessage('');
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+      }, 1000);
+    };
 
     return (
             <div className="container">
@@ -93,6 +110,10 @@ const SignUp = () => {
                     {passwordMatch && <p className="success-message">Passwords match</p>}
                 <button type="submit">Sign Up</button>
             </form>
+            {successMessage && <p className="success-message">{successMessage}</p>}
+            <p className="sign-up-link">
+                    Ready to log in? <Link to="/">Log In here</Link>
+                </p>
         </div>
     );
 }

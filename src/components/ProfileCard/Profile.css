@@ -1,5 +1,15 @@
-.profilebutton {
+.editbutton {
     cursor: pointer;
     margin: 10px;
     display: flex;
+    position: absolute;
+    left: 0;  
+    top: 670px;
+    transform: translateY(-10%);
+    margin-left: 250px;
+    font-size: 12px;
+    background-color: #803503;
+    color: #FFEFE1;
+
 }
+

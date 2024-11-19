@@ -68,7 +68,7 @@ const LogIn = ({ onLogin }) => {
                 className={passwordValid ? 'valid' : 'invalid'}
                  required />
                  {showError && <p className="error-message">Invalid email or password</p>}
-                <button type="submit">Log In</button>
+                <button type="submit" className="signin-button">Log In</button>
                 <p className="sign-up-link">
                     Not a member? <Link to="/signup">Sign Up here</Link>
                 </p>

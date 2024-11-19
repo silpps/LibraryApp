@@ -20,7 +20,8 @@ function ProfileCard ({username, description}) {
         <div className="profile-card">
             <img src={profilepic} alt="profile" className="profile-pic"/>
             <h1>{username}</h1>
-            <p>Bookworm Level: {bookWormLevel} </p>
+            <p>
+                Bookworm Level: <span className="bookwormlevel">&nbsp;{bookWormLevel}&nbsp;</span></p>
             <p>Favorite Genre: {genre}</p>
             <p>Description: {description}</p>
         </div>

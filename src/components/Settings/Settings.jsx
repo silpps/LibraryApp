@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Settings = ({username, description, onUpdate}) => {
-    const [newUsername, setNewUsername] = useState(username);
-    const [newDescription, setNewDescription] = useState(description);
+    const [newUsername, setNewUsername] = useState("");
+    const [newDescription, setNewDescription] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {

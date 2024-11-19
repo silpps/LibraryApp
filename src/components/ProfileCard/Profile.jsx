@@ -19,7 +19,7 @@ const Profile= ({username, description}) => {
       <div>
         <ProfileCard username={username} description={description} />
         <Link to="/settings">
-        <button className="profilebutton">Edit Profile</button>
+        <button className="editbutton">Edit Profile</button>
         </Link>
         <button className = "profilebutton" onClick={goToWishlist}>Wishlist</button>
         <button className= "profilebutton" onClick={goToLibrary}>Library</button>
