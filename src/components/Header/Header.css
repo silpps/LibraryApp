@@ -20,7 +20,7 @@
   }
   
   .logo img {
-    width: 120px;
+    width: 60px;
     height: auto;
   }
   
@@ -53,4 +53,5 @@
   
   .nav-links a:hover {
     color: #080300;
+    cursor: pointer;
   }

@@ -1,37 +1,43 @@
 import React from 'react';
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/logoPlaceholder.jpg';
 
 const Header = () => {
   const navigate = useNavigate();
 
   const goToHelp = () => {
-    navigate('/help');
+    navigate('/help');  
   };
 
   const goToAbout = () => {
-    navigate('/about');
+    navigate('/about'); 
   };
 
   const signOut = () => {
     navigate('/login');
   }
 
+  const goToProfile = () => {
+    navigate('/profile'); 
+  }
+
   return (
     <header className="header">
         <div className="logo">
-          <img src="/path/to/logo.png" alt="Logo" />
+          <img src={logo} alt="Logo" onClick={goToProfile}/>
         </div>
+      <h1>Bookhive</h1>
       <nav className="header-nav">
         <ul className="nav-links">
           <li>
-            <a href="/about" onClick={goToAbout}>About</a>
+            <a onClick={goToAbout}>About</a> 
           </li>
           <li>
-            <a href="/help" onClick={goToHelp}>Help</a>
+            <a onClick={goToHelp}>Help</a>
           </li>
           <li>
-            <a href="/signout" onClick={signOut}>Sign Out</a>
+            <a onClick={signOut}>Sign Out</a>
           </li>
         </ul>
       </nav>
