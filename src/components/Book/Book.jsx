@@ -16,7 +16,7 @@ const Book = ({book, onClick}) => {
     {/*tähtien väritys*/}
     const colourStars = (rating) => {
         if (rating === undefined || rating === null) {
-          return <span style={{ color: '#777' }}>No rating yet</span>;
+          return <p style={{ color: '#777' }}>No rating yet</p>;
         }
     
         const stars = [];
