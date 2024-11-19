@@ -61,7 +61,7 @@ h1 {
 }
 
 button {
-    margin-top: auto;
+    margin: 10px 0 0 50px;
     max-width: 100px;
     align-self: center;
     cursor: pointer;
@@ -69,6 +69,8 @@ button {
     color: #FFEFE1;
     padding: 10px 20px;
     border-radius: 5px;
+    max-width: 200px;
+    
 }
 
 button:hover {

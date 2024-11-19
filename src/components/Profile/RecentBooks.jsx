@@ -1,15 +1,16 @@
 import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
+import Book from '../Book/Book';
 
-const [books, setBooks] = useState(booksData);
   
-const recentBooks = books
+const recentBooks = booksData
   .sort((a, b) => b.id - a.id) 
   .slice(0, 3); 
 
 
 const RecentBooks = () => {
+    const [books, setBooks] = useState(booksData);
     return (
         <div className='recently-added-div'>
             <h2>Recently Added</h2>
@@ -19,3 +20,6 @@ const RecentBooks = () => {
         </div>
     );
   };
+
+
+  export default RecentBooks;

@@ -6,6 +6,7 @@ import LogIn from './components/LogInPage/LogIn';
 import Profile from './components/ProfileCard/Profile';
 import Settings from './components/Settings/Settings';
 import Header from './components/Header/Header';
+import Library from './components/Library/Library';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Header />
       <div>
         <Routes>
+          <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/" element={<LogIn onLogin={handleLogIn} />}/>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={isLoggedIn ? (
@@ -47,6 +49,7 @@ function App() {
               )
             }
           />
+          <Route path="/library" element={<Library />} />
         </Routes>
         <Footer />
       </div>

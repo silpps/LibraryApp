@@ -2,6 +2,8 @@ import ProfileCard from "./ProfileCard";
 import { useNavigate } from "react-router-dom";
 import './Profile.css';
 import { Link } from 'react-router-dom';
+import RecentBooks from "../Profile/RecentBooks";
+import '../Profile/RecentBooks.css';
 
 const Profile= ({username, description}) => {
   const navigate = useNavigate();
@@ -12,8 +14,12 @@ const Profile= ({username, description}) => {
   };
 
   const goToLibrary = () => {
-    navigate('/');
+    navigate('/library');
   };
+
+  const goToReadingList = () => {
+    navigate('/');
+  }
   
     return (
       <div>
@@ -21,8 +27,10 @@ const Profile= ({username, description}) => {
         <Link to="/settings">
         <button className="editbutton">Edit Profile</button>
         </Link>
+        <RecentBooks />
         <button className = "profilebutton" onClick={goToWishlist}>Wishlist</button>
         <button className= "profilebutton" onClick={goToLibrary}>Library</button>
+        <button className= "profilebutton" onClick={goToReadingList}>Reading List</button>
       </div>
     );
   };

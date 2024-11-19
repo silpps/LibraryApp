@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 function ProfileCard ({username, description}) {
     const bookWormLevel = 5;
-    const genre = 'Mystery';
 
     useEffect(() => {
         document.body.style.backgroundImage = "none";
@@ -22,7 +21,6 @@ function ProfileCard ({username, description}) {
             <h1>{username}</h1>
             <p>
                 Bookworm Level: <span className="bookwormlevel">&nbsp;{bookWormLevel}&nbsp;</span></p>
-            <p>Favorite Genre: {genre}</p>
             <p>Description: {description}</p>
         </div>
     )
