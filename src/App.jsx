@@ -19,6 +19,11 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const logOut = () => {
+    setIsLoggedIn(false); 
+    navigate('/');
+  };
+
   const updateProfile = (newUsername, newDescription) => {
     setUsername(newUsername);
     setDescription(newDescription);
@@ -54,7 +59,7 @@ function App() {
           <Route path="/library" element={<Library />} />
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
-          <Route path= "/login" element={<LogIn onLogin={handleLogIn} />} />
+          <Route path= "/login" element={<LogIn/>} />
         </Routes>
         <Footer />
       </div>

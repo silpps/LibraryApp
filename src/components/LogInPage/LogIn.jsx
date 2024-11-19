@@ -3,7 +3,7 @@ import '../SignUpPage/SignUp.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const LogIn = ({ onLogin }) => {
+const LogIn = ({ onLogin, onLogout }) => {
     const [email, setEmail] = useState('');
     const [emailValid, setEmailValid] = useState(false);
     const [password, setPassword] = useState('');
@@ -13,6 +13,11 @@ const LogIn = ({ onLogin }) => {
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);
 
+    useEffect(() => {
+        if (onLogout) {
+            onLogout(); 
+        }
+    }, [onLogout]);
 
     const handleEmailChange = (e) => {
         const inputEmail = e.target.value;
