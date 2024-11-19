@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AddBookForm.css'
 
-const AddBookForm = ({ onAddBook, closeModal }) => {
+const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [category, setCategory] = useState('');
@@ -29,27 +29,29 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
       rating,
       review,
     });
-  
-    closeModal();
   };
 
 return(
-<div className="modal">
-            <div className="modal-content">
-                <h2>Add New Book</h2>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <form onSubmit={onAddBook}>
-                    <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
-                    <label>Author: <input type="text" name="author" onChange={(e) => setAuthor(e.target.value)} /></label>
-                    <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
-                    <label>Publishing year: <input type="text" name="year" onChange={(e) => setYear(e.target.value)}/></label>
-                    <label>Rating: <input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/></label>
-                    <label>Review: <textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
-                    <button type="submit">Add Book</button>
-                    </form>
-                    <button onClick={closeModal}>Close</button>
-                </div>
-        </div>
+  <div className="modal">
+    <div className="modal-content">
+      <h2>Add New Book</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <form onSubmit={onAddBook}>
+          <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
+          <label>Author: <input type="text" name="author" onChange={(e) => setAuthor(e.target.value)} /></label>
+          <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
+          <label>Publishing year: <input type="text" name="year" onChange={(e) => setYear(e.target.value)}/></label>
+          {allowRatingAndReview && (
+            <>
+              <label>Rating:<input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/> </label>
+              <label>Review:<textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
+            </>
+          )}
+          <button type="submit">Add Book</button>
+        </form>
+        <button onClick={closeModal}>Close</button>
+    </div>
+  </div>
 )};
 
 export default AddBookForm;
