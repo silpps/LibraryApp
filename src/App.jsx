@@ -21,7 +21,6 @@ function App() {
 
   const logOut = () => {
     setIsLoggedIn(false); 
-    navigate('/');
   };
 
   const updateProfile = (newUsername, newDescription) => {
@@ -32,7 +31,7 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} logOut={logOut} />
       <div>
         <Routes>
           <Route path="*" element={<h1>404 Not Found</h1>} />

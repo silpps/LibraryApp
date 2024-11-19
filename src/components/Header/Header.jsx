@@ -3,7 +3,7 @@ import './Header.css';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logoPlaceholder.jpg';
 
-const Header = () => {
+const Header = ({isLoggedIn, logOut }) => {
   const navigate = useNavigate();
 
   const goToHelp = () => {
@@ -13,10 +13,6 @@ const Header = () => {
   const goToAbout = () => {
     navigate('/about'); 
   };
-
-  const signOut = () => {
-    navigate('/login');
-  }
 
   const goToProfile = () => {
     navigate('/profile'); 
@@ -37,7 +33,7 @@ const Header = () => {
             <a onClick={goToHelp}>Help</a>
           </li>
           <li>
-            <a onClick={signOut}>Sign Out</a>
+            <a onClick={logOut}>Log Out</a>
           </li>
         </ul>
       </nav>
