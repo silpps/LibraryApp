@@ -1,70 +1,53 @@
 /* //Mock data -> data model is as follows
  {
     "title": "The Alchemist",
-    "author": "Paulo Coelho",
+    "authors": "Paulo Coelho",
     "year": 1988,
     "language": "Portuguese",
     "category": "Fiction, Adventure",
-    "imageLink": "https://covers.openlibrary.org/b/id/8236525-L.jpg",
+    "image_link": "https://covers.openlibrary.org/b/id/8236525-L.jpg",
     "rating": 4,
     "review": "Amazing Book!!"
   }
     */
 
-let bookArray = require('../bookData.json');
-let nextId = bookArray.length + 1;
+  const mongoose = require('mongoose');
 
-function getAll() {
-    return bookArray;
-}
-
-function addOne(bookData) {
-    const {title, author, year, language, category, imageLink, rating, review} = bookData; //add error handler for the imageLink -> placeholder etc.
-    // Check if any parameter is undefined
-    if (!title || !author || !year || !language || !category || !imageLink) {
-        return false;
-    }
-
-    const newBook = {
-        id: nextId++,
-        ...bookData,
-    };
-
-    bookArray.push(newBook);
-    return newBook;
-}
-
-function findById(id) {
-    const numericId = Number(id);
-    const item = bookArray.find((item) => item.id === numericId);
-    return item || false;
-  }
+  const Schema = mongoose.Schema;
   
-  function updateOneById(id, updatedData) {
-    const book = findById(id);
-    if (book) {
-      Object.assign(book, updatedData);
-      return book;
+  const bookSchema = new Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    authors: {
+      type: String,
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
+    language: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    image_link: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: false,
+    },
+    review: {
+      type: String,
+      required: false,
     }
-    return false;
-  }
+  }, { timestamps: true });
   
-  function deleteOneById(id) {
-    const item = findById(id);
-    if (item) {
-      const initialLength = bookArray.length;
-      bookArray = bookArray.filter((item) => item.id !== Number(id));
-      return bookArray.length < initialLength;
-    }
-    return false;
-  }
-
-  const Book = {
-    getAll,
-    addOne,
-    findById,
-    updateOneById,
-    deleteOneById,
-  };
-  
-  module.exports = Book;
+  module.exports = mongoose.model('Book', bookSchema);
