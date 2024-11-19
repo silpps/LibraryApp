@@ -57,7 +57,7 @@ const updateBook = async (req, res) => {
       ...existingBook.toObject(),
       ...req.body, // Override with new data
     };
-    // this function finds a specific car and updates it with provided data. The { new: true } option ensures that the updated document is returned.
+    
     const updatedBook = await Book.findOneAndReplace(
       { _id: bookId },
       updatedData,
