@@ -5,6 +5,7 @@ import SignUp from './components/SignUpPage/SignUp';
 import LogIn from './components/LogInPage/LogIn';
 import Profile from './components/ProfileCard/Profile';
 import Settings from './components/Settings/Settings';
+import Header from './components/Header/Header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <Router>
+      <Header />
       <div>
         <Routes>
           <Route path="/" element={<LogIn onLogin={handleLogIn} />}/>

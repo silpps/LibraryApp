@@ -58,7 +58,6 @@ const SignUp = () => {
 
       setTimeout(() => {
         setSuccessMessage('User created successfully!');
-        setErrorMessage('');
         setUsername('');
         setEmail('');
         setPassword('');

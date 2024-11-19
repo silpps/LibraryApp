@@ -1,5 +1,5 @@
 body{
-    background-image: url('syksytausta.jpg');
+    background-image: url('../../assets/syksytausta.jpg');
     background-size: cover;
 
 }
@@ -64,4 +64,13 @@ button {
     cursor: pointer;
     background-color: #803503;
     color: #FFEFE1;
+}
+
+button:hover {
+    background-color: #803503c0;
+    color: #FFEFE1;
+}
+
+.sign-up-link {
+    align-self: center;
 }
