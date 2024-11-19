@@ -4,14 +4,13 @@ import './Profile.css';
 import { Link } from 'react-router-dom';
 import RecentBooks from "../Profile/RecentBooks";
 import '../Profile/RecentBooks.css';
-import Header from "../Header/Header";
 
 const Profile= ({username, description}) => {
   const navigate = useNavigate();
 
   //these will be fixed when there's functioning wishlist and library
   const goToWishlist = () => {
-    navigate('/');
+    navigate('/wishlist');
   };
 
   const goToLibrary = () => {
@@ -19,7 +18,7 @@ const Profile= ({username, description}) => {
   };
 
   const goToReadingList = () => {
-    navigate('/');
+    navigate('/readinglist');
   }
   
     return (

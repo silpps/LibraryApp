@@ -9,6 +9,8 @@ import Header from './components/Header/Header';
 import Library from './components/Library/Library';
 import Help from './components/Help/Help';
 import About from './components/About/About';
+import Wishlist from './components/Wishlist/Wishlist';
+import ReadingList from './components/ReadingList/ReadingList';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -59,6 +61,8 @@ function App() {
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
           <Route path= "/login" element={<LogIn/>} />
+          <Route path="/wishlist" element={<Wishlist />}/>
+          <Route path="/readinglist" element={<ReadingList />}/>
         </Routes>
         <Footer />
       </div>
