@@ -1,14 +1,13 @@
-import booksData from '../../BookData.json';
+import wishlistData from '../../WishListData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
-import Header from '../Header/Header';
 import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
-import './Library.css';
+import './Wishlist.css';
 
-const Library = () => {
-    const [allBooks, setAllBooks] = useState(booksData);
-    const [books, setBooks] = useState(booksData);
+const Wishlist = () => {
+    const [allBooks, setAllBooks] = useState(wishlistData);
+    const [books, setBooks] = useState(wishlistData);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
     const [genreFilter, setGenreFilter] = useState('');
@@ -28,22 +27,21 @@ const Library = () => {
     
     //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
     useEffect(() => {
-      setBooks(
-        allBooks.filter((book) => {
-          return (
-            (!genreFilter || book.category === genreFilter) &&
-            (!authorFilter || book.author === authorFilter)
-          );
-        })
-      );
-    }, [allBooks, genreFilter, authorFilter]);
-  
-
-    const handleDelete = (id) => {
-      const updatedBooks = allBooks.filter((book) => book.id !== id); 
-      setAllBooks(updatedBooks); 
-    };
+        setBooks(
+          allBooks.filter((book) => {
+            return (
+              (!genreFilter || book.category === genreFilter) &&
+              (!authorFilter || book.author === authorFilter)
+            );
+          })
+        );
+      }, [allBooks, genreFilter, authorFilter]);
     
+      //
+      const handleDelete = (id) => {
+        const updatedBooks = allBooks.filter((book) => book.id !== id); 
+        setAllBooks(updatedBooks); 
+      };
 
       const handleBookClick = (book) => {
         setSelectedBook(book);
@@ -67,9 +65,9 @@ const Library = () => {
       };
 
     return (
-        <div className='library'>
-            <h1>My Library</h1>
-            <div className='lib-content'>
+        <div className='wishlist'>
+            <h1>My Wishlist</h1>
+            <div className='wishlist-content'>
                 <div className="left-div">
                 <div className="filters-div">
                     <h2>Filters</h2>
@@ -106,9 +104,9 @@ const Library = () => {
                         }>Reset Filters</button>
                 </div>
 
-                <div className='profile-div'>
-                    <h2>Back to Profile</h2>
-                    <button>Profile</button>
+                <div className='library-div'>
+                    <h2>Back to Library</h2>
+                    <button>Library</button>
                 </div>
             </div >
 
@@ -136,7 +134,7 @@ const Library = () => {
                 <AddBookForm
                 onAddBook={addNewBook}
                 closeModal={() => setNewBookModal(false)}
-                allowRatingAndReview={true}
+                allowRatingAndReview={false}
                 />
             )} 
 
@@ -144,4 +142,4 @@ const Library = () => {
     );
   };
 
-  export default Library;
+  export default Wishlist;

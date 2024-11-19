@@ -10,7 +10,7 @@ const BookDetails = ({ book, onClose, onDelete }) => {
 
     const colourStars = (rating) => {
         if (rating === undefined || rating === null) {
-          return <span style={{ color: '#777' }}>No rating yet</span>;
+          return <p style={{ color: '#777' }}>No rating yet</p>;
         }
     
         const stars = [];
@@ -47,7 +47,7 @@ const BookDetails = ({ book, onClose, onDelete }) => {
                 </p> )}
             <div className="modal-buttons">
                 <button onClick={handleDelete}>Delete</button>
-                <button onClick={onClose}>Close</button>
+                <button onClick={onClose}>Back</button>
             </div>
         </div>
       </div>
