@@ -1,11 +1,12 @@
 import readinglistData from '../../ReadingListData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
-import BookDetails from '../Book/BookDetails';
+import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
 import './Readinglist.css';
 
 const Readinglist = () => {
+    const [allBooks, setAllBooks] = useState(readinglistData);
     const [books, setBooks] = useState(readinglistData);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
@@ -19,30 +20,28 @@ const Readinglist = () => {
     useEffect(() => {
         const uniqueGenres = [...new Set(books.map((book) => book.category))];
         const uniqueAuthors = [...new Set(books.map((book) => book.author))];
-        setGenres(uniqueGenres); 
-        setAuthors(uniqueAuthors); 
+        setGenres(uniqueGenres);
+        setAuthors(uniqueAuthors);
       }, [books]);
 
     
-    //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
-    useEffect(() => {
+      useEffect(() => {
         setBooks(
-          readinglistData.filter((book) => {
+          allBooks.filter((book) => {
             return (
               (!genreFilter || book.category === genreFilter) &&
               (!authorFilter || book.author === authorFilter)
             );
           })
         );
-      }, [genreFilter, authorFilter]);;
-
-
-      //handlers yksittäisen kirjan moduulille (pop up/modal)
-      const handleDelete = (id) => {
-        setBooks(books.filter((book) => book.id !== id));
-      };
+      }, [allBooks, genreFilter, authorFilter]);
     
 
+      const handleDelete = (id) => {
+        const updatedBooks = allBooks.filter((book) => book.id !== id); 
+        setAllBooks(updatedBooks); 
+      };
+    
       const handleBookClick = (book) => {
         setSelectedBook(book);
       };

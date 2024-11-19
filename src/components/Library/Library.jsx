@@ -2,11 +2,12 @@ import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
 import Header from '../Header/Header';
-import BookDetails from '../Book/BookDetails';
+import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
-import './Library.css'
+import './Library.css';
 
 const Library = () => {
+    const [allBooks, setAllBooks] = useState(booksData);
     const [books, setBooks] = useState(booksData);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
@@ -27,21 +28,21 @@ const Library = () => {
     
     //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
     useEffect(() => {
-        setBooks(
-          booksData.filter((book) => {
-            return (
-              (!genreFilter || book.category === genreFilter) &&
-              (!authorFilter || book.author === authorFilter)
-            );
-          })
-        );
-      }, [genreFilter, authorFilter]);;
+      setBooks(
+        allBooks.filter((book) => {
+          return (
+            (!genreFilter || book.category === genreFilter) &&
+            (!authorFilter || book.author === authorFilter)
+          );
+        })
+      );
+    }, [allBooks, genreFilter, authorFilter]);
+  
 
-
-      //handlers yksittäisen kirjan moduulille (pop up/modal)
-      const handleDelete = (id) => {
-        setBooks(books.filter((book) => book.id !== id));
-      };
+    const handleDelete = (id) => {
+      const updatedBooks = allBooks.filter((book) => book.id !== id); 
+      setAllBooks(updatedBooks); 
+    };
     
 
       const handleBookClick = (book) => {
@@ -67,7 +68,6 @@ const Library = () => {
 
     return (
         <div className='library'>
-            <Header></Header>
             <h1>My Library</h1>
             <div className='lib-content'>
                 <div className="left-div">
@@ -136,6 +136,7 @@ const Library = () => {
                 <AddBookForm
                 onAddBook={addNewBook}
                 closeModal={() => setNewBookModal(false)}
+                allowRatingAndReview={true}
                 />
             )} 
 

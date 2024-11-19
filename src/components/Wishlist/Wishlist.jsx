@@ -1,11 +1,12 @@
 import wishlistData from '../../WishListData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
-import BookDetails from '../Book/BookDetails';
+import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
 import './Wishlist.css';
 
 const Wishlist = () => {
+    const [allBooks, setAllBooks] = useState(wishlistData);
     const [books, setBooks] = useState(wishlistData);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
@@ -27,21 +28,20 @@ const Wishlist = () => {
     //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
     useEffect(() => {
         setBooks(
-          wishlistData.filter((book) => {
+          allBooks.filter((book) => {
             return (
               (!genreFilter || book.category === genreFilter) &&
               (!authorFilter || book.author === authorFilter)
             );
           })
         );
-      }, [genreFilter, authorFilter]);;
-
-
-      //handlers yksittäisen kirjan moduulille (pop up/modal)
-      const handleDelete = (id) => {
-        setBooks(books.filter((book) => book.id !== id));
-      };
+      }, [allBooks, genreFilter, authorFilter]);
     
+      //
+      const handleDelete = (id) => {
+        const updatedBooks = allBooks.filter((book) => book.id !== id); 
+        setAllBooks(updatedBooks); 
+      };
 
       const handleBookClick = (book) => {
         setSelectedBook(book);
