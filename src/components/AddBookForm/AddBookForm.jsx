@@ -12,12 +12,23 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    
-    if (!title || !author || !category || !year) {
-      setError('jooojaa!');
-      return; 
-    }
+    let missingFields = [];
+
+    if (!title) missingFields.push('Title');
+    if (!author) missingFields.push('Author');
+    if (!category) missingFields.push('Genre');
+    if (!year) missingFields.push('Publishing Year');
   
+
+    if (missingFields.length > 0) {
+      if (missingFields.length === 1) {
+        setError(`Please fill in the missing field: ${missingFields[0]}`);
+      } else {
+        setError(`Please fill in the following fields: ${missingFields.join(', ')}`);
+      }
+      return;
+    }
+    
     setError('');
   
     onAddBook({
@@ -36,7 +47,7 @@ return(
     <div className="modal-content">
       <h2>Add New Book</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <form onSubmit={onAddBook}>
+        <form onSubmit={handleSubmit}>
           <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
           <label>Author: <input type="text" name="author" onChange={(e) => setAuthor(e.target.value)} /></label>
           <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
@@ -49,7 +60,7 @@ return(
           )}
           <button type="submit">Add Book</button>
         </form>
-        <button onClick={closeModal}>Close</button>
+        <button onClick={closeModal}>Back</button>
     </div>
   </div>
 )};
