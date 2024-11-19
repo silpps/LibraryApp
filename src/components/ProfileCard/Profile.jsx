@@ -4,6 +4,7 @@ import './Profile.css';
 import { Link } from 'react-router-dom';
 import RecentBooks from "../Profile/RecentBooks";
 import '../Profile/RecentBooks.css';
+import Header from "../Header/Header";
 
 const Profile= ({username, description}) => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Profile= ({username, description}) => {
   
     return (
       <div>
+        <h1 className="profile">Profile</h1>
         <ProfileCard username={username} description={description} />
         <Link to="/settings">
         <button className="editbutton">Edit Profile</button>

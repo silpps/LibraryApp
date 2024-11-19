@@ -7,6 +7,8 @@ import Profile from './components/ProfileCard/Profile';
 import Settings from './components/Settings/Settings';
 import Header from './components/Header/Header';
 import Library from './components/Library/Library';
+import Help from './components/Help/Help';
+import About from './components/About/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -50,6 +52,9 @@ function App() {
             }
           />
           <Route path="/library" element={<Library />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/about" element={<About />} />
+          <Route path= "/login" element={<LogIn onLogin={handleLogIn} />} />
         </Routes>
         <Footer />
       </div>
