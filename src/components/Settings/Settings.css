@@ -1,0 +1,9 @@
+.settings-container {
+    border: 2px solid #DDB79E;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFBFB;
+    color: #803504;
+    font-family: Arial, Helvetica, sans-serif;
+}

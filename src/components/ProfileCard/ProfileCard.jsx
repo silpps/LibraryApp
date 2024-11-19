@@ -1,10 +1,20 @@
 import profilepic from './profilepic.jpg';
 import './ProfileCard.css';
+import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
-function ProfileCard () {
-    const username = 'Username';
+function ProfileCard ({username, description}) {
     const bookWormLevel = 5;
     const genre = 'Mystery';
+
+    useEffect(() => {
+        document.body.style.backgroundImage = "none";
+        document.body.style.backgroundColor = '#FFEFE1';  // Example color
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        
+    }, []);
+
     
     return (
         <div className="profile-card">
@@ -12,8 +22,7 @@ function ProfileCard () {
             <h1>{username}</h1>
             <p>Bookworm Level: {bookWormLevel} </p>
             <p>Favorite Genre: {genre}</p>
-            <p>Description: "This is a placeholder for description to see how it wraps around"</p>
-            <button className="profilecard-button">Edit Profile</button>
+            <p>Description: {description}</p>
         </div>
     )
 }
