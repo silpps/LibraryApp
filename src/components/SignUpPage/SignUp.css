@@ -73,6 +73,18 @@ button {
     
 }
 
+.signin-button {
+    margin: 10px 0 0 0px;
+    max-width: 100px;
+    align-self: center;
+    cursor: pointer;
+    background-color: #803503;
+    color: #FFEFE1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    max-width: 200px;
+}
+
 button:hover {
     background-color: #803503c0;
     color: #FFEFE1;

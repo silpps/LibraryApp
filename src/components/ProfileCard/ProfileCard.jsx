@@ -8,7 +8,7 @@ function ProfileCard ({username, description}) {
 
     useEffect(() => {
         document.body.style.backgroundImage = "none";
-        document.body.style.backgroundColor = '#FFEFE1';  // Example color
+        document.body.style.backgroundColor = '#FFEFE1';
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center';
         

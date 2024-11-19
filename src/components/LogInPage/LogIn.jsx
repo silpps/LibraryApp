@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../SignUpPage/SignUp.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import background from '../../assets/syksytausta.jpg';
 
 const LogIn = ({ onLogin }) => {
     const [email, setEmail] = useState('');
@@ -12,6 +14,13 @@ const LogIn = ({ onLogin }) => {
     const mockPassword = 'testi123'
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);
+
+    useEffect(() => {
+        document.body.style.backgroundImage = `url(${background})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        
+    }, []);
 
     const handleEmailChange = (e) => {
         const inputEmail = e.target.value;
