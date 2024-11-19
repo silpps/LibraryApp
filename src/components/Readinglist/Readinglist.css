@@ -1,0 +1,102 @@
+#root {
+    width: 100%; 
+  }
+
+.readinglist h1 {
+    color: #803503;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.readinglist h2 {
+    color: #803503;
+    text-align: center;
+}
+
+.readinglist-content {
+    display: flex;
+
+}
+
+.readinglist-content button {
+    margin: auto;
+    padding: 8px 16px;
+    background-color: blanchedalmond;
+    border: none;
+    cursor: pointer;
+    margin: 1rem;
+  }
+  
+  .readinglist-content button:hover {
+    background-color: bisque;
+  }
+
+.filters-div,
+.library-div,
+.readinglist-div,
+.books-div,
+.add-book-div {
+    border: 1px solid #803503;
+    border-radius: 6px;
+    margin: 2rem;
+    background-color: floralwhite;
+    padding: 10px;
+}
+
+.left-div {
+    width: 25%;
+}
+
+.filters-div {
+    height: fit-content;
+}
+
+.filters-div strong {
+    color: #803503;
+}
+
+.filter {
+    padding: 3px;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter label {
+    padding-right: 3px;
+}
+
+.filter select {
+    background-color: blanchedalmond;
+    border: 1px solid #803503;
+    border-radius: 8px;
+    min-width: none;
+    max-width: 50%;
+    text-align: center;
+    font-size: 15px;
+}
+
+.filter select:hover {
+    background-color: bisque;
+  }
+
+.books-div {
+    width: 50%;
+}
+
+.add-book-div {
+    height: fit-content;
+    text-align: center;
+}
+
+.add-book-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .add-book-btn:hover {
+    background-color: #662b1d;
+  }
