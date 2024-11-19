@@ -22,7 +22,7 @@ const Wishlist = () => {
         const uniqueAuthors = [...new Set(books.map((book) => book.author))];
         setGenres(uniqueGenres); 
         setAuthors(uniqueAuthors); 
-      }, [books]);
+      }, [books, allBooks]);
 
     
     //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
@@ -59,7 +59,7 @@ const Wishlist = () => {
     
       const addNewBook = (newBook) => {
         if (newBook) {
-            setBooks([...books, newBook]);
+            setAllBooks([...allBooks, newBook]);
             setNewBookModal(false);
         }
       };

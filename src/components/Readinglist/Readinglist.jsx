@@ -22,7 +22,7 @@ const Readinglist = () => {
         const uniqueAuthors = [...new Set(books.map((book) => book.author))];
         setGenres(uniqueGenres);
         setAuthors(uniqueAuthors);
-      }, [books]);
+      }, [books, allBooks]);
 
     
       useEffect(() => {
@@ -58,7 +58,7 @@ const Readinglist = () => {
     
       const addNewBook = (newBook) => {
         if (newBook) {
-            setBooks([...books, newBook]);
+            setAllBooks([...allBooks, newBook]);
             setNewBookModal(false);
         }
       };
