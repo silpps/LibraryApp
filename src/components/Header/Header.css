@@ -7,6 +7,10 @@
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 3rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
   }
   
  
@@ -16,7 +20,7 @@
   }
   
   .logo img {
-    width: 120px;
+    width: 60px;
     height: auto;
   }
   
@@ -49,4 +53,5 @@
   
   .nav-links a:hover {
     color: #080300;
+    cursor: pointer;
   }
