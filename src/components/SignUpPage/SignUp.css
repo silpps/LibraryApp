@@ -60,18 +60,6 @@ h1 {
     font-size: 2em;
 }
 
-button {
-    margin: 10px 0 0 50px;
-    max-width: 100px;
-    align-self: center;
-    cursor: pointer;
-    background-color: #803503;
-    color: #FFEFE1;
-    padding: 10px 20px;
-    border-radius: 5px;
-    max-width: 200px;
-    
-}
 
 .signin-button {
     margin: 10px 0 0 0px;
