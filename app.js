@@ -1,3 +1,6 @@
+require('dotenv').config();
+const port = process.env.PORT || 4000;
+
 const connectDB = require("./config/db");
 const express = require("express");
 const app = express();
@@ -12,10 +15,10 @@ connectDB();
 // Middleware to parse JSON
 app.use(express.json());
 app.use('/bookhive', userRouter);
-app.use('/bookhive/books', bookRouter);
+//the book path is for now called library. consider changing paths again when adding wishlist and readinglist
+app.use('/bookhive/library', bookRouter);
 
 
-const port = 4000;
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
