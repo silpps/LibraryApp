@@ -1,6 +1,8 @@
 const Book = require('../models/bookModel.js');
 const mongoose = require("mongoose");
 
+// Controller function to get all books
+// GET /books
 const getAllBooks = async (req, res) => {
   try {
     // this line fetches all books and sorts them by createdAt timestamp in descending order.
@@ -11,19 +13,26 @@ const getAllBooks = async (req, res) => {
   }
 };
 
+// Controller function to add a new book
+// POST /books
 const addBook = async (req, res) => {
+  //No validation for req.body. Consider validating fields like title, author, etc.
   try {
-    const newBook = await Book.create({ ...req.body });
-    res.status(201).json(newBook);
+    const newBook = await Book.create({ ...req.body });// Spread the request body into the new book object
+    res.status(201).json(newBook); // Returns the newly created book with a 201 status.
   } catch (error) {
+    //Error handling is present, but it could be more specific.
     res.status(400).json({ message: "Failed to add book", error: error.message });
   }
 };
 
+// Controller function to get a book by ID
+// GET /books/:bookId
 const getBookById = async (req, res) => {
   const { bookId } = req.params;
 
-  // id validation
+  // id validation. ID validation is performed here to prevent invalid MongoDB ObjectId errors.
+  // maybe consider using a dedicated middleware to handle validation for all routes with ObjectId.
   if (!mongoose.Types.ObjectId.isValid(bookId)) {
     return res.status(400).json({ message: "Invalid book ID" });
   }
@@ -40,39 +49,25 @@ const getBookById = async (req, res) => {
   }
 };
 
+// Controller function to update a book by ID
+// PUT /books/:bookId
 const updateBook = async (req, res) => {
   const { bookId } = req.params;
 
-  // id validation
-  if (!mongoose.Types.ObjectId.isValid(bookId)) {
-    return res.status(400).json({ message: "Invalid book ID" });
-  }
-
-  try {
-    const existingBook = await Book.findById(bookId);
-    if (!existingBook) {
-      return res.status(404).json({ message: "Book not found" });
-    }
-    const updatedData = {
-      ...existingBook.toObject(),
-      ...req.body, // Override with new data
-    };
-    
-    const updatedBook = await Book.findOneAndReplace(
-      { _id: bookId },
-      updatedData,
-      { new: true }
-    );
-    if (updatedBook) {
-      res.status(200).json(updatedBook);
-    } else {
-      res.status(404).json({ message: "Book not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Failed to update book" });
+  const updatedBook = await Book.findOneAndUpdate(
+    { _id: bookId },
+    { ...req.body },
+    { new: true }
+  );
+  if (updatedBook) {
+    res.status(200).json(updatedBook);
+  } else {
+    res.status(404).json({ message: "Book not found" });
   }
 };
 
+// Controller function to delete a book by ID
+// DELETE /books/:bookId
 const deleteBook = async (req, res) => {
   const { bookId } = req.params;
 
@@ -94,7 +89,8 @@ const deleteBook = async (req, res) => {
   }
 };
   
-  module.exports = {
+// Export all controller functions
+module.exports = {
     getAllBooks,
     getBookById,
     addBook,
