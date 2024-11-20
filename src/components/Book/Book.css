@@ -37,3 +37,60 @@
 .single-book .stars {
     font-size: 1.5rem;
 }
+
+
+/* Tablet View */
+@media (max-width: 1024px) {
+    .single-book {
+        padding: 12px; /* Reduce padding */
+        margin: 0.4rem;
+    }
+
+    .single-book h3 {
+        font-size: 1.3rem; /* Slightly smaller heading */
+    }
+
+    .single-book .title p {
+        font-size: 0.9rem; /* Slightly smaller text */
+    }
+
+    .single-book .info {
+        padding: 4px;
+    }
+
+    .single-book p {
+        font-size: 0.9rem; /* Slightly smaller paragraph size */
+    }
+
+    .single-book .stars {
+        font-size: 1.3rem; /* Slightly smaller stars */
+    }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .single-book {
+        padding: 10px; /* Further reduce padding */
+        margin: 0.3rem;
+    }
+
+    .single-book h3 {
+        font-size: 1.1rem; /* Smaller heading size */
+    }
+
+    .single-book .title p {
+        font-size: 0.8rem; /* Smaller text */
+    }
+
+    .single-book .info {
+        padding: 3px;
+    }
+
+    .single-book p {
+        font-size: 0.8rem; /* Smaller paragraph size */
+    }
+
+    .single-book .stars {
+        font-size: 1.1rem; /* Smaller stars */
+    }
+}
