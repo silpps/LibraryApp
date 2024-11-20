@@ -11,7 +11,7 @@ const {
 const { authorizeUsersAccess } = require("../middleware/auth");
 
 // ROUTES
-
+//These routes are up for debate as well when connecting back and front end.
 
 // get all users (admin)
 //This can also be utilised for "forgot password" as the system can check if an email address is linked to an account or something

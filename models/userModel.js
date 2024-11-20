@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+
+//Some of this will be changed, profilepicture as a string, and upon frontend and backend integration might have to refactor a bit.
 const userSchema = new Schema(
   {
     username: { type: String, required: true },
