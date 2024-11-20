@@ -1,8 +1,18 @@
-# React + Vite
+# Sprint 2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Frontend
+- https://github.com/silpps/LibraryApp/blob/frontendmain
 
-Currently, two official plugins are available:
+## Backend
+- https://github.com/silpps/LibraryApp/blob/backendmain
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Contribution, powerpoint
+- [all can be found in the powerpoint.](https://github.com/silpps/LibraryApp/blob/main/SPRINT_2.pdf)
+
+## Self-assessments 
+
+Our self-assessments are in a few different forms, as some of our teammates had already written the assessments into the code itself (before we got clarification and new template).
+- Hilda: [can be found in hilda's branch, in the code ](https://github.com/silpps/LibraryApp/tree/hilda)
+- Karoliina: [markdown file](https://github.com/silpps/LibraryApp/blob/frontendmain/karoliina_self_assessment.md) 
+- Lasse: [can be found in backendmain branch, in the code  ](https://github.com/silpps/LibraryApp/blob/backendmain)
+- Veera: [can be found in backendmain branch, in the code](https://github.com/silpps/LibraryApp/blob/backendmain)
