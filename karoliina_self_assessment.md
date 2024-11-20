@@ -103,9 +103,10 @@ Set review and rating null in code when creating a book for wishlist or readingl
 
 ### Key Improvements:
 
-    Dynamic Pagination:
-        Automatically calculates the number of pages using Math.ceil() based on the total books.
-        The currentPage state ensures smooth navigation across pages.
+Dynamic Pagination:
+- Automatically calculates the number of pages using Math.ceil() based on the total books.
+- The currentPage state ensures smooth navigation across pages.
+- 
 ```
 //Library.jsx
 const totalPages = Math.ceil(books.length / booksPerPage);
@@ -119,8 +120,8 @@ const goToNextPage = () => {
 
 Flexible Filtering:
 
-  Filters by genre or author, or resets both with a single button.
-  Filters update dynamically whenever the allBooks list changes.
+- Filters by genre or author, or resets both with a single button.
+- Filters update dynamically whenever the allBooks list changes.
 
 ```
 useEffect(() => {
@@ -146,18 +147,23 @@ Provides an intuitive way to reset filters and display all books.
 }}>Reset Filters</button>
 ```
 
+### Lessons learned:
+- State Management for Filters: Managing multiple filters (genre and author) requires careful state management. Using useEffect to update the filtered books state after applying filters prevents unnecessary renders and ensures the UI is always in sync with the data.
+- Pagination Logic: When implementing pagination, it's essential to compute the correct range of items to display based on the current page and total pages. The calculation of indexOfLastBook and indexOfFirstBook helps achieve this.
+
 ## Example 4: Modularity in Adding and Viewing Book Details
 
 ### Solution:
 
-    Separate Components: Uses modular components like AddBookForm and BookDetails for specific tasks.
-    Dynamic Rendering: Conditionally renders modals for adding or viewing details of books, reducing clutter.
+Separate Components: Uses modular components like AddBookForm and BookDetails for specific tasks.
+Dynamic Rendering: Conditionally renders modals for adding or viewing details of books, reducing clutter.
 
 ### Key Improvements:
 
-    Adding New Books:
-        Opens a modal with AddBookForm to add new books.
-        Dynamically updates the book list and filters after addition.
+Adding New Books:
+- Opens a modal with AddBookForm to add new books.
+- Dynamically updates the book list and filters after addition.
+  
 ```
 //Library.jsx
 const addNewBook = (newBook) => {
@@ -167,10 +173,10 @@ const addNewBook = (newBook) => {
   }
 };
 ```
-Viewing Book Details:
 
-    Opens BookDetails modal when a book is selected.
-    Enables delete functionality directly from the modal.
+Viewing Book Details:
+- Opens BookDetails modal when a book is selected.
+- Enables delete functionality directly from the modal.
 ```
 const handleBookClick = (book) => {
   setSelectedBook(book);
@@ -182,12 +188,19 @@ const handleBookClick = (book) => {
     onDelete={handleDelete}
 />
 ```
+
 Modal Management:
 
-    Uses boolean states like newBookModal to toggle modals cleanly.
+- Uses boolean states like newBookModal to toggle modals cleanly.
+    
 ```
 const handleAddBook = () => {
   setNewBookModal(true);
 };
 
  ```
+### Lesson learned:
+
+- Modal Management for Form Inputs: Managing modal visibility (for adding a new book) with a simple boolean state (newBookModal) is an effective and straightforward approach. However, ensuring that all form fields are properly cleared when the modal is closed can help avoid prefilled data issues on reopening.
+
+- Conditional Rendering of Components: The conditional rendering pattern ({selectedBook && <BookDetails />} ) used to show components only when necessary (like showing the book details when a book is selected) improves performance and user experience by keeping the UI clean and only rendering necessary data.
