@@ -1,4 +1,4 @@
-# Self-Assessment (Template)
+# Self-Assessment
 ## Example 1:
 
 ### Solution:
