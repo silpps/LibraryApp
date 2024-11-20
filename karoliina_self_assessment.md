@@ -4,8 +4,8 @@
 ### Problem: 
 The first version of the form had sections from title to review, which was perfect for library. However, other uses required the rating and review options to be disabled so the user could not set a rating or review to them. We wanted to use the same component instead of makeing multiple almost similar ones.
 
-// AddBookForm.jsx
 ```
+// AddBookForm.jsx
 <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
 <label>Author: <input type="text" name="author" onChange={(e) => setAuthor(e.target.value)} /></label>
 <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
@@ -41,8 +41,8 @@ Making the form component more flexible and usable in many different cases withi
 ### Problem: 
 When wishlist or readinglist book was added, it would make the rating 0.
 
-// AddBookForm.jsx
 ```
+// AddBookForm.jsx
 onAddBook({
         id: Date.now(), 
         title,
@@ -58,9 +58,8 @@ onAddBook({
 ### Solution:
 Set review and rating null in code when creating a book for wishlist or readinglist.
 
-//AddBookForm.jsx
-
 ```
+// AddBookForm.jsx
     if (!allowRatingAndReview) {
 
     onAddBook({
