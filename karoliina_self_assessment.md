@@ -30,16 +30,3 @@
 
 
 ### Lessons Learned:
-
-// File name or function
-// Your code part A
-
-// File name or function
-// Your code part B
-
-// File name or function
-// Your code part A
-
-// File name or function
-// Your code part B
-
