@@ -7,7 +7,7 @@
 - https://github.com/silpps/LibraryApp/blob/backendmain
 
 ## Contribution, powerpoint
-- all can be found in the powerpoint.
+- [all can be found in the powerpoint.](https://github.com/silpps/LibraryApp/blob/main/SPRINT_2.pdf)
 
 ## Self-assessments 
 
