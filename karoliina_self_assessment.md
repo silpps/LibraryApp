@@ -34,19 +34,49 @@ Adding prop allowRatingAndReview to the AddBookForm component. If it was set tru
 ```
 
 ### Key Improvements:
-Making the component more flexible and usable in many different settings. This however created a little problem that I will be discussing in example 2.
+Making the form component more flexible and usable in many different cases within the code. 
 
 ## Example 2: Wrong rating data
 
-### Problem:
+### Problem: 
+When wishlist or readinglist book was added, it would make the rating 0.
 
 ### Solution:
+Set review and rating null in code when creating a book for wishlist or readinglist.
 
+//AddBookForm.jsx
 
+```
+    if (!allowRatingAndReview) {
 
+    onAddBook({
+      id: Date.now(), 
+      title,
+      author,
+      category,
+      language,
+      year: parseInt(year, 10),
+      rating : null,
+      review : null,
+    });
+    } else {
+      onAddBook({
+        id: Date.now(), 
+        title,
+        author,
+        category,
+        language,
+        year: parseInt(year, 10),
+        rating,
+        review,
+      });
+    }
+```
 ### Lessons Learned:
+- Importance of testing with different data/user input: If you test various cases, you'll find things to debug.
+- Debugging skills: problem solving and learning how to work around different issues. Seeing how simple fixes can be.
 
-## Example 1:
+## Example 3:
 
 ### Solution:
 
@@ -54,7 +84,7 @@ Making the component more flexible and usable in many different settings. This h
 
 
    
-## Example 2: 
+## Example 4: 
 
 ### Solution:
 
