@@ -116,10 +116,12 @@ const goToNextPage = () => {
   }
 };
 ```
-  Flexible Filtering:
 
-    Filters by genre or author, or resets both with a single button.
-    Filters update dynamically whenever the allBooks list changes.
+Flexible Filtering:
+
+  Filters by genre or author, or resets both with a single button.
+  Filters update dynamically whenever the allBooks list changes.
+
 ```
 useEffect(() => {
   setBooks(
@@ -133,7 +135,10 @@ useEffect(() => {
 }, [allBooks, genreFilter, authorFilter]);
 
 ```
-    Provides an intuitive way to reset filters and display all books.
+  
+Provides an intuitive way to reset filters and display all books.
+
+
 ```
 <button onClick={() => {
     setGenreFilter('');
