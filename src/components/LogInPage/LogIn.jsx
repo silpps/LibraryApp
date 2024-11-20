@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import background from '../../assets/syksytausta.jpg';
 
 const LogIn = ({ onLogin }) => {
+    /* Only using mockdata before combining frontend and backend */
     const [email, setEmail] = useState('');
     const [emailValid, setEmailValid] = useState(false);
     const [password, setPassword] = useState('');
@@ -15,6 +16,8 @@ const LogIn = ({ onLogin }) => {
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);
 
+    //UseEffect for background image
+    /* Implementing useEffect in the project took some time, but I'm happy I got this done */
     useEffect(() => {
         document.body.style.backgroundImage = `url(${background})`;
         document.body.style.backgroundSize = 'cover';
@@ -22,6 +25,7 @@ const LogIn = ({ onLogin }) => {
         
     }, []);
 
+    //Handlers for input fields
     const handleEmailChange = (e) => {
         const inputEmail = e.target.value;
         setEmail(inputEmail);
@@ -54,7 +58,8 @@ const LogIn = ({ onLogin }) => {
         }
     }
 
-
+    /* This was educational and I learned a lot. In general I think I need to improve error handling. Also implementing more conditional rendering */
+    //Form for logging in
     return (
         <div className="container">
             <h1>Log In</h1>

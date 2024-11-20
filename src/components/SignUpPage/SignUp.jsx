@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
+
+    /* Only using mockdata for now, but after combining frontend and backend this will be refactored */
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [emailValid, setEmailValid] = useState(false);
@@ -12,6 +14,8 @@ const SignUp = () => {
     const [passwordMatch, setPasswordMatch] = useState(false);
     const [strongPassword, setStrongPassword] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+
+    //Handlers for input fields
 
     const handleUsernameChange = (e) => {
         const inputUsername = e.target.value;
@@ -41,6 +45,8 @@ const SignUp = () => {
         setPasswordMatch(password === inputConfirmPassword);
     }
 
+    //Handle form submission
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if(emailValid && strongPassword) {
@@ -65,6 +71,8 @@ const SignUp = () => {
       }, 1000);
     };
 
+    //Sign Up form
+    /* This was educational and I enjoyed doing this. I think I'll focus on error handling and implement more conditional rendering for next sprint */
     return (
             <div className="container">
             <h1>Sign Up</h1>
@@ -75,7 +83,7 @@ const SignUp = () => {
                  placeholder="Enter your username"
                  value = {username}
                  onChange = {handleUsernameChange}
-                 //className = {usernameValid ? 'valid' : 'invalid'} 
+                 //className = {usernameValid ? 'valid' : 'invalid'} , will be implemented when theres backend validation
                  required/>
                 <p className="description">Email</p>
                 <input 

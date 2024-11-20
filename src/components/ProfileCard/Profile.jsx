@@ -7,7 +7,8 @@ import RecentBooks from "../Profile/RecentBooks";
 const Profile= ({username, description}) => {
   const navigate = useNavigate();
 
-  //these will be fixed when there's functioning wishlist and library
+  /* Getting the navigation to work took some time and effort, but after repeating it so many times it became clearer. Next
+  steps to improve the code will be error handling*/
   const goToWishlist = () => {
     navigate('/wishlist');
   };

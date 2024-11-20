@@ -1,10 +1,13 @@
+/*CSS caused a headache and it's definitely something to improve on. The layout isn't ideal, and it's something that'll be fixed in Sprint 3. 
+Started by using flex but changed to grid. I think grid is better for handling profileCard position handling.*/
+
 .profile-page {
     display: grid;
     grid-template-rows: auto auto;
-    grid-template-columns: 1fr 2fr; /* Profile card on the left, books take more space */
-    grid-gap: 20px; /* Space between grid items */
+    grid-template-columns: 1fr 2fr; 
+    grid-gap: 20px; 
     padding: 20px;
-    align-items: start; /* Align items to the top of the container */
+    align-items: start; 
 }
 
 /* Profile Card */
@@ -15,18 +18,21 @@
     padding: 20px;
     background-color: #FFFBFB;
     box-sizing: border-box;
-    justify-self: start; /* Align card to the left */
+    justify-self: start; 
+    border: 2px solid #803503;
+    border-radius: 6px;
 }
 
 .profile-card p {
     border: 2px solid #DDB79E;
+    border-radius: 6px;
 }
 
 .bookwormlevel {
     border: 2px solid #DDB79E;
     padding: 8px;
     border-radius: 50%;
-    margin: 6px 4px 0 0;
+    margin: 6px 4px 6px 0;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -36,8 +42,7 @@
 .editbutton {
     grid-column: 1/2;
     grid-row: 2 ;
-    justify-self: flex-start; /* Align button below the profile card */
-    border: none;
+    justify-self: flex-start; 
     cursor: pointer;
     max-width: 100px;
     align-self: start; 
@@ -51,7 +56,7 @@
     padding: 10px;
     background-color: floralwhite;
     border-radius: 6px;
-    justify-self: flex-end; /* Align books to the right */
+    justify-self: flex-end; 
 }
 
 .wishlist-button,
@@ -66,7 +71,7 @@
 
 .wishlist-button {
     grid-column: 3/4;
-    grid-row: 2; /* Same row for all buttons */
+    grid-row: 2;
 }
 
 .library-button {
@@ -84,20 +89,20 @@
 @media (max-width: 1024px) {
     .container {
         grid-template-areas:
-            "profile-card"  /* Profile card takes full width */
-            "edit-button"   /* Edit button below the profile card */
-            "recently-books"; /* Recently added books below both */
-        grid-template-columns: 1fr; /* Single column layout */
+            "profile-card" 
+            "edit-button"  
+            "recently-books"; 
+        grid-template-columns: 1fr; 
         grid-gap: 15px;
     }
 
     .profile-card {
-        max-width: 90%; /* Center the card */
+        max-width: 90%; 
         margin: 0 auto;
     }
 
     .recently-added-div {
-        max-width: 90%; /* Center the books */
+        max-width: 90%; 
         margin: 0 auto;
     }
 }
