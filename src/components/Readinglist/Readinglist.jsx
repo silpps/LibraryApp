@@ -5,6 +5,8 @@ import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
 import './Readinglist.css';
 
+import { useNavigate } from "react-router-dom";
+
 const Readinglist = () => {
     const [allBooks, setAllBooks] = useState(readinglistData);
     const [books, setBooks] = useState(readinglistData);
@@ -15,6 +17,27 @@ const Readinglist = () => {
     const [selectedBook, setSelectedBook] = useState(null);
     const [newBookModal, setNewBookModal] = useState(false);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const booksPerPage = 4;
+  
+    // Calculate the books to display on the current page
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  
+    const totalPages = Math.ceil(books.length / booksPerPage);
+  
+    const goToNextPage = () => {
+      if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+  
+    const goToPrevPage = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
 
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
     useEffect(() => {
@@ -63,6 +86,13 @@ const Readinglist = () => {
         }
       };
 
+      const navigate = useNavigate();
+      
+      const goToLibrary = () => {
+        navigate('/library');
+      };
+      
+
     return (
         <div className='readinglist'>
             <h1>My Readinglist</h1>
@@ -105,19 +135,30 @@ const Readinglist = () => {
 
                 <div className='library-div'>
                     <h2>Back to Library</h2>
-                    <button>Library</button>
+                    <button onClick={goToLibrary}>Library</button>
                 </div>
             </div >
 
             <div className="books-div">
+              <div className="books-div-top">
                 <h2>My collection</h2>
-            {books.map((book) => (
-          <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
-        ))}
-        </div>
-        <div className='add-book-div'>
-            <h2>Add new book</h2>
-            <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
+                <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
+              </div>
+              <div>
+              {currentBooks.map((book) => (
+                <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
+              ))}
+              </div>
+            <div className="pagination">
+              <button onClick={goToPrevPage} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                Next
+              </button>
         </div>
         </div>
 
@@ -138,6 +179,8 @@ const Readinglist = () => {
             )} 
 
         </div>
+
+      </div>
     );
   };
 

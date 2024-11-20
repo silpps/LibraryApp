@@ -12,11 +12,9 @@
   }
   
   .modal-content {
-    background-color: white;
-    padding: 20px;
+    background-color:#FFEFE1;
     border-radius: 8px;
     width: 600px;
-    max-width: 90%;
   }
   
   .modal-content form {
@@ -31,8 +29,7 @@
   }
   
   .modal-content input, .modal-content textarea {
-    padding: 8px;
-    margin-bottom: 15px;
+    padding: 0.5rem;
     border-radius: 5px;
     border: 1px solid #ccc;
   }
@@ -43,8 +40,4 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-  }
-  
-  .modal-content button:hover {
-    background-color: #662b1d;
   }

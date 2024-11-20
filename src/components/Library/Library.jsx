@@ -1,10 +1,10 @@
 import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
-import Header from '../Header/Header';
 import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
 import './Library.css';
+import { useNavigate } from 'react-router-dom';
 
 const Library = () => {
     const [allBooks, setAllBooks] = useState(booksData);
@@ -15,7 +15,27 @@ const Library = () => {
     const [authorFilter, setAuthorFilter] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
     const [newBookModal, setNewBookModal] = useState(false);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const booksPerPage = 4;
+  
+    // Calculate the books to display on the current page
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  
+    const totalPages = Math.ceil(books.length / booksPerPage);
+  
+    const goToNextPage = () => {
+      if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+  
+    const goToPrevPage = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
 
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
     useEffect(() => {
@@ -66,6 +86,20 @@ const Library = () => {
         }
       };
 
+      const navigate = useNavigate();
+      const goToWishlist = () => {
+        navigate('/wishlist');
+      };
+    
+      const goToProfile = () => {
+        navigate('/profile');
+      };
+    
+      const goToReadinglist = () => {
+        navigate('/readinglist');
+      };
+
+
     return (
         <div className='library'>
             <h1>My Library</h1>
@@ -107,22 +141,35 @@ const Library = () => {
                 </div>
 
                 <div className='profile-div'>
-                    <h2>Back to Profile</h2>
-                    <button>Profile</button>
+                    <h2>Go to</h2>
+                    <button onClick={goToProfile}>Profile</button>
+                    <button onClick={goToWishlist}>Wishlist</button>
+                    <button onClick={goToReadinglist}>Reading List</button>
                 </div>
             </div >
 
             <div className="books-div">
-                <h2>My collection</h2>
-            {books.map((book) => (
-          <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
-        ))}
-        </div>
-        <div className='add-book-div'>
-            <h2>Add new book</h2>
-            <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
-        </div>
-        </div>
+              <div className="books-div-top">
+                  <h2>My collection</h2>
+                  <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
+                </div>
+                <div>
+                {currentBooks.map((book) => (
+                  <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
+                ))}
+                </div>
+              <div className="pagination">
+                <button onClick={goToPrevPage} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                <span>
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                  Next
+                </button>
+              </div>
+            </div>
 
         {selectedBook && (
             <BookDetails
@@ -138,8 +185,9 @@ const Library = () => {
                 closeModal={() => setNewBookModal(false)}
                 allowRatingAndReview={true}
                 />
-            )} 
+          )} 
 
+          </div>
         </div>
     );
   };

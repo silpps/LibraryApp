@@ -16,7 +16,7 @@
     align-items: center;
     text-align: center;
     font-size: 18px;
-    background-color:floralwhite;
+    background-color: #FFEFE1;
     padding: 10px;
     border-radius: 8px;
     width: 40%;
@@ -47,12 +47,8 @@
   
   .modal-content button {
     padding: 8px 16px;
-    background-color: blanchedalmond;
     border: none;
     cursor: pointer;
     margin: 1rem;
   }
   
-  .modal-content button:hover {
-    background-color: bisque;
-  }

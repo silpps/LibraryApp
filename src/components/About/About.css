@@ -3,12 +3,6 @@
     max-width: 800px;
     margin: 0 auto;
     font-family: Arial, sans-serif;
-    color: #333;
-  }
-  
-  .about-container h2,
-  .about-container h1 {
-    color: #803503;
   }
   
   .about-container h1 {
@@ -34,8 +28,4 @@
     padding-left: 0; 
     list-style: none; 
     margin-bottom: 20px;
-  }
-  
-  .team-list strong {
-    color: #803503; 
   }

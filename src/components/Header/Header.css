@@ -11,6 +11,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    text-align: center;
   }
   
  
@@ -55,3 +56,5 @@
     color: #080300;
     cursor: pointer;
   }
+
+  

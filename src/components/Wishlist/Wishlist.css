@@ -3,13 +3,11 @@
   }
 
 .wishlist h1 {
-    color: #803503;
     text-align: center;
     margin-bottom: 1rem;
 }
 
 .wishlist h2 {
-    color: #803503;
     text-align: center;
 }
 
@@ -21,14 +19,9 @@
 .wishlist-content button {
     margin: auto;
     padding: 8px 16px;
-    background-color: blanchedalmond;
     border: none;
     cursor: pointer;
     margin: 1rem;
-  }
-  
-  .wishlist-content button:hover {
-    background-color: bisque;
   }
 
 .filters-div,
@@ -39,7 +32,7 @@
     border: 1px solid #803503;
     border-radius: 6px;
     margin: 2rem;
-    background-color: floralwhite;
+    background-color: #FFFBFB;
     padding: 10px;
 }
 

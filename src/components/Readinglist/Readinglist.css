@@ -1,45 +1,39 @@
 #root {
     width: 100%; 
+    background-color: #FFEFE1;
   }
 
 .readinglist h1 {
-    color: #803503;
     text-align: center;
     margin-bottom: 1rem;
+    margin-top: 4rem;
 }
 
 .readinglist h2 {
-    color: #803503;
     text-align: center;
 }
 
 .readinglist-content {
     display: flex;
-
+    flex-wrap: wrap; 
+    gap: 1rem;
+    justify-content: center; 
 }
 
 .readinglist-content button {
     margin: auto;
     padding: 8px 16px;
-    background-color: blanchedalmond;
-    border: none;
-    cursor: pointer;
     margin: 1rem;
-  }
-  
-  .readinglist-content button:hover {
-    background-color: bisque;
   }
 
 .filters-div,
 .library-div,
 .readinglist-div,
-.books-div,
-.add-book-div {
+.books-div{
     border: 1px solid #803503;
     border-radius: 6px;
     margin: 2rem;
-    background-color: floralwhite;
+    background-color: #FFFBFB;
     padding: 10px;
 }
 
@@ -84,6 +78,17 @@
     width: 50%;
 }
 
+.books-div-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem; 
+}
+
+.books-div-top h2 {
+    margin: 0;
+}
+
 .add-book-div {
     height: fit-content;
     text-align: center;
@@ -91,12 +96,72 @@
 
 .add-book-btn {
     padding: 10px 20px;
-    border: none;
     border-radius: 5px;
     margin-bottom: 20px;
     font-size: 1rem;
   }
-  
-  .add-book-btn:hover {
-    background-color: #662b1d;
-  }
+
+
+  /* Media Queries for Responsive Design */
+@media (max-width: 1024px) { /* Tablet */
+    .left-div {
+        width: 100%; 
+        margin-bottom: 1rem;
+    }
+
+    .books-div {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) { /* Mobile */
+    .filters-div, 
+    .library-div, 
+    .books-div{
+        margin: 1rem;
+    }
+
+    .filter {
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+    .filter label {
+        padding-right: 0;
+        margin-bottom: 0.2rem;
+    }
+
+    .filter select {
+        width: 100%; 
+    }
+
+    .books-div {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .add-book-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) { /* Small Mobile */
+    .readinglist-content {
+        flex-direction: column;
+    }
+
+    .books-div, .filters-div, .add-book-div, .library-div {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .readinglist h1, .readinglist h2 {
+        font-size: 1.2rem;
+    }
+
+    .add-book-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
