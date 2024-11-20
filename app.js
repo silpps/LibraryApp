@@ -15,7 +15,7 @@ connectDB();
 // Middleware to parse JSON
 app.use(express.json());
 app.use('/bookhive', userRouter);
-//the book path is for now called library. consider routing paths again when adding wishlist and readinglist
+//the book path is for now called library. consider changing paths again when adding wishlist and readinglist
 app.use('/bookhive/library', bookRouter);
 
 

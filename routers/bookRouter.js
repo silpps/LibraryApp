@@ -12,8 +12,10 @@ const {
   searchBooks,
 } = require('../controllers/bookControllers');
 
-// Paths of different functionalities should be re-evaluated.
+// I've encountered some issues with the route paths and think that the routes and the route order should be re-evaluated. This version works for now but I will look into it later.
 //Take wishlist and reading list in consideration as they will be added in sprint 3.
+
+//First I had the search route after the filter routes but I ended up having invalid bookId errors. The reason was due to Express the dynamic bookId route before the search route. Reordering the routes fixed the issue.
 // GET /books
 router.get('/', getAllBooks);
 
