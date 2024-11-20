@@ -54,15 +54,20 @@ const getBookById = async (req, res) => {
 const updateBook = async (req, res) => {
   const { bookId } = req.params;
 
-  const updatedBook = await Book.findOneAndUpdate(
-    { _id: bookId },
-    { ...req.body },
-    { new: true }
-  );
-  if (updatedBook) {
-    res.status(200).json(updatedBook);
-  } else {
-    res.status(404).json({ message: "Book not found" });
+  try {
+    const updatedBook = await Book.findOneAndUpdate(
+      { _id: bookId },
+      { ...req.body },
+      { new: true }
+    );
+
+    if (updatedBook) {
+      res.status(200).json(updatedBook);
+    } else {
+      res.status(404).json({ message: "Book not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update book", error: error.message });
   }
 };
 
@@ -88,6 +93,58 @@ const deleteBook = async (req, res) => {
     res.status(500).json({ message: "Failed to delete book" });
   }
 };
+
+//ADDITIONAL FUNCTIONALITIES
+
+//This version of the filter will show all the books that's 
+// Get books by category
+const filterBooksByCategory = async (req, res) => {
+  try {
+    const books = await Book.find({
+      category: { $regex: `^${req.params.category}`, $options: 'i' }  // Regex match to start with 'Fiction' and case-insensitive
+    });
+
+    // If no books match the category return a messag notifying that
+    if (books.length === 0) {
+      return res.status(404).json({ message: `No books found for category: ${category}` });
+    }
+    res.status(200).json(books);
+  } catch (error) {
+    console.error("Error filtering books by category:", error); // Debugging line
+    res.status(500).json({ message: "Failed to filter books by category", error: error.message });
+  }
+};
+// Filter books by author
+const filterBooksByAuthor = async (req, res) => {
+  try {
+    const books = await Book.find({ authors: { $regex: `^${req.params.author}`, $options: 'i' }  }); // Case-insensitive match
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to filter books by author", error: error.message });
+  }
+};
+
+// Search books (title, author and prioritize title matches)
+const searchBooks = async (req, res) => {
+  const { query } = req.query;
+  if (!query) {
+    return res.status(400).json({ message: "Query parameter is required" });
+  }
+
+  try {
+    const books = await Book.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { authors: { $regex: query, $options: "i" } },
+      ]
+    }).sort({ title: -1 }); // Sort results by title match (descending)
+
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to search books", error: error.message });
+  }
+};
+
   
 // Export all controller functions
 module.exports = {
@@ -96,5 +153,8 @@ module.exports = {
     addBook,
     updateBook,
     deleteBook,
+    filterBooksByCategory,
+    filterBooksByAuthor,
+    searchBooks,
 };
   
