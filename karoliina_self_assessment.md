@@ -96,10 +96,10 @@ Set review and rating null in code when creating a book for wishlist or readingl
 
 ### Solution:
 
-    The Library component implements dynamic filtering and pagination for books.
-    Pagination splits the book collection into pages of 4 items each.
-    Filters allow users to refine results by genre and author.
-    Pagination updates dynamically based on the filtered books.
+The Library component implements dynamic filtering and pagination for books.
+Pagination splits the book collection into pages of 4 items each.
+Filters allow users to refine results by genre and author.
+Pagination updates dynamically based on the filtered books.
 
 ### Key Improvements:
 
