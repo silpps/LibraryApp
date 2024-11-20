@@ -41,6 +41,20 @@ Making the form component more flexible and usable in many different cases withi
 ### Problem: 
 When wishlist or readinglist book was added, it would make the rating 0.
 
+// AddBookForm.jsx
+```
+onAddBook({
+        id: Date.now(), 
+        title,
+        author,
+        category,
+        language,
+        year: parseInt(year, 10),
+        rating,
+        review,
+      });
+```
+
 ### Solution:
 Set review and rating null in code when creating a book for wishlist or readinglist.
 
