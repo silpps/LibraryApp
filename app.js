@@ -1,3 +1,8 @@
+require('dotenv').config();
+const port = process.env.PORT || 4000;
+
+console.log("MONGO_URI:", process.env.MONGO_URI);
+
 const connectDB = require("./config/db");
 const express = require("express");
 const app = express();
@@ -15,7 +20,6 @@ app.use('/bookhive', userRouter);
 app.use('/bookhive/books', bookRouter);
 
 
-const port = 4000;
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
