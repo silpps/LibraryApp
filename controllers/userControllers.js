@@ -1,18 +1,18 @@
 const User = require("../models/userModel");
 
-// GET /cars
+// GET /users
 const getAllUsers = async (req, res) => {
   const users = await User.find({}).sort({ createdAt: -1 });
   res.status(200).json(users);
 };
  
-// POST /cars
+// POST /users
 const createUser = async (req, res) => {
   const newUser = await User.create({ ...req.body });
   res.status(201).json(newUser);
 };
 
-// GET /cars/:carId
+// GET /users/:userId
 const getUserById = async (req, res) => {
   const { userId } = req.params;
 
@@ -24,7 +24,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-// PUT /cars/:carId
+// PUT /users/:userId
 const updateUser = async (req, res) => {
   const { userId } = req.params;
 
@@ -36,11 +36,11 @@ const updateUser = async (req, res) => {
   if (updatedUser) {
     res.status(200).json(updatedUser);
   } else {
-    res.status(404).json({ message: "Car not found" });
+    res.status(404).json({ message: "User not found" });
   }
 };
 
-// DELETE /cars/:carId
+// DELETE /users/:userId
 const deleteUser = async (req, res) => {
   const { userId } = req.params;
 
