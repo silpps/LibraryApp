@@ -1,4 +1,6 @@
 # Self-Assessment
+Since this Sprint included lots of new components and code, I am only including the 6 parts that I found most interesting or learned the most from.
+
 ## Example 1: Re-usable Form component to cater to different needs
 
 ### Problem: 
