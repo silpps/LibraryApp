@@ -19,8 +19,8 @@ The first version of the form had sections from title to review, which was perfe
 ### Solution:
 Adding prop allowRatingAndReview to the AddBookForm component. If it was set true (which is the case for library only), it will only then showcase the Rating and Review Fields.
 
-// AddBookForm.jsx
 ```
+// AddBookForm.jsx
 <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
 <label>Author: <input type="text" name="author" onChange={(e) => setAuthor(e.target.value)} /></label>
 <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
