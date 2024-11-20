@@ -8,6 +8,7 @@ import './Readinglist.css';
 import { useNavigate } from "react-router-dom";
 
 const Readinglist = () => {
+    const navigate = useNavigate();
     const [allBooks, setAllBooks] = useState(readinglistData);
     const [books, setBooks] = useState(readinglistData);
     const [authors, setAuthors] = useState([]);
@@ -59,12 +60,22 @@ const Readinglist = () => {
         );
       }, [allBooks, genreFilter, authorFilter]);
     
-
+      
+        // handler for adding a new book
+        const addNewBook = (newBook) => {
+          if (newBook) {
+              setAllBooks([...allBooks, newBook]);
+              setNewBookModal(false);
+          }
+        };
+  
+      // handler for deleting a book
       const handleDelete = (id) => {
         const updatedBooks = allBooks.filter((book) => book.id !== id); 
         setAllBooks(updatedBooks); 
       };
     
+      // handlers for opening and closing the book details modal
       const handleBookClick = (book) => {
         setSelectedBook(book);
       };
@@ -73,21 +84,12 @@ const Readinglist = () => {
         setSelectedBook(null);
       };
 
-      //handlers add book modaalille, modaali viel rikki tekee tyhjii kirjoi.
-
+      //handler for opening add book modal
       const handleAddBook = () => {
         setNewBookModal(true);
       };
-    
-      const addNewBook = (newBook) => {
-        if (newBook) {
-            setAllBooks([...allBooks, newBook]);
-            setNewBookModal(false);
-        }
-      };
 
-      const navigate = useNavigate();
-      
+    // Navigate to the library page
       const goToLibrary = () => {
         navigate('/library');
       };

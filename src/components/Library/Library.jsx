@@ -7,6 +7,7 @@ import './Library.css';
 import { useNavigate } from 'react-router-dom';
 
 const Library = () => {
+    const navigate = useNavigate();
     const [allBooks, setAllBooks] = useState(booksData);
     const [books, setBooks] = useState(booksData);
     const [authors, setAuthors] = useState([]);
@@ -58,13 +59,13 @@ const Library = () => {
       );
     }, [allBooks, genreFilter, authorFilter]);
   
-
+    //handler for deleting a book
     const handleDelete = (id) => {
       const updatedBooks = allBooks.filter((book) => book.id !== id); 
       setAllBooks(updatedBooks); 
     };
     
-
+    // handlers for opening and closing the book details modal
       const handleBookClick = (book) => {
         setSelectedBook(book);
       };
@@ -73,8 +74,8 @@ const Library = () => {
         setSelectedBook(null);
       };
 
-      //handlers add book modaalille, modaali viel rikki tekee tyhjii kirjoi.
 
+      //handlers for add book modaal
       const handleAddBook = () => {
         setNewBookModal(true);
       };
@@ -86,7 +87,7 @@ const Library = () => {
         }
       };
 
-      const navigate = useNavigate();
+      // Navigate to other pages
       const goToWishlist = () => {
         navigate('/wishlist');
       };
@@ -153,7 +154,7 @@ const Library = () => {
                   <h2>My collection</h2>
                   <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
                 </div>
-                <div>
+                <div> 
                 {currentBooks.map((book) => (
                   <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
                 ))}

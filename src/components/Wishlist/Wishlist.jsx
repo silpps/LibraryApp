@@ -7,6 +7,7 @@ import './Wishlist.css';
 import { useNavigate } from 'react-router-dom';
 
 const Wishlist = () => {
+  const navigate = useNavigate();
     const [allBooks, setAllBooks] = useState(wishlistData);
     const [books, setBooks] = useState(wishlistData);
     const [authors, setAuthors] = useState([]);
@@ -59,12 +60,21 @@ const Wishlist = () => {
         );
       }, [allBooks, genreFilter, authorFilter]);
     
-      //
+       // handler for adding a new book, SEE open add book modal lower
+       const addNewBook = (newBook) => {
+        if (newBook) {
+            setAllBooks([...allBooks, newBook]);
+            setNewBookModal(false);
+        }
+      };
+
+      // handler for deleting a book
       const handleDelete = (id) => {
         const updatedBooks = allBooks.filter((book) => book.id !== id); 
         setAllBooks(updatedBooks); 
       };
 
+      //handlers for opening and closing the book details modal
       const handleBookClick = (book) => {
         setSelectedBook(book);
       };
@@ -74,20 +84,12 @@ const Wishlist = () => {
       };
 
       //handlers add book modaalille, modaali viel rikki tekee tyhjii kirjoi.
-
       const handleAddBook = () => {
         setNewBookModal(true);
       };
-    
-      const addNewBook = (newBook) => {
-        if (newBook) {
-            setAllBooks([...allBooks, newBook]);
-            setNewBookModal(false);
-        }
-      };
-
-      const navigate = useNavigate();
+  
       
+      // handler for navigating to the library page
       const goToLibrary = () => {
         navigate('/library');
       };

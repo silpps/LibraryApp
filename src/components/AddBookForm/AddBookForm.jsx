@@ -13,6 +13,8 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
+
+    // seeing if any of the fields are empty
     let missingFields = [];
 
     if (!title) missingFields.push('Title');
@@ -25,6 +27,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
       if (!review) missingFields.push('Review');
     }
 
+    // if there are missing fields, show an error message
     if (missingFields.length > 0) {
       if (missingFields.length === 1) {
         setError(`Please fill in the missing field: ${missingFields[0]}`);
@@ -35,7 +38,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     }
     
     setError('');
-
+    // if rating and review are not allowed, set them to null
     if (!allowRatingAndReview) {
 
     onAddBook({
@@ -48,7 +51,8 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
       rating : null,
       review : null,
     });
-    } else {
+    } // if rating and review are allowed, add them to the book
+    else {
       onAddBook({
         id: Date.now(), 
         title,
