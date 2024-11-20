@@ -1,5 +1,5 @@
 import profilepic from '../../assets/profilepic.jpg';
-import './Profile.css';
+import './ProfileCard.css';
 import { useEffect } from 'react';
 
 function ProfileCard ({username, description}) {

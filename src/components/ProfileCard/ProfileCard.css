@@ -1,7 +1,6 @@
-
-
 .profile-card {
-    border: 6px solid #DDB79E;
+    border: 5px solid #DDB79E;
+    border-radius: 12px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -11,12 +10,8 @@
     max-width: 100%;  
     width: 100%;
     position: relative;
-    margin: 20px; 
     box-sizing: border-box; 
     transition: all 0.3s ease; 
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .profile-pic {
@@ -38,7 +33,8 @@
 }
 
 .profile-card p {
-    border: 2px solid #DDB79E;
+    border: 1px solid #803503;
+    border-radius: 6px;
     padding: 10px;
     font-size: 14px;
     text-align: left;
@@ -49,7 +45,7 @@
 }
 
 .bookwormlevel{
-    border: 2px solid #DDB79E;
+    border: 1px solid #803503;
     padding: 8px;
     border-radius: 50%;
     margin: 6px, 4px, 0, 0;
@@ -64,11 +60,6 @@
     .profile-card {
         width: 90%; 
         margin: 20px; 
-        top: 50%;
-        transform: translateY(-50%);
-        margin-left: 200px;
-        position: fixed;
-        left: 0;
     }
 
     .profile-pic {
@@ -108,11 +99,6 @@
     .profile-card {
         max-width: 300px;
         margin: 20px; 
-        top: 50%;
-        transform: translateY(-50%);
-        margin-left: 200px;
-        position: fixed;
-        left: 0;
     } 
     }
 

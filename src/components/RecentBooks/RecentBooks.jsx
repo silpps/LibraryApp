@@ -2,7 +2,7 @@ import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Book from '../Book/Book';
-import '../ProfileCard/Profile.css';
+import '../Profile/Profile.css';
 
   
 const recentBooks = booksData
@@ -13,7 +13,7 @@ const recentBooks = booksData
 const RecentBooks = () => {
     const [books, setBooks] = useState(booksData);
     return (
-        <div className='recently-added-div'>
+        <div>
             <h2>Recently Added</h2>
             {recentBooks.map((book) => (
                 <Book key={book.id} book={book} />
