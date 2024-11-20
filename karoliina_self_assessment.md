@@ -91,18 +91,98 @@ Set review and rating null in code when creating a book for wishlist or readingl
 - Importance of testing with different data/user input: If you test various cases, you'll find things to debug.
 - Debugging skills: problem solving and learning how to work around different issues. Seeing how simple fixes can be.
 
-## Example 3:
+
+## Example 3: Pagination and Filtering in a Library Component
 
 ### Solution:
+
+    The Library component implements dynamic filtering and pagination for books.
+    Pagination splits the book collection into pages of 4 items each.
+    Filters allow users to refine results by genre and author.
+    Pagination updates dynamically based on the filtered books.
 
 ### Key Improvements:
 
+    Dynamic Pagination:
+        Automatically calculates the number of pages using Math.ceil() based on the total books.
+        The currentPage state ensures smooth navigation across pages.
+```
+//Library.jsx
+const totalPages = Math.ceil(books.length / booksPerPage);
 
-   
-## Example 4: 
+const goToNextPage = () => {
+  if (currentPage < totalPages) {
+    setCurrentPage(currentPage + 1);
+  }
+};
+```
+  Flexible Filtering:
+
+    Filters by genre or author, or resets both with a single button.
+    Filters update dynamically whenever the allBooks list changes.
+```
+useEffect(() => {
+  setBooks(
+    allBooks.filter((book) => {
+      return (
+        (!genreFilter || book.category === genreFilter) &&
+        (!authorFilter || book.author === authorFilter)
+      );
+    })
+  );
+}, [allBooks, genreFilter, authorFilter]);
+
+```
+    Provides an intuitive way to reset filters and display all books.
+```
+<button onClick={() => {
+    setGenreFilter('');
+    setAuthorFilter('');
+}}>Reset Filters</button>
+```
+
+## Example 4: Modularity in Adding and Viewing Book Details
 
 ### Solution:
 
+    Separate Components: Uses modular components like AddBookForm and BookDetails for specific tasks.
+    Dynamic Rendering: Conditionally renders modals for adding or viewing details of books, reducing clutter.
 
+### Key Improvements:
 
-### Lessons Learned:
+    Adding New Books:
+        Opens a modal with AddBookForm to add new books.
+        Dynamically updates the book list and filters after addition.
+```
+//Library.jsx
+const addNewBook = (newBook) => {
+  if (newBook) {
+      setAllBooks([...allBooks, newBook]);
+      setNewBookModal(false);
+  }
+};
+```
+Viewing Book Details:
+
+    Opens BookDetails modal when a book is selected.
+    Enables delete functionality directly from the modal.
+```
+const handleBookClick = (book) => {
+  setSelectedBook(book);
+};
+
+<BookDetails
+    book={selectedBook}
+    onClose={closeSelectedBook}
+    onDelete={handleDelete}
+/>
+```
+Modal Management:
+
+    Uses boolean states like newBookModal to toggle modals cleanly.
+```
+const handleAddBook = () => {
+  setNewBookModal(true);
+};
+
+ ```
