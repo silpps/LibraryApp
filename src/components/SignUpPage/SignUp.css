@@ -73,11 +73,6 @@ h1 {
     max-width: 200px;
 }
 
-button:hover {
-    background-color: #803503c0;
-    color: #FFEFE1;
-}
-
 .sign-up-link {
     align-self: center;
 }

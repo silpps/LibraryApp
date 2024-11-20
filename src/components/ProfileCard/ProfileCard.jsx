@@ -1,7 +1,6 @@
-import profilepic from './profilepic.jpg';
-import './ProfileCard.css';
+import profilepic from '../../assets/profilepic.jpg';
+import './Profile.css';
 import { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
 
 function ProfileCard ({username, description}) {
     const bookWormLevel = 5;

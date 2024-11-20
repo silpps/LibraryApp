@@ -2,6 +2,7 @@ import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Book from '../Book/Book';
+import '../ProfileCard/Profile.css';
 
   
 const recentBooks = booksData
