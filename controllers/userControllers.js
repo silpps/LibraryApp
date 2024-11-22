@@ -1,5 +1,11 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.ACCESS_TOKEN, { expiresIn: '3d' });
+}
 
 // Gets all users (admin rights required)
 const getAllUsers = async (req, res) => {
@@ -13,11 +19,45 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try{
+  const {username, password}= req.body
+  const registeredUser = await User.findOne({username})
+  const passwordMatch = await bcrypt.compare(password, registeredUser.password)
+  if(!registeredUser){
+    throw Error("No user with this username found")
+  }
+  if(!passwordMatch){
+    throw Error("Incorrect password")
+  }
+  const token = createToken(registeredUser._id);
+  res.json({
+    message: "Login successful",
+    user:registeredUser,
+    token
+  })
+  } catch (error){
+    res.status(500).json({message:"Failed to log in", error:error.message})
+  }
+}
+
 // Creates a user upon signup (POST)
 //In this create operation as well as the update operation I was suggested to use validation such as Joi or validator.js libraries. This is something I'll look into next sprint
-const createUser = async  (req, res) => {
+const createUser = async (req, res) => {
   try{
-    const newUser = await User.create({...req.body})
+    const {username, email, password} = req.body
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const emailInUse = await User.findOne({email})
+    if(emailInUse){
+      throw Error("This email is already in use")
+    }
+    const usernameInUse = await User.findOne({username})
+    if (usernameInUse){
+      throw Error("This username is already in use")
+    }
+    const newUser = new User({username, email, password:hashedPassword})
+    await newUser.save()
+    const token = createToken(newUser._id);
     res.status(201).json(newUser)
   } catch (error){
     res.status(400).json({message:"Failed to create user", error:error.message})
@@ -93,4 +133,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  login
 };

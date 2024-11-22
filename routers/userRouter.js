@@ -6,6 +6,7 @@ const {
     createUser,
     updateUser,
     deleteUser,
+    login
   } = require("../controllers/userControllers")
 
 const { authorizeUsersAccess } = require("../middleware/auth");
@@ -15,7 +16,7 @@ const { authorizeUsersAccess } = require("../middleware/auth");
 
 // get all users (admin)
 //This can also be utilised for "forgot password" as the system can check if an email address is linked to an account or something
-router.get("/users", authorizeUsersAccess, getAllUsers);
+router.get("/users", getAllUsers);
 
 //In signup page, pressing the signup button calls this
 router.post("/signup", createUser);
@@ -24,10 +25,12 @@ router.post("/signup", createUser);
 router.get("/profile/:userId", getUserById);
 
 //Is called from the update changes button in profile settings
-router.put("/profile/settings/:userId", updateUser);
+router.put("/profile/settings/:userId", authorizeUsersAccess, updateUser);
 
 // Is called from the delete profile button in profile settings
 router.delete("/profile/settings/:userId", deleteUser);
 
+//Login you knobheads
+router.post("/login", login)
 
 module.exports = router;
