@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 // The LLM also suggest me to consider adding validation for the request body and query parameters. It says that keeping validation on both the frontend and backend ensures that each layer of the application is responsible for its own data integrity.
 
 // Controller function to get all books
-// GET /books
+// GET /library
 const getAllBooks = async (req, res) => {
   try {
     // this line fetches all books and sorts them by createdAt timestamp in descending order.
@@ -13,6 +13,17 @@ const getAllBooks = async (req, res) => {
   res.status(200).json(books);
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve books" });
+  }
+};
+
+//Controller for fetching the three most recent books
+// GET /library/recent
+const getRecentBooks = async (req, res) => {
+  try {
+    const books = await Book.find({}).sort({ createdAt: -1 }).limit(3);
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve recent books" });
   }
 };
 
@@ -159,6 +170,7 @@ const searchBooks = async (req, res) => {
 // Export all controller functions
 module.exports = {
     getAllBooks,
+    getRecentBooks,
     getBookById,
     addBook,
     updateBook,
