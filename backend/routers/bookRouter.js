@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   getAllBooks,
+  getRecentBooks,
   getBookById,
   addBook,
   updateBook,
@@ -25,6 +26,10 @@ router.post('/', addBook);
 // SEARCH books
 // GET /books/search?query=<value>
 router.get('/search', searchBooks);
+
+//recent books
+// GET /books/recent
+router.get('/recent', getRecentBooks);
 
 // GET /books/:bookId
 router.get('/:bookId', getBookById);
