@@ -14,6 +14,7 @@ const Library = () => {
     const navigate = useNavigate();
     const [allBooks, setAllBooks] = useState([]);
     const [books, setBooks] = useState([]);
+    const [update, setUpdate] = useState(true); //tein tällasen koska 
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
     const [genreFilter, setGenreFilter] = useState('');
@@ -54,8 +55,9 @@ const Library = () => {
         }
       };
       fetchBooks();
+      setUpdate(false);
 
-    }, []);
+    }, [update]);
 
 
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
@@ -100,12 +102,13 @@ const Library = () => {
         setNewBookModal(true);
       };
     
-      const addNewBook = (newBook) => {
-        if (newBook) {
-            setAllBooks([...allBooks, newBook]);
-            setNewBookModal(false);
-        }
-      };
+      //sorge ku kommentoin tänki pois niin mut pakko et tulee vähän selkeyttä. ruoskikaa torilla jos haluutte -v
+      // const addNewBook = (newBook) => {
+      //   if (newBook) {
+      //       setAllBooks([...allBooks, newBook]);
+      //       setNewBookModal(false);
+      //   }
+      // };
 
       // Navigate to other pages
       const goToWishlist = () => {
@@ -202,7 +205,7 @@ const Library = () => {
 
         {newBookModal && (
                 <AddBookForm
-                onAddBook={addNewBook}
+                onAddBook={() => setUpdate(true)}
                 closeModal={() => setNewBookModal(false)}
                 allowRatingAndReview={true}
                 />
