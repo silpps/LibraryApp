@@ -6,10 +6,14 @@ import AddBookForm from '../AddBookForm/AddBookForm';
 import './Library.css';
 import { useNavigate } from 'react-router-dom';
 
+//this is temporary until we decide all the final routing paths etc.
+import { REACT_APP_API_URL } from '../../utils/apiConfig';
+const apiUrl = `${REACT_APP_API_URL}/bookhive/library`;
+
 const Library = () => {
     const navigate = useNavigate();
-    const [allBooks, setAllBooks] = useState(booksData);
-    const [books, setBooks] = useState(booksData);
+    const [allBooks, setAllBooks] = useState([]);
+    const [books, setBooks] = useState([]);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
     const [genreFilter, setGenreFilter] = useState('');
@@ -38,10 +42,26 @@ const Library = () => {
       }
     };
 
+    //hakee alussa kaikki kirjat
+    useEffect(() => {
+      const fetchBooks = async () => {
+        try {
+          const res = await fetch(apiUrl);
+          const data = await res.json();
+          setAllBooks(data);
+        } catch (error) {
+          console.error('Error fetching books:', error);
+        }
+      };
+      fetchBooks();
+
+    }, []);
+
+
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
     useEffect(() => {
         const uniqueGenres = [...new Set(books.map((book) => book.category))];
-        const uniqueAuthors = [...new Set(books.map((book) => book.author))];
+        const uniqueAuthors = [...new Set(books.map((book) => book.authors))];
         setGenres(uniqueGenres); 
         setAuthors(uniqueAuthors); 
       }, [books, allBooks]);
@@ -53,7 +73,7 @@ const Library = () => {
         allBooks.filter((book) => {
           return (
             (!genreFilter || book.category === genreFilter) &&
-            (!authorFilter || book.author === authorFilter)
+            (!authorFilter || book.authors === authorFilter)
           );
         })
       );
