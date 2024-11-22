@@ -1,12 +1,31 @@
 import React from 'react';
 import './BookDetails.css'
+//this is temporary until we decide all the final routing paths etc.
+import { REACT_APP_API_URL } from '../../utils/apiConfig';
+const apiUrl = `${REACT_APP_API_URL}/bookhive/library`;
 
 const BookDetails = ({ book, onClose, onDelete }) => {
 
     const handleDelete = () => {
+        deleteBook();
         onDelete(book.id);
         onClose();
-      };
+    };
+
+    const deleteBook = async () => {
+      try{
+        const res = await fetch(`${apiUrl}/${book._id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!res.ok) {
+          throw new Error("Failed to delete book");
+        }
+        console.log("Book deleted successfully");
+      } catch (error) {
+        console.error("Error deleting book:", error);
+      }
+    };
 
     const colourStars = (rating) => {
         if (rating === undefined || rating === null) {
