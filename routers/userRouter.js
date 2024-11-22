@@ -31,6 +31,6 @@ router.put("/profile/settings/:userId", authorizeUsersAccess, updateUser);
 router.delete("/profile/settings/:userId", deleteUser);
 
 //Login you knobheads
-router.post("/login", login)
+router.get("/login", login)
 
 module.exports = router;
