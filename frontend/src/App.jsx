@@ -3,7 +3,7 @@ import './App.css';
 import Footer from './components/Footer/Footer';
 import SignUp from './components/SignUpPage/SignUp';
 import LogIn from './components/LogInPage/LogIn';
-import Profile from './components/ProfileCard/Profile';
+import Profile from './components/Profile/Profile.jsx';
 import Settings from './components/Settings/Settings';
 import Header from './components/Header/Header';
 import Library from './components/Library/Library';

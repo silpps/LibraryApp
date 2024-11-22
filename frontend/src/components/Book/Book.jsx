@@ -35,7 +35,7 @@ const Book = ({book, onClick}) => {
         <div onClick={onClick} className="single-book">
             <div className='title'>
                 <h3>{book.title}</h3>
-                <p>by {book.author}</p>
+                <p>by {book.authors}</p>
             </div>
             <div className='info'>
                 <p>{trimReview(book.review, maxReviewLength)}</p>

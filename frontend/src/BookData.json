@@ -2,7 +2,7 @@
     {
       "id": 1,
       "title": "The Night Circus",
-      "author": "Erin Morgenstern",
+      "authors": "Erin Morgenstern",
       "year": 2011,
       "language": "English",
       "category": "Fantasy",
@@ -13,7 +13,7 @@
     {
       "id": 2,
       "title": "Pachinko",
-      "author": "Min Jin Lee",
+      "authors": "Min Jin Lee",
       "year": 2017,
       "language": "English",
       "category": "Historical Fiction",
@@ -24,7 +24,7 @@
     {
       "id": 3,
       "title": "Sapiens: A Brief History of Humankind",
-      "author": "Yuval Noah Harari",
+      "authors": "Yuval Noah Harari",
       "year": 2014,
       "language": "English",
       "category": "Non-fiction, History",
@@ -35,7 +35,7 @@
     {
       "id": 4,
       "title": "One Hundred Years of Solitude",
-      "author": "Gabriel García Márquez",
+      "authors": "Gabriel García Márquez",
       "year": 1967,
       "language": "Spanish",
       "category": "Magical Realism",
@@ -46,7 +46,7 @@
     {
       "id": 5,
       "title": "The Alchemist",
-      "author": "Paulo Coelho",
+      "authors": "Paulo Coelho",
       "year": 1988,
       "language": "Portuguese",
       "category": "Fiction, Adventure",
@@ -57,7 +57,7 @@
     {
       "id": 6,
       "title": "Becoming",
-      "author": "Michelle Obama",
+      "authors": "Michelle Obama",
       "year": 2018,
       "language": "English",
       "category": "Memoir",
