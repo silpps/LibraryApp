@@ -67,4 +67,9 @@ bookSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model('Book', bookSchema);
+const Book = mongoose.model("Book", bookSchema)
+
+module.exports = {
+  bookSchema,
+  Book,
+}

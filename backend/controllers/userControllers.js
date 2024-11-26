@@ -21,11 +21,11 @@ const getAllUsers = async (req, res) => {
 
 const login = async (req, res) => {
   try{
-  const {username, password}= req.body
-  const registeredUser = await User.findOne({username})
+  const {email, password}= req.body
+  const registeredUser = await User.findOne({email})
   const passwordMatch = await bcrypt.compare(password, registeredUser.password)
   if(!registeredUser){
-    throw Error("No user with this username found")
+    throw Error("No user with linked email found")
   }
   if(!passwordMatch){
     throw Error("Incorrect password")
@@ -55,7 +55,7 @@ const createUser = async (req, res) => {
     if (usernameInUse){
       throw Error("This username is already in use")
     }
-    const newUser = new User({username, email, password:hashedPassword})
+    const newUser = new User({username, email, password:hashedPassword, library:[]})
     await newUser.save()
     const token = createToken(newUser._id);
     res.status(201).json(newUser)

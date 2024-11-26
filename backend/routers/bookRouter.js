@@ -5,12 +5,13 @@ const {
   getAllBooks,
   getRecentBooks,
   getBookById,
-  addBook,
+  addBookToLibrary,
   updateBook,
   deleteBook,
   filterBooksByCategory,
   filterBooksByAuthor,
   searchBooks,
+  getBooksByUser
 } = require('../controllers/bookControllers');
 
 // I've encountered some issues with the route paths and think that the routes and the route order should be re-evaluated. This version works for now but I will look into it later.
@@ -20,8 +21,10 @@ const {
 // GET /books
 router.get('/', getAllBooks);
 
+router.post("/booksByUser", getBooksByUser)
+
 // POST /books
-router.post('/', addBook);
+router.post('/', addBookToLibrary);
 
 // SEARCH books
 // GET /books/search?query=<value>

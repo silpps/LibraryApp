@@ -1,4 +1,5 @@
-const Book = require('../models/bookModel.js');
+const {Book} = require('../models/bookModel.js');
+const User = require("../models/userModel.js")
 const mongoose = require("mongoose");
 
 // The LLM suggests that the error handling could be more specific. I should look into that.
@@ -29,14 +30,51 @@ const getRecentBooks = async (req, res) => {
 
 // Controller function to add a new book
 // POST /books
-const addBook = async (req, res) => {
+const addBookToLibrary = async (req, res) => {
   //No validation for req.body. Consider validating fields like title, author, etc.
+  const {title, authors, year, language, category, image_link, rating, review, id} = req.body
+  const user = await User.findById(id)
+  console.log(user)
+  console.log(user)
   try {
-    const newBook = await Book.create({ ...req.body });// Spread the request body into the new book object
+    const newBook = {
+      title,
+      authors,
+      year,
+      language,
+      category,
+      image_link,
+      rating,
+      review
+    };// Spread the request body into the new book object
+    console.log(newBook)
+    user.library.push(newBook)
+    await user.save()
     res.status(201).json(newBook); // Returns the newly created book with a 201 status.
   } catch (error) {
     //Error handling is present, but it could be more specific.
     res.status(400).json({ message: "Failed to add book", error: error.message });
+  }
+};
+
+const getBooksByUser = async (req, res) => {
+  const { id } = req.body; 
+
+  // Validate the provided user ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    const user = await User.findById(id);
+    
+    if (user) {
+      res.status(200).json({ library: user.library });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve user's library", error: error.message });
   }
 };
 
@@ -170,9 +208,10 @@ const searchBooks = async (req, res) => {
 // Export all controller functions
 module.exports = {
     getAllBooks,
+    getBooksByUser,
     getRecentBooks,
     getBookById,
-    addBook,
+    addBookToLibrary,
     updateBook,
     deleteBook,
     filterBooksByCategory,
