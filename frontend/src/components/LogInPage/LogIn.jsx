@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import background from '../../assets/syksytausta.jpg';
+import { REACT_APP_API_URL } from '../../utils/apiConfig';
 
 const LogIn = ({ onLogin }) => {
     const [email, setEmail] = useState('');
-    const [emailValid, setEmailValid] = useState(false);
+    const [emailValid, setEmailValid] = useState("");
     const [password, setPassword] = useState('');
     const [passwordValid, setPasswordValid] = useState('');
     const mockEmail = 'testi@testi.com'
@@ -25,34 +26,60 @@ const LogIn = ({ onLogin }) => {
     const handleEmailChange = (e) => {
         const inputEmail = e.target.value;
         setEmail(inputEmail);
-        if(inputEmail===mockEmail) {
-            setEmailValid(true);
-        } else {
-            setEmailValid(false);
-    }
+
 }
 
     const handlePasswordChange = (e) => {
       const inputPassword = e.target.value;
         setPassword(inputPassword);
-      if (inputPassword === mockPassword) {
-          setPasswordValid(true);
-        } else {
-            setPasswordValid(false);
-    }
+ 
     }
 
     const handleLogIn = (e) => {
         e.preventDefault();
-        if(emailValid && passwordValid) {
-            onLogin();
-            navigate('/profile');
-            console.log('Log In Successful' + ' ' + email + ' ' + password);
-        } else {
-            console.log('Log In Failed');
-            setShowError(true);
-        }
-    }
+    
+        
+        const isEmailValid = email === mockEmail;
+        const isPasswordValid = password === mockPassword;
+        
+        setEmailValid(isEmailValid)
+        setPasswordValid(isPasswordValid)
+          
+        const fetchUser = async () => {
+          try {
+            const loginDetails = {
+                email,
+                password
+             }
+             console.log(loginDetails)
+     
+            const res = await fetch(`${REACT_APP_API_URL}/bookhive/login`, {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(loginDetails)
+              });
+              const userData = await res.json();
+              console.log(userData)
+
+              if(res.ok){
+                setEmailValid(true)
+                setPasswordValid(true)
+                onLogin();
+                navigate('/profile');
+                console.log('Log In Successful' + ' ' + email + ' ' + password);
+              } else {
+                console.log('Log In Failed');
+                setShowError(true);
+              }
+
+            } catch (error) {
+              console.error('Error fetching users:', error);
+            }
+          };
+          fetchUser();
+    
+    };
+    
 
 
     return (
