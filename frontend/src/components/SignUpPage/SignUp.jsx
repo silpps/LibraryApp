@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
-
+import { REACT_APP_API_URL } from '../../utils/apiConfig';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [username, setUsername] = useState('');
@@ -12,6 +13,7 @@ const SignUp = () => {
     const [passwordMatch, setPasswordMatch] = useState(false);
     const [strongPassword, setStrongPassword] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleUsernameChange = (e) => {
         const inputUsername = e.target.value;
@@ -43,18 +45,38 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(emailValid && strongPassword) {
-            console.log('Sign Up Successful' + ' ' + username + ' ' + email + ' ' + password);
-        } else {
-            console.log('Sign Up Failed');
-        }
+        const createUser = async () => {
+            try {
+                const newUser = {
+                    username: username,
+                    email: email,
+                    password: password,
+                  };
+                  console.log('New User:', newUser);
+       
+              const res = await fetch(`${REACT_APP_API_URL}/bookhive/signup`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(newUser)
+                });
+                const userData = await res.json();
+                console.log(userData)
+  
+                if(res.ok){
+                  //onLogin();
+                  navigate('/profile');
+                  console.log('Sign up Successful' + ' ' + email + ' ' + password);
+                } else {
+                  console.log('Sign up Failed');
+                  setShowError(true);
+                }
+  
+              } catch (error) {
+                console.error('Error signing up:', error);
+              }
+            };
+            createUser();
 
-    const newUser = {
-        username: username,
-        email: email,
-        password: password,
-      };
-      console.log('New User:', newUser);
 
       setTimeout(() => {
         setSuccessMessage('User created successfully!');
