@@ -1,0 +1,68 @@
+[
+    {
+      "id": 1,
+      "title": "The Night Circus",
+      "authors": "Erin Morgenstern",
+      "year": 2011,
+      "language": "English",
+      "category": "Fantasy",
+      "imageLink": "https://covers.openlibrary.org/b/id/7818310-L.jpg",
+      "rating": 3,
+      "review": "Great Book!"
+    },
+    {
+      "id": 2,
+      "title": "Pachinko",
+      "authors": "Min Jin Lee",
+      "year": 2017,
+      "language": "English",
+      "category": "Historical Fiction",
+      "imageLink": "https://covers.openlibrary.org/b/id/7995394-L.jpg",
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 3,
+      "title": "Sapiens: A Brief History of Humankind",
+      "authors": "Yuval Noah Harari",
+      "year": 2014,
+      "language": "English",
+      "category": "Non-fiction, History",
+      "imageLink": "https://covers.openlibrary.org/b/id/8424236-L.jpg",
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 4,
+      "title": "One Hundred Years of Solitude",
+      "authors": "Gabriel García Márquez",
+      "year": 1967,
+      "language": "Spanish",
+      "category": "Magical Realism",
+      "imageLink": "https://covers.openlibrary.org/b/id/9225412-L.jpg",
+      "rating": 2,
+      "review": null
+    },
+    {
+      "id": 5,
+      "title": "The Alchemist",
+      "authors": "Paulo Coelho",
+      "year": 1988,
+      "language": "Portuguese",
+      "category": "Fiction, Adventure",
+      "imageLink": "https://covers.openlibrary.org/b/id/8236525-L.jpg",
+      "rating": 5,
+      "review": "Amazing book!!"
+    },
+    {
+      "id": 6,
+      "title": "Becoming",
+      "authors": "Michelle Obama",
+      "year": 2018,
+      "language": "English",
+      "category": "Memoir",
+      "imageLink": "https://covers.openlibrary.org/b/id/8979828-L.jpg",
+      "rating": 4.5,
+      "review": null
+    }
+  ]
