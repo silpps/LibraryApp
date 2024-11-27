@@ -19,10 +19,15 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+
+//Login function
 const login = async (req, res) => {
   try{
+    //Takes email, password from request
   const {email, password}= req.body
+  //Find the user with the matching email
   const registeredUser = await User.findOne({email})
+  //Checks if the passwords match
   const passwordMatch = await bcrypt.compare(password, registeredUser.password)
   if(!registeredUser){
     throw Error("No user with linked email found")
@@ -32,8 +37,7 @@ const login = async (req, res) => {
   }
   const token = createToken(registeredUser._id);
   res.json({
-    message: "Login successful",
-    user:registeredUser,
+    id:registeredUser._id,
     token
   })
   } catch (error){

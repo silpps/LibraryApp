@@ -30,9 +30,11 @@ const getRecentBooks = async (req, res) => {
 
 // Controller function to add a new book
 // POST /books
+//Adds a book to the given USER'S library (User's id is given in the request (which is taken from localStorage after being saved there upon login))
 const addBookToLibrary = async (req, res) => {
   //No validation for req.body. Consider validating fields like title, author, etc.
   const {title, authors, year, language, category, image_link, rating, review, id} = req.body
+  //Finds the user by the given id
   const user = await User.findById(id)
   console.log(user)
   console.log(user)
@@ -48,6 +50,7 @@ const addBookToLibrary = async (req, res) => {
       review
     };// Spread the request body into the new book object
     console.log(newBook)
+    //Adds the book to the user's library
     user.library.push(newBook)
     await user.save()
     res.status(201).json(newBook); // Returns the newly created book with a 201 status.
@@ -70,6 +73,7 @@ const getBooksByUser = async (req, res) => {
     
     if (user) {
       res.status(200).json({ library: user.library });
+      console.log("BooksByUser successful")
     } else {
       res.status(404).json({ message: "User not found" });
     }

@@ -14,6 +14,8 @@ const {
   getBooksByUser
 } = require('../controllers/bookControllers');
 
+const { authorizeUsersAccess } = require("../middleware/auth");
+
 // I've encountered some issues with the route paths and think that the routes and the route order should be re-evaluated. This version works for now but I will look into it later.
 //Take wishlist and reading list in consideration as they will be added in sprint 3.
 
@@ -21,7 +23,7 @@ const {
 // GET /books
 router.get('/', getAllBooks);
 
-router.post("/booksByUser", getBooksByUser)
+router.post("/booksByUser", authorizeUsersAccess, getBooksByUser)
 
 // POST /books
 router.post('/', addBookToLibrary);

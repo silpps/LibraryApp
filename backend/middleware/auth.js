@@ -16,6 +16,7 @@ const authorizeUsersAccess = async (req, res, next) => {
     const { _id } = jwt.verify(token, process.env.ACCESS_TOKEN)
 
     req.user = await User.findOne({ _id }).select('_id')
+    console.log("Autherization successful")
     next()
 
   } catch (error) {
