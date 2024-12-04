@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose")
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+require("dotenv").config()
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.ACCESS_TOKEN, { expiresIn: '3d' });
@@ -59,7 +60,7 @@ const createUser = async (req, res) => {
     if (usernameInUse){
       throw Error("This username is already in use")
     }
-    const newUser = new User({username, email, password:hashedPassword, library:[]})
+    const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[]})
     await newUser.save()
     const token = createToken(newUser._id);
     res.status(201).json(newUser)

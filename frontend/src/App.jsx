@@ -23,6 +23,8 @@ function App() {
 
   const logOut = () => {
     setIsLoggedIn(false); 
+    //Upon logout removes the userData from the localStorage
+    localStorage.removeItem("userData")
   };
 
   const updateProfile = (newUsername, newDescription) => {

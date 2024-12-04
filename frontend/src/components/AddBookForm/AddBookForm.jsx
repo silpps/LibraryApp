@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './AddBookForm.css'
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}/bookhive/library`;
+const apiUrl = `${REACT_APP_API_URL}`;
 
 const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
   const [title, setTitle] = useState('');
@@ -43,6 +43,15 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     }
     
     setError('');
+    //For authorization
+    const userDataString = localStorage.getItem("userData")
+    if (!userDataString){
+      throw new Error("Data not found in localstorage (login again?)")
+    }
+    //Given data is converted to a JS object
+    const userData = JSON.parse(userDataString)
+    //Take the id and token from the request
+    const id = userData.id
 
     const newBook = {
       title,
@@ -53,7 +62,10 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
       imageLink: allowRatingAndReview ? imageLink : null, // Use placeholder if imageLink is empty
       rating: allowRatingAndReview ? rating : null,
       review: allowRatingAndReview ? review : null,
+      id
     };
+
+
 
     addBook(newBook);
 
@@ -90,10 +102,21 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
   };
 
   const addBook = async (newBook) => {
+
+
+    //For authorization
+    const userDataString = localStorage.getItem("userData")
+    if (!userDataString){
+      throw new Error("Data not found in localstorage (login again?)")
+    }
+    
+    const userData = JSON.parse(userDataString)
+    const token = userData.token
     try {
-      const res = await fetch(apiUrl, {
+      const res = await fetch(`${apiUrl}/library/userLibrary/addBookToLibrary`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json' ,
+                  "Authorization": `Bearer ${token}`},
         body: JSON.stringify(newBook),
       });
       if (res.ok) {

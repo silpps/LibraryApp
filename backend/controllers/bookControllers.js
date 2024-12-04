@@ -56,11 +56,40 @@ const addBookToLibrary = async (req, res) => {
     res.status(201).json(newBook); // Returns the newly created book with a 201 status.
   } catch (error) {
     //Error handling is present, but it could be more specific.
+    res.status(400).json({ message: "Failed to add book (BE)", error: error.message });
+  }
+};
+
+const addBookToWishlist = async (req, res) => {
+  //No validation for req.body. Consider validating fields like title, author, etc.
+  const {title, authors, year, language, category, image_link, rating, review, id} = req.body
+  //Finds the user by the given id
+  const user = await User.findById(id)
+  console.log(user)
+  console.log(user)
+  try {
+    const newBook = {
+      title,
+      authors,
+      year,
+      language,
+      category,
+      image_link,
+      rating,
+      review
+    };// Spread the request body into the new book object
+    console.log(newBook)
+    //Adds the book to the user's library
+    user.wishlist.push(newBook)
+    await user.save()
+    res.status(201).json(newBook); // Returns the newly created book with a 201 status.
+  } catch (error) {
+    //Error handling is present, but it could be more specific.
     res.status(400).json({ message: "Failed to add book", error: error.message });
   }
 };
 
-const getBooksByUser = async (req, res) => {
+const getUserLibrary = async (req, res) => {
   const { id } = req.body; 
 
   // Validate the provided user ID
@@ -73,12 +102,34 @@ const getBooksByUser = async (req, res) => {
     
     if (user) {
       res.status(200).json({ library: user.library });
-      console.log("BooksByUser successful")
+      console.log("getUserLibrary successful")
     } else {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve user's library", error: error.message });
+  }
+};
+
+const getUserWishlist = async (req, res) => {
+  const { id } = req.body; 
+
+  // Validate the provided user ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    const user = await User.findById(id);
+    
+    if (user) {
+      res.status(200).json({ wishlist: user.wishlist });
+      console.log("getUserWishlist successful")
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve user's wishlist", error: error.message });
   }
 };
 
@@ -212,7 +263,8 @@ const searchBooks = async (req, res) => {
 // Export all controller functions
 module.exports = {
     getAllBooks,
-    getBooksByUser,
+    getUserLibrary,
+    getUserWishlist,
     getRecentBooks,
     getBookById,
     addBookToLibrary,

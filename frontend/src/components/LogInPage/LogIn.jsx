@@ -53,7 +53,7 @@ const LogIn = ({ onLogin }) => {
              }
              console.log(loginDetails)
      
-            const res = await fetch(`${REACT_APP_API_URL}/bookhive/login`, {
+            const res = await fetch(`${REACT_APP_API_URL}/login`, {
               method: "POST",
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify(loginDetails)
@@ -64,6 +64,7 @@ const LogIn = ({ onLogin }) => {
               if(res.ok){
                 setEmailValid(true)
                 setPasswordValid(true)
+                localStorage.setItem("userData", JSON.stringify(userData))
                 onLogin();
                 navigate('/profile');
                 console.log('Log In Successful' + ' ' + email + ' ' + password);

@@ -54,7 +54,7 @@ const SignUp = () => {
                   };
                   console.log('New User:', newUser);
        
-              const res = await fetch(`${REACT_APP_API_URL}/bookhive/signup`, {
+              const res = await fetch(`${REACT_APP_API_URL}/signup`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newUser)

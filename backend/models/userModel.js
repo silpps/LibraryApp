@@ -14,7 +14,8 @@ const userSchema = new Schema(
     bookwormLevel: { type: Number, required: false, min:0, default: 0},
     favoriteGenres: { type: Array, required: false },
     description: { type: String, required: false},
-    library: {type: [bookSchema], required: true}
+    library: {type: [bookSchema], required: true},
+    wishlist:{type: [bookSchema], required: true}
   },
   { timestamps: true }
 );

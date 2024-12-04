@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}/bookhive/library`;
+const apiUrl = `${REACT_APP_API_URL}`;
 
 const Library = () => {
     const navigate = useNavigate();
@@ -46,10 +46,31 @@ const Library = () => {
     //hakee alussa kaikki kirjat
     useEffect(() => {
       const fetchBooks = async () => {
+       
         try {
-          const res = await fetch(apiUrl);
-          const data = await res.json();
-          setAllBooks(data);
+          //Retrives the data from userData in localStorage
+          const userDataString = localStorage.getItem("userData")
+          if (!userDataString){
+            throw new Error("Data not found in localstorage (login again?)")
+          }
+          //Given data is converted to a JS object
+          const userData = JSON.parse(userDataString)
+          //Take the id and token from the request
+          const id = {id:userData.id}
+          const token = userData.token
+          //The token is attached to the authorization element of the request
+          const res = await fetch(`${apiUrl}/library/userLibrary`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(id)
+            });
+            const data = await res.json();
+            console.log(data)
+            console.log(data)
+            setAllBooks(data.library);
+            console.log(allBooks)
         } catch (error) {
           console.error('Error fetching books:', error);
         }
@@ -61,6 +82,7 @@ const Library = () => {
 
 
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
+  
     useEffect(() => {
         const uniqueGenres = [...new Set(books.map((book) => book.category))];
         const uniqueAuthors = [...new Set(books.map((book) => book.authors))];

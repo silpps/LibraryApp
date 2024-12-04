@@ -11,7 +11,8 @@ const {
   filterBooksByCategory,
   filterBooksByAuthor,
   searchBooks,
-  getBooksByUser
+  getUserLibrary,
+  getUserWishlist
 } = require('../controllers/bookControllers');
 
 const { authorizeUsersAccess } = require("../middleware/auth");
@@ -21,12 +22,14 @@ const { authorizeUsersAccess } = require("../middleware/auth");
 
 //First I had the search route after the filter routes but I ended up having invalid bookId errors. The reason was due to Express the dynamic bookId route before the search route. Reordering the routes fixed the issue.
 // GET /books
-router.get('/', getAllBooks);
-
-router.post("/booksByUser", authorizeUsersAccess, getBooksByUser)
+//router.get('/', getAllBooks);
+//Get user's library when moving to library
+router.post("/userLibrary", authorizeUsersAccess, getUserLibrary)
+//Get User's wishlist when moving to it
+router.post("/userWishlist", authorizeUsersAccess, getUserWishlist)
 
 // POST /books
-router.post('/', addBookToLibrary);
+router.post('/userLibrary/addBookToLibrary', addBookToLibrary);
 
 // SEARCH books
 // GET /books/search?query=<value>

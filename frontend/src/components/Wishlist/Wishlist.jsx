@@ -5,13 +5,18 @@ import BookDetails from '../BookDetails/BookDetails';
 import AddBookForm from '../AddBookForm/AddBookForm';
 import './Wishlist.css';
 import { useNavigate } from 'react-router-dom';
+//Paths may change later
+import { REACT_APP_API_URL } from '../../utils/apiConfig';
+const apiUrl = `${REACT_APP_API_URL}`;
+
 
 const Wishlist = () => {
   const navigate = useNavigate();
-    const [allBooks, setAllBooks] = useState(wishlistData);
-    const [books, setBooks] = useState(wishlistData);
+    const [allBooks, setAllBooks] = useState([]);
+    const [books, setBooks] = useState([]);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
+    const [update, setUpdate] = useState(true); //tein tällasen koska 
     const [genreFilter, setGenreFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
@@ -38,6 +43,42 @@ const Wishlist = () => {
         setCurrentPage(currentPage - 1);
       }
     };
+
+    useEffect(() => {
+      const fetchBooks = async () => {
+       
+        try {
+          //Retrives the data from userData in localStorage
+          const userDataString = localStorage.getItem("userData")
+          if (!userDataString){
+            throw new Error("Data not found in localstorage (login again?)")
+          }
+          //Given data is converted to a JS object
+          const userData = JSON.parse(userDataString)
+          //Take the id and token from the request
+          const id = {id:userData.id}
+          const token = userData.token
+          //The token is attached to the authorization element of the request
+          const res = await fetch(`${apiUrl}/library/userWishlist`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(id)
+            });
+            const data = await res.json();
+            console.log(data)
+            console.log(data)
+            setAllBooks(data.wishlist);
+            console.log(allBooks)
+        } catch (error) {
+          console.error('Error fetching books:', error);
+        }
+      };
+      fetchBooks();
+      setUpdate(false);
+
+    }, [update]);
 
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
     useEffect(() => {
