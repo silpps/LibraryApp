@@ -6,7 +6,7 @@ import '../Profile/Profile.css';
 
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}/bookhive/library/recent`;
+const apiUrl = `${REACT_APP_API_URL}`;
 
 
 // const recentBooks = booksData
@@ -18,18 +18,40 @@ const RecentBooks = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        const fetchBooks = async () => {
-          try {
-            const res = await fetch(apiUrl);
-            const data = await res.json();
-            console.log(data);
-            setBooks(data);
-          } catch (error) {
-            console.error('Error fetching books:', error);
+      const fetchBooks = async () => {
+       
+        try {
+          //Retrives the data from userData in localStorage
+          const userDataString = localStorage.getItem("userData")
+          if (!userDataString){
+            throw new Error("Data not found in localstorage (login again?)")
           }
-        };
-    
-        fetchBooks();
+          //Given data is converted to a JS object
+          const userData = JSON.parse(userDataString)
+          //Take the id and token from the request
+          const id = {id:userData.id}
+          const token = userData.token
+          //The token is attached to the authorization element of the request
+          const res = await fetch(`${apiUrl}/library/userLibrary`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(id)
+            });
+            const data = await res.json();
+            console.log(data)
+            const recentBooks = data.library
+           .sort((a, b) => b.id - a.id) 
+           .slice(0, 3); 
+            setBooks(recentBooks);
+            console.log(books)
+        } catch (error) {
+          console.error('Error fetching books:', error);
+        }
+      };
+      fetchBooks();
+
     }, []);
 
     return (
