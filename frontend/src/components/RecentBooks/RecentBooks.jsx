@@ -42,10 +42,10 @@ const RecentBooks = () => {
             const data = await res.json();
             console.log(data)
             const recentBooks = data.library
-           .sort((a, b) => b.id - a.id) 
+           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
            .slice(0, 3); 
             setBooks(recentBooks);
-            console.log(books)
+            console.log(recentBooks)
         } catch (error) {
           console.error('Error fetching books:', error);
         }
