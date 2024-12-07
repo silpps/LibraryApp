@@ -17,9 +17,10 @@ function App() {
   const [username, setUsername] = useState('BookLover69');
   const [description, setDescription] = useState('I love reading books!');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogIn = () => {
+  const handleLogIn =  () => {
     setIsLoggedIn(true);
   };
+
 
   const logOut = () => {
     setIsLoggedIn(false); 
