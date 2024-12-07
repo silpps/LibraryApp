@@ -29,7 +29,7 @@ router.post("/userLibrary", authorizeUsersAccess, getUserLibrary)
 router.post("/userWishlist", authorizeUsersAccess, getUserWishlist)
 
 // POST /books
-router.post('/userLibrary/addBookToLibrary', addBookToLibrary);
+router.post('/userLibrary/addBookToLibrary',authorizeUsersAccess, addBookToLibrary);
 
 // SEARCH books
 // GET /books/search?query=<value>
@@ -43,10 +43,10 @@ router.get('/recent', getRecentBooks);
 router.get('/:bookId', getBookById);
 
 // PUT /books/:bookId
-router.put('/:bookId', updateBook);
+router.put('/:bookId',authorizeUsersAccess, updateBook);
 
 // DELETE /books/:bookId
-router.delete('/:bookId', deleteBook);
+router.delete('/:bookId',authorizeUsersAccess, deleteBook);
 
 // FILTER books by category
 // GET /books/filter?category=<value>
