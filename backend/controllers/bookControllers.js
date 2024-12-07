@@ -92,7 +92,7 @@ const addBookToWishlist = async (req, res) => {
 };
 
 const getUserLibrary = async (req, res) => {
-  const { id } = req.body; 
+  const id = req.user._id;
 
   // Validate the provided user ID
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -162,24 +162,36 @@ const getBookById = async (req, res) => {
 // PUT /books/:bookId
 const updateBook = async (req, res) => {
   const { bookId } = req.params;
+  const userId = req.user._id; // Assuming the user's ID is available in req.user
 
-   // id validation. ID validation is performed here to prevent invalid MongoDB ObjectId errors.
+  // ID validation
   if (!mongoose.Types.ObjectId.isValid(bookId)) {
     return res.status(400).json({ message: "Invalid book ID" });
   }
 
   try {
-    const updatedBook = await Book.findOneAndUpdate(
-      { _id: bookId },
-      { ...req.body },
-      { new: true }
-    );
-
-    if (updatedBook) {
-      res.status(200).json(updatedBook);
-    } else {
-      res.status(404).json({ message: "Book not found" });
+    // Find the user by their ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Find the book in the user's library
+    const bookIndex = user.library.findIndex(book => book._id.toString() === bookId);
+    if (bookIndex === -1) {
+      return res.status(404).json({ message: "Book not found in user's library" });
+    }
+
+    // Update the book details
+    const updatedBook = {
+      ...user.library[bookIndex]._doc,
+      ...req.body,
+    };
+
+    user.library[bookIndex] = updatedBook;
+    await user.save();
+
+    res.status(200).json(updatedBook);
   } catch (error) {
     res.status(500).json({ message: "Failed to update book", error: error.message });
   }
@@ -189,22 +201,32 @@ const updateBook = async (req, res) => {
 // DELETE /books/:bookId
 const deleteBook = async (req, res) => {
   const { bookId } = req.params;
+  const userId = req.user._id; // Assuming the user's ID is available in req.user
 
-  // id validation
+  // ID validation
   if (!mongoose.Types.ObjectId.isValid(bookId)) {
     return res.status(400).json({ message: "Invalid book ID" });
   }
 
   try {
-    //This method finds a single car document by its ID and deletes it from the database.
-    const deletedBook = await Book.findOneAndDelete({ _id: bookId });
-    if (deletedBook) {
-      res.status(200).json({ message: "Book deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Book not found" });
+    // Find the user by their ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Find the book in the user's library and remove it
+    const bookIndex = user.library.findIndex(book => book._id.toString() === bookId);
+    if (bookIndex === -1) {
+      return res.status(404).json({ message: "Book not found in user's library" });
+    }
+
+    user.library.splice(bookIndex, 1); // Remove the book from the library array
+    await user.save();
+
+    res.status(204).json({ message: "Book deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to delete book" });
+    res.status(500).json({ message: "Failed to delete book", error: error.message });
   }
 };
 
