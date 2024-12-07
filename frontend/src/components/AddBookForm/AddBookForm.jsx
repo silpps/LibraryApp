@@ -7,7 +7,7 @@ const apiUrl = `${REACT_APP_API_URL}`;
 const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
   const [title, setTitle] = useState('');
   const [authors, setAuthors] = useState('');
-  const [year, setYear] = useState('');
+  const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
   const [imageLink, setImageLink] = useState('');
@@ -24,7 +24,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     if (!title) missingFields.push('Title');
     if (!authors) missingFields.push('Authors');
     if (!category) missingFields.push('Genre');
-    if (!year) missingFields.push('Publishing Year');
+    if (!description) missingFields.push('Description');
     if (!language) missingFields.push('Language');
     if (allowRatingAndReview) {
       if (!imageLink) missingFields.push('Image Link');
@@ -58,7 +58,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
       authors,
       category,
       language,
-      year: parseInt(year, 10),
+      description,
       imageLink: allowRatingAndReview ? imageLink : null, // Use placeholder if imageLink is empty
       rating: allowRatingAndReview ? rating : null,
       review: allowRatingAndReview ? review : null,
@@ -139,7 +139,7 @@ return(
         <form onSubmit={handleSubmit}>
           <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
           <label>Authors: <input type="text" name="authors" onChange={(e) => setAuthors(e.target.value)} /></label>
-          <label>Publishing year: <input type="text" name="year" onChange={(e) => setYear(e.target.value)}/></label>
+          <label>Description: <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
           <label>Language: <input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
           <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
           {allowRatingAndReview && (

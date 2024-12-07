@@ -27,20 +27,16 @@ const bookSchema = new Schema({
     type: String,
     required: true,
   },
-  year: {
-    type: Number,
+  description: {
+    type: String,
     required: true,
-    validate: {         //validation for year making sure it is an integer
-    validator: Number.isInteger,
-    message: '{VALUE} is not an integer value'
-    }
   },
   language: {
     type: String,
     required: true,
   },
   category: {
-    type: String,
+    type: Array,
     required: true,
   },
   image_link: {

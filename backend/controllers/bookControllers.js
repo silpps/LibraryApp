@@ -33,16 +33,18 @@ const getRecentBooks = async (req, res) => {
 //Adds a book to the given USER'S library (User's id is given in the request (which is taken from localStorage after being saved there upon login))
 const addBookToLibrary = async (req, res) => {
   //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, year, language, category, image_link, rating, review, id} = req.body
+  const {title, authors, description, language, category, image_link, rating, review} = req.body
+
+  const userId = req.user._id;
   //Finds the user by the given id
-  const user = await User.findById(id)
+  const user = await User.findById(userId)
   console.log(user)
   console.log(user)
   try {
     const newBook = {
       title,
       authors,
-      year,
+      description,
       language,
       category,
       image_link,
@@ -62,7 +64,7 @@ const addBookToLibrary = async (req, res) => {
 
 const addBookToWishlist = async (req, res) => {
   //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, year, language, category, image_link, rating, review, id} = req.body
+  const {title, authors, description, language, category, image_link, rating, review, id} = req.body
   //Finds the user by the given id
   const user = await User.findById(id)
   console.log(user)
@@ -71,7 +73,7 @@ const addBookToWishlist = async (req, res) => {
     const newBook = {
       title,
       authors,
-      year,
+      description,
       language,
       category,
       image_link,

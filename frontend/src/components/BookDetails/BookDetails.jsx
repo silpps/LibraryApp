@@ -14,9 +14,17 @@ const BookDetails = ({ book, onClose, onDelete }) => {
 
     const deleteBook = async () => {
       try{
+        const userDataString = localStorage.getItem("userData")
+        if (!userDataString){
+          throw new Error("Data not found in localstorage (login again?)")
+        }
+        const userData = JSON.parse(userDataString);
+        const token = userData.token;
         const res = await fetch(`${apiUrl}/${book._id}`, {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(token)}`
+           },
         });
         if (!res.ok) {
           throw new Error("Failed to delete book");
@@ -55,7 +63,7 @@ const BookDetails = ({ book, onClose, onDelete }) => {
             <strong>Language:</strong> {book.language}
             </p>
             <p>
-            <strong>Published:</strong> {book.year}
+            <strong>Published:</strong> {book.description}
             </p>
             <div className='stars'>
                 {colourStars(book.rating)} 

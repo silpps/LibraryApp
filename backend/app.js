@@ -20,8 +20,8 @@ app.use('/bookhive', userRouter);
 //the book path is for now called library. consider changing paths again when adding wishlist and readinglist
 app.use('/bookhive/library', bookRouter);
 
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });

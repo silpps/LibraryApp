@@ -2,7 +2,7 @@
     {
       "title": "The Night Circus",
       "authors": "Erin Morgenstern",
-      "year": 2011,
+      "descrption": "The Night Circus is a phantasmagorical fairy tale set near an ahistorical Victorian London in a wandering magical circus that is open only from sunset to sunrise.",
       "language": "English",
       "category": "Fantasy",
       "image_link": "https://covers.openlibrary.org/b/id/7818310-L.jpg",
@@ -12,7 +12,7 @@
     {
       "title": "Pachinko",
       "authors": "Min Jin Lee",
-      "year": 2017,
+      "descrption": "This is a dexcription",
       "language": "English",
       "category": "Historical Fiction",
       "image_link": "https://covers.openlibrary.org/b/id/7995394-L.jpg",
@@ -22,9 +22,9 @@
     {
       "title": "Sapiens: A Brief History of Humankind",
       "authors": "Yuval Noah Harari",
-      "year": 2014,
+      "descrption": "2014 loreasölkdfjfdsägkljfdg",
       "language": "English",
-      "category": "Non-fiction, History",
+      "category": ["Non-fiction, History"],
       "image_link": "https://covers.openlibrary.org/b/id/8424236-L.jpg",
       "rating": null,
       "review": null
@@ -32,7 +32,7 @@
     {
       "title": "One Hundred Years of Solitude",
       "authors": "Gabriel García Márquez",
-      "year": 1967,
+      "descrption": "lorem ipsum",
       "language": "Spanish",
       "category": "Magical Realism",
       "image_link": "https://covers.openlibrary.org/b/id/9225412-L.jpg",
