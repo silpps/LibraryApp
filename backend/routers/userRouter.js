@@ -22,10 +22,10 @@ router.get("/users", getAllUsers);
 router.post("/signup", createUser);
 
 //Is called from Log In button, will route to profile if correct, error otherwise
-router.get("/profile/:userId", getUserById);
+router.get("/profile", authorizeUsersAccess, getUserById);
 
 //Is called from the update changes button in profile settings
-router.put("/profile/settings/:userId", authorizeUsersAccess, updateUser);
+router.put("/profile/settings", authorizeUsersAccess, updateUser);
 
 // Is called from the delete profile button in profile settings
 router.delete("/profile/settings/:userId", deleteUser);

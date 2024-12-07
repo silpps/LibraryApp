@@ -60,7 +60,7 @@ const createUser = async (req, res) => {
     if (usernameInUse){
       throw Error("This username is already in use")
     }
-    const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[]})
+    const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[], description:"This is my description"})
     await newUser.save()
     const token = createToken(newUser._id);
     res.status(201).json(newUser)
@@ -71,7 +71,9 @@ const createUser = async (req, res) => {
  
 // Gets all information of the user with the given id
 const getUserById = async (req, res) => {
-  const {userId} = req.params
+  console.log("jabbadabbadiibaduu")
+  const userId = req.user._id;
+  //Finds the user by the given id
 //Checks if the given id is valid as per mongoose, was also suggested by LLM to add this as middleware to routes instead of repeating it here. Will look into this later.
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid user ID", error:error.message });
@@ -80,6 +82,7 @@ const getUserById = async (req, res) => {
   try{
     //Excludes password from returned information for data security
     const user = await User.findById(userId).select("-password")
+    console.log(user)
     if (user){
       res.status(200).json(user)
     } else {
@@ -91,7 +94,11 @@ const getUserById = async (req, res) => {
   }
 // Updates the given user's info
 const updateUser = async (req, res) => {
-  const {userId} = req.params
+  console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+  const userId = req.user._id;
+  //Finds the user by the given id
+  const user = await User.findById(userId)
+  console.log(user)
 
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid user ID", error:error.message });
@@ -104,6 +111,7 @@ const updateUser = async (req, res) => {
   )
   if(updatedUser){
     res.status(200).json(updatedUser)
+    console.log("yipppeee")
   } else {
     res.status(404).json({message:"User not found", error:error.message})
   }

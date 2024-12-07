@@ -68,12 +68,28 @@ const Library = () => {
             });
             const data = await res.json();
             console.log(data)
-            console.log(data)
             setAllBooks(data.library);
+            console.log(data.library.length)
             console.log(allBooks)
+
+            const newBookwormLevel = {
+              bookwormLevel: data.library.length
+            }
+
+            await fetch(`${apiUrl}/profile/settings`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(newBookwormLevel),
+          });
+
         } catch (error) {
           console.error('Error fetching books:', error);
         }
+
+  
       };
       fetchBooks();
       setUpdate(false);

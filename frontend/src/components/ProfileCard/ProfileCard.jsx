@@ -2,8 +2,7 @@ import profilepic from '../../assets/profilepic.jpg';
 import './ProfileCard.css';
 import { useEffect } from 'react';
 
-function ProfileCard ({username, description}) {
-    const bookWormLevel = 5;
+function ProfileCard ({username, description, bookwormLevel}) {
 
     useEffect(() => {
         document.body.style.backgroundImage = "none";
@@ -19,7 +18,7 @@ function ProfileCard ({username, description}) {
             <img src={profilepic} alt="profile" className="profile-pic"/>
             <h1>{username}</h1>
             <p>
-                Bookworm Level: <span className="bookwormlevel">&nbsp;{bookWormLevel}&nbsp;</span></p>
+                Bookworm Level: <span className="bookwormlevel">&nbsp;{bookwormLevel}&nbsp;</span></p>
             <p>Description: {description}</p>
         </div>
     )

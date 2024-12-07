@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
   const [username, setUsername] = useState('BookLover69');
   const [description, setDescription] = useState('I love reading books!');
+  const [bookwormLevel, setBookwormLevel] = useState("0")
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogIn =  () => {
     setIsLoggedIn(true);
@@ -28,9 +29,10 @@ function App() {
     localStorage.removeItem("userData")
   };
 
-  const updateProfile = (newUsername, newDescription) => {
+  const updateProfile = (newUsername, newDescription, newBookwormLevel) => {
     setUsername(newUsername);
     setDescription(newDescription);
+    setBookwormLevel(newBookwormLevel)
   };
 
 
@@ -43,7 +45,7 @@ function App() {
           <Route path="/" element={<LogIn onLogin={handleLogIn} />}/>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={isLoggedIn ? (
-            <Profile username={username} description={description} />) : (
+            <Profile username={username} description={description} bookwormLevel={bookwormLevel} updateProfile = {updateProfile} />) : (
           <LogIn onLogin={handleLogIn} />)}
           />
           <Route
