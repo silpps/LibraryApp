@@ -217,7 +217,6 @@ const Wishlist = () => {
                 <AddBookForm
                 onAddBook={addNewBook}
                 closeModal={() => setNewBookModal(false)}
-                allowRatingAndReview={false}
                 />
             )} 
 

@@ -234,7 +234,6 @@ const Library = () => {
                 <AddBookForm
                 onAddBook={() => setUpdate(true)}
                 closeModal={() => setNewBookModal(false)}
-                allowRatingAndReview={true}
                 />
           )} 
 
