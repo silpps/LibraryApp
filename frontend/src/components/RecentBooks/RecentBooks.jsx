@@ -2,7 +2,7 @@ import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Book from '../Book/Book';
-import '../Profile/Profile.css';
+import '../../pages/ProfilePage/Profile.css';
 
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';

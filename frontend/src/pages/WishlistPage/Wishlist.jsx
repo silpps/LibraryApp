@@ -1,18 +1,22 @@
-import readinglistData from '../../ReadingListData.json';
+import wishlistData from '../../WishListData.json';
 import React, { useState, useEffect } from 'react';
-import Book from '../Book/Book';
-import BookDetails from '../BookDetails/BookDetails';
-import AddBookForm from '../AddBookForm/AddBookForm';
-import './Readinglist.css';
+import Book from '../../components/Book/Book';
+import BookDetails from '../../modals/BookDetails/BookDetails';
+import AddBookForm from '../../modals/AddBookForm/AddBookForm';
+import './Wishlist.css';
+import { Link, useNavigate } from 'react-router-dom';
+//Paths may change later
+import { REACT_APP_API_URL } from '../../utils/apiConfig';
+const apiUrl = `${REACT_APP_API_URL}`;
 
-import { useNavigate } from "react-router-dom";
 
-const Readinglist = () => {
-    const navigate = useNavigate();
-    const [allBooks, setAllBooks] = useState(readinglistData);
-    const [books, setBooks] = useState(readinglistData);
+const Wishlist = () => {
+  const navigate = useNavigate();
+    const [allBooks, setAllBooks] = useState([]);
+    const [books, setBooks] = useState([]);
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
+    const [update, setUpdate] = useState(true); //tein tällasen koska 
     const [genreFilter, setGenreFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
@@ -40,16 +44,53 @@ const Readinglist = () => {
       }
     };
 
+    useEffect(() => {
+      const fetchBooks = async () => {
+       
+        try {
+          //Retrives the data from userData in localStorage
+          const userDataString = localStorage.getItem("userData")
+          if (!userDataString){
+            throw new Error("Data not found in localstorage (login again?)")
+          }
+          //Given data is converted to a JS object
+          const userData = JSON.parse(userDataString)
+          //Take the id and token from the request
+          const id = {id:userData.id}
+          const token = userData.token
+          //The token is attached to the authorization element of the request
+          const res = await fetch(`${apiUrl}/library/userWishlist`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(id)
+            });
+            const data = await res.json();
+            console.log(data)
+            console.log(data)
+            setAllBooks(data.wishlist);
+            console.log(allBooks)
+        } catch (error) {
+          console.error('Error fetching books:', error);
+        }
+      };
+      fetchBooks();
+      setUpdate(false);
+
+    }, [update]);
+
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
     useEffect(() => {
         const uniqueGenres = [...new Set(books.map((book) => book.category))];
         const uniqueAuthors = [...new Set(books.map((book) => book.author))];
-        setGenres(uniqueGenres);
-        setAuthors(uniqueAuthors);
+        setGenres(uniqueGenres); 
+        setAuthors(uniqueAuthors); 
       }, [books, allBooks]);
 
     
-      useEffect(() => {
+    //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
+    useEffect(() => {
         setBooks(
           allBooks.filter((book) => {
             return (
@@ -60,22 +101,21 @@ const Readinglist = () => {
         );
       }, [allBooks, genreFilter, authorFilter]);
     
-      
-        // handler for adding a new book
-        const addNewBook = (newBook) => {
-          if (newBook) {
-              setAllBooks([...allBooks, newBook]);
-              setNewBookModal(false);
-          }
-        };
-  
+       // handler for adding a new book, SEE open add book modal lower
+       const addNewBook = (newBook) => {
+        if (newBook) {
+            setAllBooks([...allBooks, newBook]);
+            setNewBookModal(false);
+        }
+      };
+
       // handler for deleting a book
       const handleDelete = (id) => {
         const updatedBooks = allBooks.filter((book) => book.id !== id); 
         setAllBooks(updatedBooks); 
       };
-    
-      // handlers for opening and closing the book details modal
+
+      //handlers for opening and closing the book details modal
       const handleBookClick = (book) => {
         setSelectedBook(book);
       };
@@ -84,21 +124,16 @@ const Readinglist = () => {
         setSelectedBook(null);
       };
 
-      //handler for opening add book modal
+      //handlers add book modaalille, modaali viel rikki tekee tyhjii kirjoi.
       const handleAddBook = () => {
         setNewBookModal(true);
       };
 
-    // Navigate to the library page
-      const goToLibrary = () => {
-        navigate('/library');
-      };
-      
 
     return (
-        <div className='readinglist'>
-            <h1>My Readinglist</h1>
-            <div className='readinglist-content'>
+        <div className='wishlist'>
+            <h1>My Wishlist</h1>
+            <div className='wishlist-content'>
                 <div className="left-div">
                 <div className="filters-div">
                     <h2>Filters</h2>
@@ -136,8 +171,13 @@ const Readinglist = () => {
                 </div>
 
                 <div className='library-div'>
-                    <h2>Back to Library</h2>
-                    <button onClick={goToLibrary}>Library</button>
+                    <h2>Back to</h2>
+                    <Link to = "/library">
+                    <button>Library</button>
+                    </Link>
+                    <Link to="/profile">
+                    <button>Profile</button>
+                    </Link>
                 </div>
             </div >
 
@@ -151,17 +191,18 @@ const Readinglist = () => {
                 <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
               ))}
               </div>
-            <div className="pagination">
-              <button onClick={goToPrevPage} disabled={currentPage === 1}>
-                Previous
-              </button>
-              <span>
-                Page {currentPage} of {totalPages}
-              </span>
-              <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-                Next
-              </button>
-        </div>
+              <div className="pagination">
+                <button onClick={goToPrevPage} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                <span>
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                  Next
+                </button>
+              </div>
+            </div>
         </div>
 
         {selectedBook && (
@@ -181,9 +222,7 @@ const Readinglist = () => {
             )} 
 
         </div>
-
-      </div>
     );
   };
 
-  export default Readinglist;
+  export default Wishlist;

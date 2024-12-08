@@ -1,8 +1,8 @@
-import ProfileCard from "../ProfileCard/ProfileCard";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import { useNavigate } from "react-router-dom";
 import './Profile.css';
 import { Link } from 'react-router-dom';
-import RecentBooks from "../RecentBooks/RecentBooks";
+import RecentBooks from "../../components/RecentBooks/RecentBooks";
 import { useState } from 'react';
 import {useEffect} from 'react'
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
@@ -57,10 +57,6 @@ const Profile= ({username, description, bookwormLevel, updateProfile}) => {
   const goToLibrary = () => {
     navigate('/library');
   };
-
-  const goToReadingList = () => {
-    navigate('/readinglist');
-  }
   
     return (
       <div className="profile-page">
@@ -77,9 +73,12 @@ const Profile= ({username, description, bookwormLevel, updateProfile}) => {
             <Link to="/settings" className="editbutton-desktop">
               <button>Edit Profile</button>
             </Link>
-            <button className = "wishlist-button" onClick={goToWishlist}>Wishlist</button>
-            <button className= "library-button" onClick={goToLibrary}>Library</button>
-            <button className= "readinglist-button" onClick={goToReadingList}>Reading List</button>
+            <Link to = "/library">
+              <button className= "library-button">Library</button>
+            </Link>
+            <Link to = "/wishlist">
+              <button className = "wishlist-button">Wishlist</button>
+            </Link>
             </div>
       </div>
     );

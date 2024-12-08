@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../SignUpPage/SignUp.css';
+import '../../pages/SignUpPage/SignUp.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';

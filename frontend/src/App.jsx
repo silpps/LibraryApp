@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import './App.css';
 import Footer from './components/Footer/Footer';
-import SignUp from './components/SignUpPage/SignUp';
-import LogIn from './components/LogInPage/LogIn';
-import Profile from './components/Profile/Profile.jsx';
-import Settings from './components/Settings/Settings';
+import SignUp from './pages/SignUpPage/SignUp.jsx';
+import LogIn from './pages/LogInPage/LogIn.jsx';
+import Profile from './pages/ProfilePage/Profile.jsx';
+import Settings from './pages/SettingsPage/Settings.jsx';
 import Header from './components/Header/Header';
-import Library from './components/Library/Library';
-import Help from './components/Help/Help';
-import About from './components/About/About';
-import Wishlist from './components/Wishlist/Wishlist';
-import ReadingList from './components/ReadingList/ReadingList';
+import Library from './pages/LibraryPage/Library.jsx';
+import Help from './pages/HelpPage/Help.jsx';
+import About from './pages/AboutPage/About.jsx';
+import Wishlist from './pages/WishlistPage/Wishlist.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -67,7 +66,6 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path= "/login" element={<LogIn/>} />
           <Route path="/wishlist" element={<Wishlist />}/>
-          <Route path="/readinglist" element={<ReadingList />}/>
         </Routes>
         <Footer />
       </div>

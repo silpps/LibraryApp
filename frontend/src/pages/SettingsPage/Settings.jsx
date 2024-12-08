@@ -1,6 +1,6 @@
 import './Settings.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
@@ -74,6 +74,9 @@ const Settings = ({ username, description, onUpdate }) => {
                 <button className="settings-button" type="submit">
                     Save Changes
                 </button>
+                <Link to="/profile">
+                    <button className="settings-button">Cancel</button>
+                </Link>
             </form>
         </div>
     );

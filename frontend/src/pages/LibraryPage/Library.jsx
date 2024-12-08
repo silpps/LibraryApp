@@ -1,10 +1,10 @@
 import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
-import Book from '../Book/Book';
-import BookDetails from '../BookDetails/BookDetails';
-import AddBookForm from '../AddBookForm/AddBookForm';
+import Book from '../../components/Book/Book';
+import BookDetails from '../../modals/BookDetails/BookDetails';
+import AddBookForm from '../../modals/AddBookForm/AddBookForm';
 import './Library.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
@@ -148,20 +148,6 @@ const Library = () => {
       //   }
       // };
 
-      // Navigate to other pages
-      const goToWishlist = () => {
-        navigate('/wishlist');
-      };
-    
-      const goToProfile = () => {
-        navigate('/profile');
-      };
-    
-      const goToReadinglist = () => {
-        navigate('/readinglist');
-      };
-
-
     return (
         <div className='library'>
             <h1>My Library</h1>
@@ -204,9 +190,12 @@ const Library = () => {
 
                 <div className='profile-div'>
                     <h2>Go to</h2>
-                    <button onClick={goToProfile}>Profile</button>
-                    <button onClick={goToWishlist}>Wishlist</button>
-                    <button onClick={goToReadinglist}>Reading List</button>
+                    <Link to="/profile">
+                    <button>Profile</button>
+                    </Link>
+                    <Link to="/wishlist">
+                    <button>Wishlist</button>
+                    </Link>
                 </div>
             </div >
 
