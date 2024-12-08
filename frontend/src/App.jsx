@@ -11,13 +11,10 @@ import Help from './pages/HelpPage/Help.jsx';
 import About from './pages/AboutPage/About.jsx';
 import Wishlist from './pages/WishlistPage/Wishlist.jsx';
 import CustomizeProfile from './pages/CustomizeProfilePage/CustomizeProfile.jsx';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { ProfileProvider } from './context/ProfileContext';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [username, setUsername] = useState('BookLover69');
-  const [description, setDescription] = useState('I love reading books!');
-  const [bookwormLevel, setBookwormLevel] = useState("0");
-  const [profilePicture, setProfilePicture] = useState('bh_pfp_3');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFirstLogin, setIsFirstLogin] = useState(false);
 
@@ -33,45 +30,28 @@ function App() {
     console.log("Logged out ");
   };
 
-  const updateProfile = (newUsername, newDescription, newBookwormLevel, newProfilePicture) => {
-    setUsername(newUsername);
-    setDescription(newDescription);
-    setBookwormLevel(newBookwormLevel);
-    setProfilePicture(newProfilePicture);
-  };
-
   return (
-    <Router>
-      <Header isLoggedIn={isLoggedIn} logOut={logOut} />
-      <div>
-        <Routes>
-          <Route path="*" element={<h1>404 Not Found</h1>} />
-          <Route path="/" element={<LogIn onLogin={handleLogIn} />} />
-          <Route path="/signup" element={<SignUp onLogin={handleLogIn} />} />
-          <Route path="/profile" element={isLoggedIn ? (
-            <Profile username={username} description={description} bookwormLevel={bookwormLevel} updateProfile={updateProfile} profilePicture={profilePicture} />
-          ) : (
-            <LogIn onLogin={handleLogIn} />
-          )} />
-          <Route path="/settings" element={isLoggedIn ? (
-            <Settings username={username} description={description} onUpdate={updateProfile} />
-          ) : (
-            <LogIn onLogin={handleLogIn} />
-          )} />
-          <Route path="/customize-profile" element={isFirstLogin ? (
-            <CustomizeProfile username={username} description={description} profilePicture={profilePicture} onUpdate={updateProfile} />
-          ) : (
-            <LogIn onLogin={handleLogIn} />
-          )} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<LogIn onLogin={handleLogIn} />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-        </Routes>
+    <ProfileProvider>
+      <Router>
+        <Header isLoggedIn={isLoggedIn} logOut={logOut} />
+        <div>
+          <Routes>
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+            <Route path="/" element={<LogIn onLogin={handleLogIn} />} />
+            <Route path="/signup" element={<SignUp onLogin={handleLogIn} />} />
+            <Route path="/profile" element={isLoggedIn ? <Profile /> : <LogIn onLogin={handleLogIn} />} />
+            <Route path="/settings" element={isLoggedIn ? <CustomizeProfile/> : <LogIn onLogin={handleLogIn} />} />
+            <Route path="/customize-profile" element={isFirstLogin ? <CustomizeProfile /> : <LogIn onLogin={handleLogIn} />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<LogIn onLogin={handleLogIn} />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+          </Routes>
+        </div>
         <Footer />
-      </div>
-    </Router>
+      </Router>
+    </ProfileProvider>
   );
 }
 

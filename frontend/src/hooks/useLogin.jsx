@@ -35,6 +35,7 @@ export default function useLogIn(onLogin) {
         localStorage.setItem('userData', JSON.stringify(userData));
         onLogin(); // Perform any additional login actions
         navigate('/profile');
+        console.log('Logged in successfully');
       } else {
         setShowError(true);
       }
