@@ -1,0 +1,55 @@
+.customize-profile-container {
+    border: 2px solid #DDB79E;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFBFB;
+    color: #803504;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+textarea {
+    width: 90%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #803504; 
+    border-radius: 5px; 
+    background-color: #f3e8de; 
+    margin: 5px 0 15px 0;
+}
+
+.description {
+    text-align: left;
+    color: #803503;
+}
+
+.profile-pic-options {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.profile-pic-option {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.customize-button {
+    background-color: #803503;
+    color: #FFEFE1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}

@@ -1,11 +1,12 @@
 import React from 'react';
 import './Header.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/logoPlaceholder.jpg';
 import bookpng from '../../assets/bookpng.webp';
 
 const Header = ({isLoggedIn, logOut }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const goToHelp = () => {
     navigate('/help');  
@@ -18,6 +19,14 @@ const Header = ({isLoggedIn, logOut }) => {
   const goToProfile = () => {
     navigate('/profile'); 
   }
+
+  const goToSignUp = () => {
+    navigate('/signup');
+  }
+
+  const goToLogIn = () => {
+    navigate('/');
+  };
 
   return (
     <header className="header">
@@ -33,9 +42,21 @@ const Header = ({isLoggedIn, logOut }) => {
           <li>
             <a onClick={goToHelp}>Help</a>
           </li>
-          <li>
-            <a onClick={logOut}>Log Out</a>
-          </li>
+          {isLoggedIn && (
+            <li>
+              <a onClick={logOut}>Log Out</a>
+            </li>
+          )}
+          {!isLoggedIn && location.pathname !== '/signup' && (
+            <li>
+              <a onClick={goToSignUp}>Sign Up</a>
+            </li>
+          )}
+          {!isLoggedIn && location.pathname === '/signup' && (
+            <li>
+              <a onClick={goToLogIn}>Log In</a>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

@@ -1,4 +1,4 @@
-import profilepic from '../../assets/profilepic.jpg';
+import bh_pfp_3 from '../../assets/bh_pfp_3.jpg';
 import './ProfileCard.css';
 import { useEffect } from 'react';
 
@@ -15,7 +15,7 @@ function ProfileCard ({username, description, bookwormLevel}) {
     
     return (
         <div className="profile-card">
-            <img src={profilepic} alt="profile" className="profile-pic"/>
+            <img src={bh_pfp_3} alt="profile" className="profile-pic"/>
             <h1>{username}</h1>
             <p>
                 Bookworm Level: <span className="bookwormlevel">&nbsp;{bookwormLevel}&nbsp;</span></p>
