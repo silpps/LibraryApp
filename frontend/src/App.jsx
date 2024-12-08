@@ -11,7 +11,7 @@ import Help from './pages/HelpPage/Help.jsx';
 import About from './pages/AboutPage/About.jsx';
 import Wishlist from './pages/WishlistPage/Wishlist.jsx';
 import CustomizeProfile from './pages/CustomizeProfilePage/CustomizeProfile.jsx';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const [username, setUsername] = useState('BookLover69');
@@ -30,6 +30,7 @@ function App() {
     setIsLoggedIn(false);
     setIsFirstLogin(false);
     localStorage.removeItem("userData");
+    navigate('/');
   };
 
   const updateProfile = (newUsername, newDescription, newBookwormLevel, newProfilePicture) => {
