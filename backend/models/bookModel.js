@@ -53,11 +53,11 @@ const bookSchema = new Schema({
     type: String,
     required: false,
   },
-  // reading:{
-  //   type: Boolean,
-  //   required: false,
-  //   default: false
-  // }
+  reading:{
+    type: Boolean,
+    required: false,
+    default: false
+  }
 }, { timestamps: true });
 
 bookSchema.set("toJSON", {

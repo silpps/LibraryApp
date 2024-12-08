@@ -39,7 +39,7 @@ const addBookToLibrary = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const { title, authors, description, language, category, image_link, rating, review } = req.body;
+    const { title, authors, description, language, category, image_link, rating, review, reading } = req.body;
 
     const newBook = new Book({
       title,
@@ -50,6 +50,7 @@ const addBookToLibrary = async (req, res) => {
       image_link: image_link || "",
       rating: Number(rating),
       review: review || "",
+      reading: reading || false
     });
 
     console.log("New Book Object:", newBook);
@@ -78,7 +79,7 @@ const addBookToLibrary = async (req, res) => {
 
 const addBookToWishlist = async (req, res) => {
   //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, description, language, category, image_link, rating, review, id} = req.body
+  const {title, authors, description, language, category, image_link, rating, review, id, reading} = req.body
   //Finds the user by the given id
   const user = await User.findById(id)
   console.log(user)
@@ -92,7 +93,8 @@ const addBookToWishlist = async (req, res) => {
       category,
       image_link,
       rating,
-      review
+      review,
+      reading: reading || false
     };// Spread the request body into the new book object
     console.log(newBook)
     //Adds the book to the user's library
