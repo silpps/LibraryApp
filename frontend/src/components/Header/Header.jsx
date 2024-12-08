@@ -2,6 +2,7 @@ import React from 'react';
 import './Header.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/logoPlaceholder.jpg';
+import bookpng from '../../assets/bookpng.webp';
 
 const Header = ({isLoggedIn, logOut }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Header = ({isLoggedIn, logOut }) => {
   return (
     <header className="header">
         <div className="logo">
-          <img src={logo} alt="Logo" onClick={goToProfile}/>
+          <img src={bookpng} alt="Logo" onClick={goToProfile}/>
         </div>
       <h1>Bookhive</h1>
       <nav className="header-nav">
