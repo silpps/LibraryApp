@@ -32,35 +32,49 @@ const getRecentBooks = async (req, res) => {
 // POST /books
 //Adds a book to the given USER'S library (User's id is given in the request (which is taken from localStorage after being saved there upon login))
 const addBookToLibrary = async (req, res) => {
-  //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, description, language, category, image_link, rating, review} = req.body
-
-  const userId = req.user._id;
-  //Finds the user by the given id
-  const user = await User.findById(userId)
-  console.log(user)
-  console.log(user)
   try {
-    const newBook = {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { title, authors, description, language, category, image_link, rating, review } = req.body;
+
+    const newBook = new Book({
       title,
       authors,
       description,
       language,
       category,
-      image_link,
-      rating,
-      review
-    };// Spread the request body into the new book object
-    console.log(newBook)
-    //Adds the book to the user's library
-    user.library.push(newBook)
-    await user.save()
-    res.status(201).json(newBook); // Returns the newly created book with a 201 status.
+      image_link: image_link || "",
+      rating: Number(rating),
+      review: review || "",
+    });
+
+    console.log("New Book Object:", newBook);
+
+    // Push validated book to the library
+    user.library.push(newBook);
+
+    console.log("Library Before Save:", user.library);
+
+    // Save updated user
+    await user.save();
+
+    console.log("Library Saved Successfully");
+    res.status(200).json({ message: "Book added to library successfully", library: user.library });
+
   } catch (error) {
-    //Error handling is present, but it could be more specific.
-    res.status(400).json({ message: "Failed to add book (BE)", error: error.message });
+    console.error("Error Adding Book:", error.message);
+    if (error.errors) {
+      console.error("Validation Errors:", Object.values(error.errors).map(err => err.message));
+    }
+    res.status(400).json({ message: "Failed to add book", error: error.message });
   }
 };
+
+
 
 const addBookToWishlist = async (req, res) => {
   //No validation for req.body. Consider validating fields like title, author, etc.

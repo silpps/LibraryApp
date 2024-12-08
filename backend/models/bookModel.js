@@ -52,7 +52,12 @@ const bookSchema = new Schema({
   review: {
     type: String,
     required: false,
-  }
+  },
+  // reading:{
+  //   type: Boolean,
+  //   required: false,
+  //   default: false
+  // }
 }, { timestamps: true });
 
 bookSchema.set("toJSON", {

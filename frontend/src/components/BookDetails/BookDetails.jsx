@@ -2,7 +2,7 @@ import React from 'react';
 import './BookDetails.css'
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}/bookhive/library`;
+const apiUrl = `${REACT_APP_API_URL}`;
 
 const BookDetails = ({ book, onClose, onDelete }) => {
 
@@ -20,10 +20,10 @@ const BookDetails = ({ book, onClose, onDelete }) => {
         }
         const userData = JSON.parse(userDataString);
         const token = userData.token;
-        const res = await fetch(`${apiUrl}/${book._id}`, {
+        const res = await fetch(`${apiUrl}/library/${book._id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(token)}`
+          Authorization: `Bearer ${token}`
            },
         });
         if (!res.ok) {

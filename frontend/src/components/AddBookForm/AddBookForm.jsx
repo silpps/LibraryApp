@@ -56,7 +56,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     const newBook = {
       title,
       authors,
-      category,
+      category: [category],
       language,
       description,
       imageLink: allowRatingAndReview ? imageLink : null, // Use placeholder if imageLink is empty
@@ -64,9 +64,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
       review: allowRatingAndReview ? review : null,
       id
     };
-
-
-
+    console.log(newBook)
     addBook(newBook);
 
     
