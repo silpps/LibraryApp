@@ -78,11 +78,15 @@ const addBookToLibrary = async (req, res) => {
 
 
 const addBookToWishlist = async (req, res) => {
+
+  const userId = req.user._id;
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
   //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, description, language, category, image_link, rating, review, id, reading} = req.body
+  const {title, authors, description, language, category, image_link, rating, review, reading} = req.body
   //Finds the user by the given id
-  const user = await User.findById(id)
-  console.log(user)
   console.log(user)
   try {
     const newBook = {
@@ -213,6 +217,43 @@ const updateBook = async (req, res) => {
   }
 };
 
+const updateBookInWishlist = async (req, res) => {
+  const { bookId } = req.params;
+  const userId = req.user._id; // Assuming the user's ID is available in req.user
+
+  // ID validation
+  if (!mongoose.Types.ObjectId.isValid(bookId)) {
+    return res.status(400).json({ message: "Invalid book ID" });
+  }
+
+  try {
+    // Find the user by their ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Find the book in the user's library
+    const bookIndex = user.wishlist.findIndex(book => book._id.toString() === bookId);
+    if (bookIndex === -1) {
+      return res.status(404).json({ message: "Book not found in user's wishlist" });
+    }
+
+    // Update the book details
+    const updatedBook = {
+      ...user.library[bookIndex]._doc,
+      ...req.body,
+    };
+
+    user.wishlist[bookIndex] = updatedBook;
+    await user.save();
+
+    res.status(200).json(updatedBook);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update book", error: error.message });
+  }
+};
+
 // Controller function to delete a book by ID
 // DELETE /books/:bookId
 const deleteBook = async (req, res) => {
@@ -238,6 +279,37 @@ const deleteBook = async (req, res) => {
     }
 
     user.library.splice(bookIndex, 1); // Remove the book from the library array
+    await user.save();
+
+    res.status(204).json({ message: "Book deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete book", error: error.message });
+  }
+};
+
+const deleteBookInWishlist = async (req, res) => {
+  const { bookId } = req.params;
+  const userId = req.user._id; // Assuming the user's ID is available in req.user
+
+  // ID validation
+  if (!mongoose.Types.ObjectId.isValid(bookId)) {
+    return res.status(400).json({ message: "Invalid book ID" });
+  }
+
+  try {
+    // Find the user by their ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Find the book in the user's wishlsit and remove it
+    const bookIndex = user.wishlist.findIndex(book => book._id.toString() === bookId);
+    if (bookIndex === -1) {
+      return res.status(404).json({ message: "Book not found in user's wishlist" });
+    }
+
+    user.wishlist.splice(bookIndex, 1); // Remove the book from the wishlist array
     await user.save();
 
     res.status(204).json({ message: "Book deleted successfully" });
@@ -313,5 +385,8 @@ module.exports = {
     filterBooksByCategory,
     filterBooksByAuthor,
     searchBooks,
+    addBookToWishlist,
+    updateBookInWishlist,
+    deleteBookInWishlist
 };
   
