@@ -1,5 +1,6 @@
 import React from "react";
 import "./Help.css"
+import { Link } from "react-router-dom";
 
 const Help = () => {
     return (
@@ -23,6 +24,12 @@ const Help = () => {
         <p>
           Help text
         </p>
+
+        {isLoggedIn ? (
+        <Link to="/profile">Profile</Link>
+      ) : (
+        <Link to="/login">Log in</Link>
+      )}
 
       </div>
     );

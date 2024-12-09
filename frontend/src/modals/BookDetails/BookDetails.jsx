@@ -1,10 +1,12 @@
 import React from 'react';
 import './BookDetails.css'
+import { useLocation } from 'react-router-dom';
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
 const BookDetails = ({ book, onClose, onDelete }) => {
+    const location = useLocation();
 
     const handleDelete = () => {
         deleteBook();
@@ -20,7 +22,12 @@ const BookDetails = ({ book, onClose, onDelete }) => {
         }
         const userData = JSON.parse(userDataString);
         const token = userData.token;
-        const res = await fetch(`${apiUrl}/library/${book._id}`, {
+
+        const path = location.pathname === '/library'
+      ? `${apiUrl}/library${book._id}`
+      : `${apiUrl}/library/userWishlist/${book._id}`;
+
+        const res = await fetch(path, {
           method: "DELETE",
           headers: { "Content-Type": "application/json",
           Authorization: `Bearer ${token}`

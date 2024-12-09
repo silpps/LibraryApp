@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './AddBookForm.css'
 //this is temporary until we decide all the final routing paths etc.
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
-const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
+const AddBookForm = ({ onAddBook, closeModal }) => {
+  const location = useLocation();
   const [title, setTitle] = useState('');
   const [authors, setAuthors] = useState('');
   const [description, setDescription] = useState('');
@@ -13,6 +15,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
   const [imageLink, setImageLink] = useState('');
   const [rating, setRating] = useState('');
   const [review, setReview] = useState('');
+  const [reading, setReadingList] = useState(false);
   const [error, setError] = useState(''); 
 
   const handleSubmit = (e) => {
@@ -26,7 +29,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     if (!category) missingFields.push('Genre');
     if (!description) missingFields.push('Description');
     if (!language) missingFields.push('Language');
-    if (allowRatingAndReview) {
+    if (location.pathname === '/library') {
       if (!imageLink) missingFields.push('Image Link');
       if (!rating) missingFields.push('Rating');
       if (!review) missingFields.push('Review');
@@ -59,43 +62,15 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
       category: [category],
       language,
       description,
-      imageLink: allowRatingAndReview ? imageLink : null, // Use placeholder if imageLink is empty
-      rating: allowRatingAndReview ? rating : null,
-      review: allowRatingAndReview ? review : null,
+      imageLink: location.pathname === '/library'  ? imageLink : null, // Use placeholder if imageLink is empty
+      rating: location.pathname === '/library' ? rating : null,
+      review: location.pathname === '/library' ? review : null,
+      reading,
       id
     };
     console.log(newBook)
     addBook(newBook);
 
-    
-
-    //HUOM! jätän tän vanhan koodin tähän, jos tarvii vertailla. sori mut oli pakko muokkaa ku mul oli muuten hankala hahmottaa
-
-    // if (!allowRatingAndReview) {
-
-    //   onAddBook({
-    //     id: Date.now(), 
-    //     title,
-    //     author,
-    //     category,
-    //     language,
-    //     year: parseInt(year, 10),
-    //     rating : null,
-    //     review : null,
-    //   });
-    //   } // if rating and review are allowed, add them to the book
-    //   else {
-    //     onAddBook({
-    //       id: Date.now(), 
-    //       title,
-    //       author,
-    //       category,
-    //       language,
-    //       year: parseInt(year, 10),
-    //       rating,
-    //       review,
-    //     });
-    //   }
 
   };
 
@@ -110,8 +85,14 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     
     const userData = JSON.parse(userDataString)
     const token = userData.token
+
+    const path = location.pathname === '/library'
+      ? `${apiUrl}/library/userLibrary/addBookToLibrary`
+      : `${apiUrl}/library/userWishlist/addBookToWishlist`;
+
+
     try {
-      const res = await fetch(`${apiUrl}/library/userLibrary/addBookToLibrary`, {
+      const res = await fetch(path, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
                   "Authorization": `Bearer ${token}`},
@@ -132,7 +113,7 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
 return(
   <div className="modal">
     <div className="modal-content">
-      <h2>Add New Book</h2>
+      <h2>{location.pathname === '/library' ? 'Add to Library' : 'Add to Wishlist'}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
@@ -140,8 +121,10 @@ return(
           <label>Description: <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
           <label>Language: <input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
           <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
-          {allowRatingAndReview && (
+          {location.pathname === '/library' && (
             <>
+            <label>
+              <input type="checkbox" onChange={(e) => setReadingList(e.target.checked)}/>Add to Reading List</label>
               <label>Image Link: <input type="text" name="imageLink" onChange={(e) => setImageLink(e.target.value)}/></label>
               <label>Rating:<input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/> </label>
               <label>Review:<textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>

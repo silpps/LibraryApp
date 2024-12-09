@@ -11,11 +11,21 @@
     background-color: #FFFBFB;
     padding: 15px;
 }
+.single-book .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .single-book .title {
     display: flex; 
     align-items: baseline;
     padding: 2px 5px 0.5px 5px;
+}
+
+.reading {
+    color: #803503;
+    align-self: flex-start;
 }
 
 .single-book .title p {
