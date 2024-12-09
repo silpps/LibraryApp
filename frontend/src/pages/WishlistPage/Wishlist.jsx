@@ -81,8 +81,8 @@ const Wishlist = () => {
 
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
     useEffect(() => {
-        const uniqueGenres = [...new Set(books.map((book) => book.category))];
-        const uniqueAuthors = [...new Set(books.map((book) => book.author))];
+        const uniqueGenres = [...new Set(books.flatMap((book) => book.category))];
+        const uniqueAuthors = [...new Set(books.map((book) => book.authors))];
         setGenres(uniqueGenres); 
         setAuthors(uniqueAuthors); 
       }, [books, allBooks]);
@@ -93,8 +93,8 @@ const Wishlist = () => {
         setBooks(
           allBooks.filter((book) => {
             return (
-              (!genreFilter || book.category === genreFilter) &&
-              (!authorFilter || book.author === authorFilter)
+              (!genreFilter || book.category.includes(genreFilter)) &&
+              (!authorFilter || book.authors === authorFilter)
             );
           })
         );
