@@ -9,35 +9,38 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedBook, setEditedBook] = useState({
     title: book.title || '',
-    author: book.author || '',
-    category: book.category || '',
-    language: book.language || '',
+    authors: book.authors || '',
     description: book.description || '',
-    rating: book.rating || '',
-    review: book.review || ''
+    language: book.language || '',
+    category: book.category || '',
+    imageLink: book.imageLink || null,
+    rating: book.rating || null,
+    review: book.review || '',
+    reading: book.reading || false,
   });
 
-  // Update the edited book on the modal when the book prop changes
   useEffect(() => {
     setEditedBook({
       title: book.title || '',
-      author: book.author || '',
-      category: book.category || '',
-      language: book.language || '',
+      authors: book.authors || '',
       description: book.description || '',
-      rating: book.rating || '',
-      review: book.review || ''
+      language: book.language || '',
+      category: book.category || '',
+      imageLink: book.imageLink || null,
+      rating: book.rating || null,
+      review: book.review || '',
+      reading: book.reading || false,
     });
   }, [book]);
 
-  // Delete a book from the library or wishlist
   const handleDelete = () => {
-    deleteBook();
-    onDelete(book.id);
-    onClose();
+    if (window.confirm("Are you sure you want to delete this book?")) {
+      deleteBook();
+      onDelete(book.id);
+      onClose();
+    }
   };
 
-  // Delete a book from the library or wishlist
   const deleteBook = async () => {
     try {
       const userDataString = localStorage.getItem("userData");
@@ -67,18 +70,15 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
     }
   };
 
-  // Handle changes in the edit form
   const handleEditChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setEditedBook((prevBook) => ({
       ...prevBook,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
-  // Handle form submission for editing a book
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
+  const editBook = async () => {
     try {
       const userDataString = localStorage.getItem("userData");
       if (!userDataString) {
@@ -112,12 +112,75 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
     }
   };
 
-  // Colour the stars based on the rating
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    if (window.confirm("Are you sure you want to save changes?")) {
+      editBook();
+    }
+  };
+
+  const moveBookToLibrary = async () => {
+    try {
+      const userDataString = localStorage.getItem("userData");
+      if (!userDataString) {
+        throw new Error("Data not found in localstorage (login again?)");
+      }
+      const userData = JSON.parse(userDataString);
+      const token = userData.token;
+
+      // Delete from wishlist
+      const deleteRes = await fetch(`${apiUrl}/library/userWishlist/${book._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      if (!deleteRes.ok) {
+        throw new Error("Failed to delete book from wishlist");
+      }
+
+      // Add to library
+      const addRes = await fetch(`${apiUrl}/library/userLibrary/addBookToLibrary`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(book),
+      });
+
+      if (!addRes.ok) {
+        throw new Error("Failed to add book to library");
+      }
+
+      console.log("Book moved to library successfully");
+      onDelete(book.id);
+      onClose();
+    } catch (error) {
+      console.error("Error moving book to library:", error);
+    }
+  };
+
+  const moveToLibrary = async () => {
+    window.confirm("Are you sure you want to move this book to your library?"); {
+      moveBookToLibrary();
+    }
+  }
+
+  const handleCancelEdit = () => {
+    if (window.confirm("Are you sure you want to cancel the changes?")) {
+      setIsEditing(false);
+    }
+  };
+
   const colourStars = (rating) => {
-    if (rating === undefined || rating === null) {
+    if (rating === undefined || rating === null || rating === 0) {
       return <p style={{ color: '#777' }}>No rating yet</p>;
     }
-
+  
     const stars = [];
     for (let i = 0; i < 5; i++) {
       stars.push(
@@ -127,7 +190,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       );
     }
     return stars;
-  };
+    };
 
   return (
     <div className="modal-overlay">
@@ -149,7 +212,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
               <input
                 type="text"
                 name="author"
-                value={editedBook.author}
+                value={editedBook.authors}
                 onChange={handleEditChange}
               />
             </label>
@@ -179,28 +242,40 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
                 onChange={handleEditChange}
               />
             </label>
-            <label>
-              Rating:
-              <input
-                type="number"
-                name="rating"
-                value={editedBook.rating}
-                onChange={handleEditChange}
-                min="1"
-                max="5"
-              />
-            </label>
-            <label>
-              Review:
-              <textarea
-                name="review"
-                value={editedBook.review}
-                onChange={handleEditChange}
-              />
-            </label>
+            {location.pathname === '/library' && (
+              <>
+                <label>
+                  Add to readinglist:
+                  <input 
+                  type="checkbox" 
+                  name="reading"
+                  checked={editedBook.reading}
+                  onChange={handleEditChange}/>
+                </label>
+                <label>
+                  Rating:
+                  <input
+                    type="number"
+                    name="rating"
+                    value={editedBook.rating}
+                    onChange={handleEditChange}
+                    min="1"
+                    max="5"
+                  />
+                </label>
+                <label>
+                  Review:
+                  <textarea
+                    name="review"
+                    value={editedBook.review}
+                    onChange={handleEditChange}
+                  />
+                </label>
+              </>
+            )}
             <div className="modal-buttons">
               <button type="submit">Save</button>
-              <button type="button" onClick={() => setIsEditing(false)}>
+              <button type="button" onClick={handleCancelEdit}>
                 Cancel
               </button>
             </div>
@@ -208,7 +283,10 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
         ) : (
           <>
             <h2>{editedBook.title}</h2>
-            <p>by {editedBook.author}</p>
+            <p>by {editedBook.authors}</p>
+            {location.pathname === '/library' && editedBook.reading && (
+            <p>Now reading</p>
+          )}
             <p>
               <strong>Category:</strong> {editedBook.category}
             </p>
@@ -218,14 +296,20 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
             <p>
               <strong>Description:</strong> {editedBook.description}
             </p>
-            <div className="stars">{colourStars(editedBook.rating)}</div>
-            {editedBook.review && (
-              <p>
-                <strong>Review:</strong> {editedBook.review}
-              </p>
+            {location.pathname === '/library' && (
+              <>
+                <div className="stars">{colourStars(editedBook.rating)}</div>
+                {editedBook.review && (
+                  <p>
+                    <strong>Review:</strong> {editedBook.review}
+                  </p>
+                )}
+              </>
             )}
             <div className="modal-buttons">
               <button onClick={handleDelete}>Delete</button>
+              {location.pathname === '/wishlist' && (
+                <button onClick ={moveToLibrary}>Move to Library</button>)}
               <button onClick={() => setIsEditing(true)}>Edit</button>
               <button onClick={onClose}>Back</button>
             </div>

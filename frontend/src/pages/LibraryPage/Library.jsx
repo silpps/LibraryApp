@@ -16,6 +16,7 @@ const Library = () => {
     const [update, setUpdate] = useState(true); //tein tällasen koska 
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
+    const [readingStatusFilter, setReadingStatusFilter] = useState("all")
     const [genreFilter, setGenreFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
@@ -99,7 +100,7 @@ const Library = () => {
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
   
     useEffect(() => {
-        const uniqueGenres = [...new Set(books.map((book) => book.category))];
+        const uniqueGenres = [...new Set(books.flatMap((book) => book.category))];
         const uniqueAuthors = [...new Set(books.map((book) => book.authors))];
         setGenres(uniqueGenres); 
         setAuthors(uniqueAuthors); 
@@ -111,12 +112,15 @@ const Library = () => {
       setBooks(
         allBooks.filter((book) => {
           return (
-            (!genreFilter || book.category === genreFilter) &&
-            (!authorFilter || book.authors === authorFilter)
+            (!genreFilter ||book.category.includes(genreFilter)) &&
+            (!authorFilter || book.authors === authorFilter) &&
+            (readingStatusFilter === 'all' ||
+              (readingStatusFilter === 'reading' && book.reading === true) ||
+              (readingStatusFilter === 'notReading' && book.reading === false))
           );
         })
       );
-    }, [allBooks, genreFilter, authorFilter]);
+    }, [allBooks, genreFilter, authorFilter, readingStatusFilter]);
   
     //handler for deleting a book
     const handleDelete = (id) => {
@@ -180,6 +184,20 @@ const Library = () => {
                         ))}
                         </select>
                     </div>
+                    <div className="filter">
+                        <label htmlFor="readingStatus"><strong>Reading Status:</strong></label>
+                        <select
+                          id="readingStatus"
+                          value={readingStatusFilter}
+                          onChange={(e) => setReadingStatusFilter(e.target.value)}
+                        >
+                          <option value="all">All</option>
+                          <option value="reading">Currently Reading</option>
+                          <option value="notReading">Not Reading</option>
+                        </select>
+                    </div>
+
+                    
                     <button onClick={() => {
                         setGenreFilter(''); 
                         setAuthorFilter('');}

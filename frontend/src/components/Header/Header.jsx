@@ -1,7 +1,6 @@
 import React from 'react';
 import './Header.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logo from '../../assets/logoPlaceholder.jpg';
 import bookpng from '../../assets/bookpng.webp';
 
 const Header = ({isLoggedIn, logOut }) => {
