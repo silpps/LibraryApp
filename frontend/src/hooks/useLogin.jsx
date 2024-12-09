@@ -24,7 +24,7 @@ export default function useLogIn(onLogin) {
     const loginDetails = { email, password };
 
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/login`, {
+      const res = await fetch(`${REACT_APP_API_URL}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginDetails),

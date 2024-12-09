@@ -31,7 +31,7 @@ const Profile = () => {
         const userData = JSON.parse(userDataString);
         const token = userData.token;
 
-        const res = await fetch(`${apiUrl}/profile`, {
+        const res = await fetch(`${apiUrl}/users/profile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

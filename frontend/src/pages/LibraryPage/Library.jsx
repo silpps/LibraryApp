@@ -75,7 +75,7 @@ const Library = () => {
               bookwormLevel: data.library.length
             }
 
-            await fetch(`${apiUrl}/profile/settings`, {
+            await fetch(`${apiUrl}/users/profile/settings`, {
               method: 'PUT',
               headers: {
                   'Content-Type': 'application/json',
