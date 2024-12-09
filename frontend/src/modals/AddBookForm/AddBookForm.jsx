@@ -59,7 +59,7 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     const newBook = {
       title,
       authors,
-      category: [category],
+      category,
       language,
       description,
       imageLink: location.pathname === '/library'  ? imageLink : null, // Use placeholder if imageLink is empty
@@ -87,8 +87,8 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     const token = userData.token
 
     const path = location.pathname === '/library'
-      ? `${apiUrl}/library/userLibrary/addBookToLibrary`
-      : `${apiUrl}/library/userWishlist/addBookToWishlist`;
+      ? `${apiUrl}/library/userLibrary/addToLibrary`
+      : `${apiUrl}/library/userWishlist/addToWishlist`;
 
 
     try {
