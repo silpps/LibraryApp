@@ -12,7 +12,7 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
-  const [imageLink, setImageLink] = useState('');
+  const [imageLink, setImageLink] = useState(null);
   const [rating, setRating] = useState(null);
   const [review, setReview] = useState(null);
   const [reading, setReadingList] = useState(false);
@@ -59,7 +59,7 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
       category: categoryArray,
       language,
       description,
-      imageLink: location.pathname === '/library'  ? imageLink : null, // Use placeholder if imageLink is empty
+      imageLink,
       rating: location.pathname === '/library' ? rating : null,
       review: location.pathname === '/library' ? review : null,
       reading,
@@ -117,11 +117,11 @@ return(
           <label>Description: <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
           <label>Language: <input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
           <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
+          <label>Image Link: <input type="text" name="imageLink" onChange={(e) => setImageLink(e.target.value)}/></label>
           {location.pathname === '/library' && (
             <>
             <label>
               <input type="checkbox" onChange={(e) => setReadingList(e.target.checked)}/>Add to Reading List</label>
-              <label>Image Link: <input type="text" name="imageLink" onChange={(e) => setImageLink(e.target.value)}/></label>
               <label>Rating:<input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/> </label>
               <label>Review:<textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
             </>
