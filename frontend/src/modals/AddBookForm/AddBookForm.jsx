@@ -51,10 +51,12 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     //Take the id and token from the request
     const id = userData.id
 
+    const categoryArray = category.split(',').map(item => item.trim());
+
     const newBook = {
       title,
       authors,
-      category: [category],
+      category: categoryArray,
       language,
       description,
       imageLink: location.pathname === '/library'  ? imageLink : null, // Use placeholder if imageLink is empty
@@ -70,7 +72,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   };
 
   const addBook = async (newBook) => {
-
 
     //For authorization
     const userDataString = localStorage.getItem("userData")
