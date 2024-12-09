@@ -123,6 +123,13 @@ const Library = () => {
       const updatedBooks = allBooks.filter((book) => book.id !== id); 
       setAllBooks(updatedBooks); 
     };
+
+    const handleUpdate = (updatedBook) => {
+      const updatedBooks = allBooks.map((book) =>
+        book._id === updatedBook._id ? updatedBook : book
+      );
+      setAllBooks(updatedBooks);
+    };
     
     // handlers for opening and closing the book details modal
       const handleBookClick = (book) => {
@@ -218,6 +225,7 @@ const Library = () => {
             book={selectedBook}
             onClose={closeSelectedBook}
             onDelete={handleDelete}
+            onUpdate={handleUpdate}
             />
         )}
 
