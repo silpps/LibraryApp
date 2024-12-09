@@ -13,8 +13,8 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
   const [imageLink, setImageLink] = useState('');
-  const [rating, setRating] = useState('');
-  const [review, setReview] = useState('');
+  const [rating, setRating] = useState(null);
+  const [review, setReview] = useState(null);
   const [reading, setReadingList] = useState(false);
   const [error, setError] = useState(''); 
 
@@ -29,11 +29,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     if (!category) missingFields.push('Genre');
     if (!description) missingFields.push('Description');
     if (!language) missingFields.push('Language');
-    if (location.pathname === '/library') {
-      if (!imageLink) missingFields.push('Image Link');
-      if (!rating) missingFields.push('Rating');
-      if (!review) missingFields.push('Review');
-    }
 
     // if there are missing fields, show an error message
     if (missingFields.length > 0) {

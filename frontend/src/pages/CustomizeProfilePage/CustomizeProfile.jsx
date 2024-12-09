@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useProfile } from '../../context/ProfileContext';  
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate, useLocation } from 'react-router-dom';  
 import './CustomizeProfile.css';  
 
 import pfp1 from '../../assets/bh_pfp_1.jpg';
@@ -8,6 +8,7 @@ import pfp2 from '../../assets/bh_pfp_2.jpg';
 import pfp3 from '../../assets/bh_pfp_3.jpg';
 
 const CustomizeProfile = () => {
+  const location = useLocation();
   const { profilePicture, username, description, updateProfile } = useProfile(); 
   const [newDescription, setNewDescription] = useState(description);
   const [newProfilePicture, setNewProfilePicture] = useState(profilePicture);
@@ -19,17 +20,34 @@ const CustomizeProfile = () => {
     navigate('/profile');
   };
 
+  const cancelHandler = () => {
+    if (window.confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+      navigate('/profile');
+    }
+  };
+
   return (
     <div className="customize-profile-container">
       <h1>Customize Profile</h1>
       <form onSubmit={handleSubmit}>
-        <textarea
-          placeholder="Enter your new description"
+        <label>Description: </label>
+        {location.pathname === '/settings' && (
+          <textarea
+          placeholder={description}
           value={newDescription}
           onChange={(e) => setNewDescription(e.target.value)}
         />
+        )}
+        {location.pathname === '/customize-profile' && (
+          <textarea
+          placeholder={`Tell us about yourself, ${username}!`}
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+        />
+        )}
         <div className="profile-pic-options">
           <label>
+            Profile picture:
             <input
               type="radio"
               name="profilePicture"
@@ -61,6 +79,9 @@ const CustomizeProfile = () => {
           </label>
         </div>
         <button type="submit">Save Changes</button>
+        {location.pathname === '/settings' && (
+          <button onClick={cancelHandler}>Cancel</button>
+        )}
       </form>
     </div>
   );
