@@ -1,8 +1,18 @@
 import React from "react";
 import "./Help.css"
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Help = ({ isLoggedIn }) => {
+    const navigate = useNavigate();
+
+    const moveToProfile = () => {
+        navigate('/profile');
+    }
+
+    const moveToLogin = () => {
+        navigate('/login');
+    }
+
     return (
       <div className="help-div">
         <h1>Help</h1>
@@ -26,9 +36,9 @@ const Help = ({ isLoggedIn }) => {
         </p>
 
         {isLoggedIn ? (
-        <Link to="/profile">Profile</Link>
+          <button onClick={moveToProfile}>Profile</button>
       ) : (
-        <Link to="/login">Log in</Link>
+        <button onClick={moveToLogin}>Log in</button>
       )}
 
       </div>

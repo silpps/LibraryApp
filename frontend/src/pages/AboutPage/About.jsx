@@ -1,8 +1,22 @@
 import React from 'react';
 import './About.css'; // Import the CSS file
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const About = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
+
+  const moveToProfile = () => {
+    navigate('/profile');
+  }
+
+  const moveToLogin = () => {
+    navigate('/login');
+  }
+
+  const moveToHelp = () => {
+    navigate('/help');
+  }
+
   return (
     <div className="about-container">
       <h1>About BookHive</h1>
@@ -27,11 +41,11 @@ const About = ({ isLoggedIn }) => {
         using our app as much as we enjoyed building it!
       </p>
 
-      <Link to="/help">Need help?</Link>
+      <button onClick={moveToHelp}>Need help?</button>
       {isLoggedIn ? (
-        <Link to="/profile">Profile</Link>
+        <button onClick={moveToProfile}>Go to Profile</button>
       ) : (
-        <Link to="/login">Log in</Link>
+        <button onClick={moveToLogin}>Log in</button>
       )}
       
     </div>
