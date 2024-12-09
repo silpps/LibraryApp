@@ -19,12 +19,8 @@ const About = ({ isLoggedIn, moveToHelp, moveToProfile, moveToLogin }) => {
 
       <h2>Meet the Team</h2>
       <ul className="team-list">
-        <div className="team-list-row">
-          <li><strong>Hilda and Karoliina</strong> - Frontend Development</li>
-        </div>
-        <div className="team-list-row">
-          <li><strong>Lasse and Veera</strong> - Backend Development</li>
-        </div>
+        <li><strong>Hilda and Karoliina</strong> - Frontend Development</li>
+        <li><strong>Lasse and Veera</strong> - Backend Development</li>
       </ul>
       <button onClick={moveToHelp}>Need help?</button>
       {isLoggedIn ? (

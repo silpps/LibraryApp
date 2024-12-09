@@ -33,13 +33,6 @@
   margin-bottom: 20px;
 }
 
-.team-list-row {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center the items within the row */
-  gap: 1rem; /* Add some space between items */
-}
-
 .team-list li {
   text-align: center;
   margin: 0;
