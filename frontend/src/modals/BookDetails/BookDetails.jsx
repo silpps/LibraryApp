@@ -49,8 +49,8 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const token = userData.token;
 
       const path = location.pathname === '/library'
-        ? `${apiUrl}/library/userLibrary/${book._id}`
-        : `${apiUrl}/library/userWishlist/${book._id}`;
+        ? `/api/library/userLibrary/${book._id}`
+        : `/api/library/userWishlist/${book._id}`;
 
       const res = await fetch(path, {
         method: "DELETE",
@@ -86,8 +86,8 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const token = userData.token;
 
       const path = location.pathname === '/library'
-        ? `${apiUrl}/library/userLibrary/${book._id}`
-        : `${apiUrl}/library/userWishlist/${book._id}`;
+        ? `/api/library/userLibrary/${book._id}`
+        : `/api/library/userWishlist/${book._id}`;
 
       const res = await fetch(path, {
         method: "PUT",
@@ -128,7 +128,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const token = userData.token;
 
       // Delete from wishlist
-      const deleteRes = await fetch(`${apiUrl}/library/userWishlist/${book._id}`, {
+      const deleteRes = await fetch(`/api/library/userWishlist/${book._id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +141,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       }
 
       // Add to library
-      const addRes = await fetch(`${apiUrl}/library/userLibrary/addToLibrary`, {
+      const addRes = await fetch(`/api/library/userLibrary/addToLibrary`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
