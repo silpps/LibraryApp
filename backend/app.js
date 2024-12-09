@@ -16,9 +16,9 @@ connectDB();
 
 // Middleware to parse JSON
 app.use(express.json());
-app.use('/bookhive', userRouter);
+app.use('/api/users', userRouter);
 //the book path is for now called library. consider changing paths again when adding wishlist and readinglist
-app.use('/bookhive/library', bookRouter);
+app.use('/api/library', bookRouter);
 
 module.exports = app;
 // // Start the server

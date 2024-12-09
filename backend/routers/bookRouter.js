@@ -32,7 +32,16 @@ router.post("/userLibrary", authorizeUsersAccess, getUserLibrary)
 router.post("/userWishlist", authorizeUsersAccess, getUserWishlist)
 
 // POST /books
-router.post('/userLibrary/addBookToLibrary',authorizeUsersAccess, addBookToLibrary);
+router.post('/userLibrary/addToLibrary',authorizeUsersAccess, addBookToLibrary);
+
+// GET /books/:bookId
+router.get('/userLibrary/:bookId', getBookById);
+
+// PUT /books/:bookId
+router.put('/userLibrary/:bookId',authorizeUsersAccess, updateBook);
+
+// DELETE /books/:bookId
+router.delete('/userLibrary/:bookId',authorizeUsersAccess, deleteBook);
 
 // SEARCH books
 // GET /books/search?query=<value>
@@ -42,18 +51,12 @@ router.get('/search', searchBooks);
 // GET /books/recent
 router.get('/recent', getRecentBooks);
 
-// GET /books/:bookId
-router.get('/:bookId', getBookById);
-
-// PUT /books/:bookId
-router.put('/:bookId',authorizeUsersAccess, updateBook);
-
-// DELETE /books/:bookId
-router.delete('/:bookId',authorizeUsersAccess, deleteBook);
-
-router.post("/userWishlist/addBookToWishlist", authorizeUsersAccess, addBookToWishlist)
+router.post("/userWishlist/addToWishlist", authorizeUsersAccess, addBookToWishlist)
 router.put("/userWishlist/:bookId", authorizeUsersAccess, updateBookInWishlist)
 router.delete("/userWishlist/:bookId", authorizeUsersAccess, deleteBookInWishlist)
+
+
+
 
 // FILTER books by category
 // GET /books/filter?category=<value>

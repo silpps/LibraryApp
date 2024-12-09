@@ -16,7 +16,7 @@ const { authorizeUsersAccess } = require("../middleware/auth");
 
 // get all users (admin)
 //This can also be utilised for "forgot password" as the system can check if an email address is linked to an account or something
-router.get("/users", getAllUsers);
+router.get("/admin", getAllUsers);
 
 //In signup page, pressing the signup button calls this
 router.post("/signup", createUser);
