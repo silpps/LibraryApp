@@ -67,7 +67,6 @@ const Wishlist = () => {
             });
             const data = await res.json();
             console.log(data)
-            console.log(data)
             setAllBooks(data.wishlist);
             console.log(allBooks)
         } catch (error) {
@@ -100,13 +99,6 @@ const Wishlist = () => {
         );
       }, [allBooks, genreFilter, authorFilter]);
     
-       // handler for adding a new book, SEE open add book modal lower
-       const addNewBook = (newBook) => {
-        if (newBook) {
-            setAllBooks([...allBooks, newBook]);
-            setNewBookModal(false);
-        }
-      };
 
       // handler for deleting a book
       const handleDelete = (id) => {
@@ -222,7 +214,7 @@ const Wishlist = () => {
 
         {newBookModal && (
                 <AddBookForm
-                onAddBook={addNewBook}
+                onAddBook={() => setUpdate(true)}
                 closeModal={() => setNewBookModal(false)}
                 />
             )} 
