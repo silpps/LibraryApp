@@ -63,7 +63,7 @@ const createUser = async (req, res) => {
     const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[], description:"This is my description"})
     await newUser.save()
     const token = createToken(newUser._id);
-    res.status(201).json(newUser)
+    res.status(201).json({id:newUser._id, token})
   } catch (error){
     res.status(400).json({message:"Failed to create user", error:error.message})
   }
