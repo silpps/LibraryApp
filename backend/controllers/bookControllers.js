@@ -64,7 +64,7 @@ const addBookToLibrary = async (req, res) => {
     await user.save();
 
     console.log("Library Saved Successfully");
-    res.status(200).json({ message: "Book added to library successfully", library: user.library });
+    res.status(201).json({ message: "Book added to library successfully", library: user.library });
 
   } catch (error) {
     console.error("Error Adding Book:", error.message);
