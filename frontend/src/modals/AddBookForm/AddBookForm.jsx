@@ -129,20 +129,38 @@ const AddBookForm = ({ onAddBook, closeModal, allowRatingAndReview }) => {
     }
   };
 
+  const searchBook = async () => {
+    try{
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&inauthor:${authors}`);
+      const data = await res.json();
+      const bookData = data.items[0].volumeInfo;
+      console.log(bookData);
+      setTitle(bookData.title || '');
+      setAuthors(bookData.authors[0] || '');
+      setDescription(bookData.description || '');
+      setLanguage(bookData.language || '');
+      setCategory(bookData.categories || '');
+      setImageLink(bookData.imageLinks.thumbnail || '');
+    } catch (error) {
+      console.error('Error searching book:', error);
+    }
+  };
+
 return(
   <div className="modal">
     <div className="modal-content">
       <h2>Add New Book</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
-          <label>Authors: <input type="text" name="authors" onChange={(e) => setAuthors(e.target.value)} /></label>
-          <label>Description: <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
-          <label>Language: <input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
-          <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
+          <label>Title: <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
+          <label>Authors: <input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
+          <button onClick={searchBook}>Search</button>
+          <label>Description: <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/></label>
+          <label>Language: <input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
+          <label>Genre: <input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
           {allowRatingAndReview && (
             <>
-              <label>Image Link: <input type="text" name="imageLink" onChange={(e) => setImageLink(e.target.value)}/></label>
+              <label>Image Link: <input type="text" name="imageLink" value={imageLink} onChange={(e) => setImageLink(e.target.value)}/></label>
               <label>Rating:<input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/> </label>
               <label>Review:<textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
             </>

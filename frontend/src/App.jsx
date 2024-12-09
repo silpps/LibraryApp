@@ -4,7 +4,6 @@ import Footer from './components/Footer/Footer';
 import SignUp from './pages/SignUpPage/SignUp.jsx';
 import LogIn from './pages/LogInPage/LogIn.jsx';
 import Profile from './pages/ProfilePage/Profile.jsx';
-import Settings from './pages/SettingsPage/Settings.jsx';
 import Header from './components/Header/Header';
 import Library from './pages/LibraryPage/Library.jsx';
 import Help from './pages/HelpPage/Help.jsx';
