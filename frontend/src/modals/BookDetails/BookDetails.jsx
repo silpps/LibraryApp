@@ -143,7 +143,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       }
 
       // Add to library
-      const addRes = await fetch(`${apiUrl}/library/userLibrary/addBookToLibrary`, {
+      const addRes = await fetch(`${apiUrl}/library/userLibrary/addToLibrary`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
