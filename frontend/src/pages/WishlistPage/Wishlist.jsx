@@ -177,12 +177,12 @@ const Wishlist = () => {
                 </div>
 
                 <div className='library-div'>
-                    <h2>Back to</h2>
-                    <Link to = "/library">
-                    <button>Library</button>
-                    </Link>
+                    <h2>Go to</h2>
                     <Link to="/profile">
                     <button>Profile</button>
+                    </Link>
+                    <Link to = "/library">
+                    <button>Library</button>
                     </Link>
                 </div>
             </div >

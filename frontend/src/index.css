@@ -108,6 +108,36 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+textarea {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #803503;
+}
+
+input {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #803503;
+}
+
+label {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: #803503;
+}
+
+select {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #803503;
+}
+
 /* ei viel dark mode
 
 @media (prefers-color-scheme: dark) {
