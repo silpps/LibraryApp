@@ -25,8 +25,8 @@ function ProfileCard() {
     <div className="profile-card">
       <img src={profileImage} alt="profile" className="profile-pic"/>
       <h1>{username}</h1>
-      <p>Bookworm Level: <span className="bookwormlevel">1</span></p>
-      <p>Description: {description}</p>
+      <p className="user-info"><strong>Bookworm Level: </strong><span className="bookwormlevel">1</span></p>
+      <p className="user-info"><strong>Description: </strong>{description}</p>
     </div>
   );
 }

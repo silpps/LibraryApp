@@ -68,6 +68,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
+      <h1>{username}'s profile</h1>
       <div className="profile-card-div">
         <ProfileCard username={username} description={description} bookwormLevel={bookwormLevel} />
         <Link to="/settings">
