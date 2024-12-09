@@ -1,5 +1,6 @@
 import React from 'react';
 import './About.css'; // Import the CSS file
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
@@ -25,6 +26,14 @@ const About = () => {
         to create a functional, user-friendly web application. We hope you enjoy 
         using our app as much as we enjoyed building it!
       </p>
+
+      <Link to="/help">Need help?</Link>
+      {isLoggedIn ? (
+        <Link to="/profile">Profile</Link>
+      ) : (
+        <Link to="/login">Log in</Link>
+      )}
+      
     </div>
   );
 };
