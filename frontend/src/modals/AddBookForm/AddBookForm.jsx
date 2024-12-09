@@ -82,8 +82,8 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     const token = userData.token
 
     const path = location.pathname === '/library'
-      ? `${apiUrl}/library/userLibrary/addToLibrary`
-      : `${apiUrl}/library/userWishlist/addToWishlist`;
+      ? `/api/library/userLibrary/addToLibrary`
+      : `/api/library/userWishlist/addToWishlist`;
 
 
     try {

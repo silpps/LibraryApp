@@ -56,7 +56,7 @@ export default function useSignUp(onLogin) {
 
     try {
       const newUser = { username, email, password };
-      const signupRes = await fetch("api/users/signup", {
+      const signupRes = await fetch("/api/users/signup", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser),
@@ -68,7 +68,7 @@ export default function useSignUp(onLogin) {
       }
 
       // Automatically login the user
-      const loginRes = await fetch(`api/users/login`, {
+      const loginRes = await fetch(`/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

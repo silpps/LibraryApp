@@ -59,7 +59,7 @@ const Library = () => {
           const id = {id:userData.id}
           const token = userData.token
           //The token is attached to the authorization element of the request
-          const res = await fetch(`${apiUrl}/library/userLibrary`, {
+          const res = await fetch(`/api/library/userLibrary`, {
             method: "POST",
             headers: {"Content-Type": "application/json",
                       "Authorization": `Bearer ${token}`
@@ -76,7 +76,7 @@ const Library = () => {
               bookwormLevel: data.library.length
             }
 
-            await fetch(`${apiUrl}/users/profile/settings`, {
+            await fetch(`/api/users/profile/settings`, {
               method: 'PUT',
               headers: {
                   'Content-Type': 'application/json',

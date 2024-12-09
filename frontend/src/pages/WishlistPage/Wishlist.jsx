@@ -58,7 +58,7 @@ const Wishlist = () => {
           const id = {id:userData.id}
           const token = userData.token
           //The token is attached to the authorization element of the request
-          const res = await fetch(`${apiUrl}/library/userWishlist`, {
+          const res = await fetch(`/api/library/userWishlist`, {
             method: "POST",
             headers: {"Content-Type": "application/json",
                       "Authorization": `Bearer ${token}`
