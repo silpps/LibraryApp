@@ -42,7 +42,7 @@ const login = async (req, res) => {
     token
   })
   } catch (error){
-    res.status(500).json({message:"Failed to log in", error:error.message})
+    res.status(400).json({message:"Failed to log in", error:error.message})
   }
 }
 
@@ -71,7 +71,6 @@ const createUser = async (req, res) => {
  
 // Gets all information of the user with the given id
 const getUserById = async (req, res) => {
-  console.log("jabbadabbadiibaduu")
   const userId = req.user._id;
   //Finds the user by the given id
 //Checks if the given id is valid as per mongoose, was also suggested by LLM to add this as middleware to routes instead of repeating it here. Will look into this later.
@@ -82,7 +81,6 @@ const getUserById = async (req, res) => {
   try{
     //Excludes password from returned information for data security
     const user = await User.findById(userId).select("-password")
-    console.log(user)
     if (user){
       res.status(200).json(user)
     } else {
@@ -94,11 +92,9 @@ const getUserById = async (req, res) => {
   }
 // Updates the given user's info
 const updateUser = async (req, res) => {
-  console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
   const userId = req.user._id;
   //Finds the user by the given id
   const user = await User.findById(userId)
-  console.log(user)
 
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid user ID", error:error.message });
@@ -111,7 +107,6 @@ const updateUser = async (req, res) => {
   )
   if(updatedUser){
     res.status(200).json(updatedUser)
-    console.log("yipppeee")
   } else {
     res.status(404).json({message:"User not found", error:error.message})
   }
