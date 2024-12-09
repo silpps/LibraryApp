@@ -6,9 +6,6 @@ const app = express();
 const userRouter = require('./routers/userRouter');
 const bookRouter = require('./routers/bookRouter');
 
-const morgan = require("morgan")
-app.use(morgan("tiny"))
-
 connectDB();
 
 // Middleware to parse JSON
