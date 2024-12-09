@@ -5,12 +5,10 @@ const express = require("express");
 const app = express();
 const userRouter = require('./routers/userRouter');
 const bookRouter = require('./routers/bookRouter');
-const cors = require("cors");
 
 const morgan = require("morgan")
 app.use(morgan("tiny"))
 
-app.use(cors())
 connectDB();
 
 // Middleware to parse JSON
