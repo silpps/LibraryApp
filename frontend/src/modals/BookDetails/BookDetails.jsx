@@ -10,7 +10,6 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   const [editedBook, setEditedBook] = useState({
     title: book.title || '',
     authors: book.authors || '',
-    description: book.description || '',
     language: book.language || '',
     category: book.category || '',
     imageLink: book.imageLink || null,
@@ -23,7 +22,6 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
     setEditedBook({
       title: book.title || '',
       authors: book.authors || '',
-      description: book.description || '',
       language: book.language || '',
       category: book.category || '',
       imageLink: book.imageLink || null,
@@ -234,14 +232,6 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
                 onChange={handleEditChange}
               />
             </label>
-            <label>
-              Description:
-              <textarea
-                name="description"
-                value={editedBook.description}
-                onChange={handleEditChange}
-              />
-            </label>
             {location.pathname === '/library' && (
               <>
                 <label>
@@ -292,9 +282,6 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
             </p>
             <p>
               <strong>Language:</strong> {editedBook.language}
-            </p>
-            <p>
-              <strong>Description:</strong> {editedBook.description}
             </p>
             {location.pathname === '/library' && (
               <>

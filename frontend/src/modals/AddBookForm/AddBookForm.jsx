@@ -9,7 +9,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   const location = useLocation();
   const [title, setTitle] = useState('');
   const [authors, setAuthors] = useState('');
-  const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
   const [imageLink, setImageLink] = useState(null);
@@ -27,7 +26,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     if (!title) missingFields.push('Title');
     if (!authors) missingFields.push('Authors');
     if (!category) missingFields.push('Genre');
-    if (!description) missingFields.push('Description');
     if (!language) missingFields.push('Language');
 
     // if there are missing fields, show an error message
@@ -60,7 +58,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
       authors,
       category: categoryArray,
       language,
-      description,
       imageLink,
       rating: location.pathname === '/library' ? rating : null,
       review: location.pathname === '/library' ? review : null,
@@ -110,16 +107,20 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
 
   const searchBook = async () => {
     try{
-      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}+inauthor:${authors}`);
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title || ''}+inauthor:${authors || ''}&orderBy=relevance&maxResults=10`);
       const data = await res.json();
+      if (!data.items) {
+        throw new Error('No books found');
+      } else {
+      console.log("data",data);
       const bookData = data.items[0].volumeInfo;
-      console.log(bookData);
+      console.log("book data", bookData);
       setTitle(bookData.title || '');
       setAuthors(bookData.authors[0] || '');
-      setDescription(bookData.description || '');
       setLanguage(bookData.language || '');
       setCategory(bookData.categories || '');
       setImageLink(bookData.imageLinks.thumbnail || '');
+      }
     } catch (error) {
       console.error('Error searching book:', error);
     }
@@ -134,7 +135,6 @@ return(
           <label>Title: <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
           <label>Authors: <input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
           <button type="button" onClick={searchBook}>Search</button>
-          <label>Description: <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/></label>
           <label>Language: <input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
           <label>Category: <input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
           <label>Image Link: <input type="text" name="imageLink" value={imageLink ? imageLink : ''} onChange={(e) => setImageLink(e.target.value)}/></label>

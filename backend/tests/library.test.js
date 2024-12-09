@@ -8,7 +8,6 @@ const books = [
     {
         "title": "The Night Circus",
         "authors": "Erin Morgenstern",
-        "description": "The Night Circus is a phantasmagorical fairy tale set near an ahistorical Victorian London in a wandering magical circus that is open only from sunset to sunrise.",
         "language": "English",
         "category": ["Fantasy"],
         "image_link": "https://covers.openlibrary.org/b/id/7818310-L.jpg",
@@ -18,7 +17,6 @@ const books = [
     {
         "title": "Pachinko",
         "authors": "Min Jin Lee",
-        "description": "This is a description",
         "language": "English",
         "category": ["Historical Fiction"],
         "image_link": "https://covers.openlibrary.org/b/id/7995394-L.jpg",
@@ -31,8 +29,18 @@ let token = null;
 
 beforeAll(async () => {
     await User.deleteMany({});
-    const signup = await api.post("/api/users/signup").send({ "username": "Dalenna", "password": "oG3*8Lr&)sDT", "email": "dtute0@stumbleupon.com", "profilePicture": "Fuscia", "bookwormLevel": "68", "favoriteGenres": ["Documentary"], "description": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est." });
-    const login = await api.post("/api/users/login").send({ "email": "dtute0@stumbleupon.com", "password": "oG3*8Lr&)sDT" });    
+    const signup = await api.post("/api/users/signup").send({ "username": "Dalenna",
+      password: "oG3*8Lr&)sDT",
+      email: "dtute0@stumbleupon.com",
+      profilePicture: "Fuscia",
+      bookwormLevel: "68",
+      favoriteGenres: ["Documentary"],
+      description: "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est."
+    });
+    const login = await api.post("/api/users/login").send({ 
+      email: "dtute0@stumbleupon.com",
+      password: "oG3*8Lr&)sDT" 
+    });    
     token = login.body.token;
 });
 
@@ -54,14 +62,13 @@ describe("Given there are initially some books saved", () => {
 
     it("should create a new book when POST /api/library/userLibrary/addBookToLibrary is called", async () => {
         const newBook = {
-            "title": "Sapiens: A Brief History of Humankind",
-            "authors": "Yuval Noah Harari",
-            "description": "2014 loreasölkdfjfdsägkljfdg",
-            "language": "English",
-            "category": ["Non-fiction", "History"],
-            "image_link": "https://covers.openlibrary.org/b/id/8424236-L.jpg",
-            "rating": null,
-            "review": null
+            title: "Sapiens: A Brief History of Humankind",
+            authors: "Yuval Noah Harari",
+            language: "English",
+            category: ["Non-fiction", "History"],
+            image_link: "https://covers.openlibrary.org/b/id/8424236-L.jpg",
+            rating: null,
+            review: null
           };
         await api
             .post("/api/library/userLibrary/addToLibrary")

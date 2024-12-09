@@ -2,7 +2,6 @@
  {
     "title": "The Alchemist",
     "authors": "Paulo Coelho",
-    "description": "1988 asdgfdhdfgdfg",
     "language": "Portuguese",
     "category": "Fiction, Adventure",
     "image_link": "https://covers.openlibrary.org/b/id/8236525-L.jpg",
@@ -24,10 +23,6 @@ const bookSchema = new Schema({
     required: true,
   },
   authors: {
-    type: String,
-    required: true,
-  },
-  description: {
     type: String,
     required: true,
   },

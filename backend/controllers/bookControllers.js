@@ -39,12 +39,11 @@ const addBookToLibrary = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const { title, authors, description, language, category, image_link, rating, review, reading } = req.body;
+    const { title, authors, language, category, image_link, rating, review, reading } = req.body;
 
     const newBook = new Book({
       title,
       authors,
-      description,
       language,
       category,
       image_link: image_link || "",
@@ -205,14 +204,13 @@ const addBookToWishlist = async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
   //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, description, language, category, image_link, rating, review, reading} = req.body
+  const {title, authors, language, category, image_link, rating, review, reading} = req.body
   //Finds the user by the given id
   console.log(user)
   try {
     const newBook = {
       title,
       authors,
-      description,
       language,
       category,
       image_link,
