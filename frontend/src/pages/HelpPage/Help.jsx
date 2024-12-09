@@ -2,7 +2,7 @@ import React from "react";
 import "./Help.css"
 import { Link } from "react-router-dom";
 
-const Help = () => {
+const Help = ({ isLoggedIn }) => {
     return (
       <div className="help-div">
         <h1>Help</h1>

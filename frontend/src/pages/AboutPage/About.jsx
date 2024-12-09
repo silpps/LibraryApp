@@ -2,7 +2,7 @@ import React from 'react';
 import './About.css'; // Import the CSS file
 import { Link } from 'react-router-dom';
 
-const About = () => {
+const About = ({ isLoggedIn }) => {
   return (
     <div className="about-container">
       <h1>About BookHive</h1>
