@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { REACT_APP_API_URL } from '../utils/apiConfig';
+import useField from './useField'; // Import the useField hook
 
 export default function useSignUp(onLogin) {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState(false);
-  const [strongPassword, setStrongPassword] = useState(false);
+  const username = useField('text');
+  const email = useField('email');
+  const password = useField('password');
+  const confirmPassword = useField('password');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,25 +23,9 @@ export default function useSignUp(onLogin) {
     return passwordRegex.test(password);
   };
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-
-  const handleEmailChange = (e) => {
-    const inputEmail = e.target.value;
-    setEmail(inputEmail);
-    setEmailValid(validateEmail(inputEmail));
-  };
-
-  const handlePasswordChange = (e) => {
-    const inputPassword = e.target.value;
-    setPassword(inputPassword);
-    setStrongPassword(validatePassword(inputPassword));
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    const inputConfirmPassword = e.target.value;
-    setConfirmPassword(inputConfirmPassword);
-    setPasswordMatch(password === inputConfirmPassword);
-  };
+  const emailValid = validateEmail(email.value);
+  const strongPassword = validatePassword(password.value);
+  const passwordMatch = password.value === confirmPassword.value;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +37,7 @@ export default function useSignUp(onLogin) {
     }
 
     try {
-      const newUser = { username, email, password };
+      const newUser = { username: username.value, email: email.value, password: password.value };
       const signupRes = await fetch(`${REACT_APP_API_URL}/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,7 +53,7 @@ export default function useSignUp(onLogin) {
       const loginRes = await fetch(`${REACT_APP_API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email.value, password: password.value }),
       });
 
       if (!loginRes.ok) {
@@ -81,7 +63,7 @@ export default function useSignUp(onLogin) {
 
       const loginData = await loginRes.json();
       localStorage.setItem('userData', JSON.stringify(loginData));
-      onLogin(true); // Set isFirstLogin to true or handle accordingly
+      onLogin(true); // Handle login state
       navigate('/customize-profile');
       setSuccessMessage('User created and logged in successfully!');
     } catch (error) {
@@ -100,10 +82,6 @@ export default function useSignUp(onLogin) {
     formSubmitted,
     successMessage,
     errorMessage,
-    handleUsernameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleConfirmPasswordChange,
     handleSubmit,
   };
 }

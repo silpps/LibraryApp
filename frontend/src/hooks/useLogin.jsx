@@ -1,27 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { REACT_APP_API_URL } from '../utils/apiConfig';
+import useField from './useField'; // Assuming useField is in the same directory
 
 export default function useLogIn(onLogin) {
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordValid, setPasswordValid] = useState('');
+  const email = useField('email');
+  const password = useField('password');
   const [showError, setShowError] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleLogIn = async (e) => {
-    e.preventDefault();
-
-    const loginDetails = { email, password };
+    e.preventDefault(); // Prevent form submission
+    const loginDetails = { email: email.value, password: password.value };
 
     try {
       const res = await fetch(`${REACT_APP_API_URL}/login`, {
@@ -37,22 +28,18 @@ export default function useLogIn(onLogin) {
         navigate('/profile');
         console.log('Logged in successfully');
       } else {
-        setShowError(true);
+        setShowError(true); // Display error message
       }
     } catch (error) {
       console.error('Error during login:', error);
-      setShowError(true);
+      setShowError(true); // Handle fetch/network errors
     }
   };
 
   return {
     email,
     password,
-    emailValid,
-    passwordValid,
     showError,
-    handleEmailChange,
-    handlePasswordChange,
     handleLogIn,
   };
 }
