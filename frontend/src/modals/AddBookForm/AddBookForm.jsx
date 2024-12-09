@@ -112,7 +112,7 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
 
   const searchBook = async () => {
     try{
-      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&inauthor:${authors}`);
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}+inauthor:${authors}`);
       const data = await res.json();
       const bookData = data.items[0].volumeInfo;
       console.log(bookData);
