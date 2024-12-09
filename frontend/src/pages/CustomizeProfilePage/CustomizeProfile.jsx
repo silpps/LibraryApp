@@ -28,7 +28,14 @@ const CustomizeProfile = () => {
 
   return (
     <div className="customize-profile-container">
-      <h1>Customize Profile</h1>
+      {location.pathname === '/settings' && <h1>Edit Profile</h1>}
+      {location.pathname === '/customize-profile' && (
+        <>
+        <h1>Customize Profile</h1>
+        <p>Thank you for signing up to BookHive! </p>
+        <p>Let's get started by customizing your profile.</p>
+        </>
+      )}
       <form onSubmit={handleSubmit}>
         <label>Description: </label>
         {location.pathname === '/settings' && (
