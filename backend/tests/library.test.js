@@ -31,8 +31,8 @@ let token = null;
 
 beforeAll(async () => {
     await User.deleteMany({});
-    const signup = await api.post("/bookhive/signup").send({ "username": "Dalenna", "password": "oG3*8Lr&)sDT", "email": "dtute0@stumbleupon.com", "profilePicture": "Fuscia", "bookwormLevel": "68", "favoriteGenres": ["Documentary"], "description": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est." });
-    const login = await api.post("/bookhive/login").send({ "email": "dtute0@stumbleupon.com", "password": "oG3*8Lr&)sDT" });    
+    const signup = await api.post("/api/users/signup").send({ "username": "Dalenna", "password": "oG3*8Lr&)sDT", "email": "dtute0@stumbleupon.com", "profilePicture": "Fuscia", "bookwormLevel": "68", "favoriteGenres": ["Documentary"], "description": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est." });
+    const login = await api.post("/api/users/login").send({ "email": "dtute0@stumbleupon.com", "password": "oG3*8Lr&)sDT" });    
     token = login.body.token;
 });
 
@@ -44,15 +44,15 @@ describe("Given there are initially some books saved", () => {
         );
       });
 
-    it("should return all books as JSON when POST /bookhive/library/userLibrary is called", async () => {
+    it("should return all books as JSON when POST /api/library/userLibrary is called", async () => {
         await api
-            .post("/bookhive/library/userLibrary")
+            .post("/api/library/userLibrary")
             .set("Authorization", "bearer " + token)
             .expect(200)
             .expect("Content-Type", /application\/json/);
     });
 
-    it("should create a new book when POST /bookhive/library/userLibrary/addBookToLibrary is called", async () => {
+    it("should create a new book when POST /api/library/userLibrary/addBookToLibrary is called", async () => {
         const newBook = {
             "title": "Sapiens: A Brief History of Humankind",
             "authors": "Yuval Noah Harari",
@@ -64,13 +64,13 @@ describe("Given there are initially some books saved", () => {
             "review": null
           };
         await api
-            .post("/bookhive/library/userLibrary/addBookToLibrary")
+            .post("/api/library/userLibrary/addToLibrary")
             .set("Authorization", "bearer " + token)
             .send(newBook)
             .expect(201);
     });
 
-    it("should update one book by ID when PUT /bookhive/library/:id is called", async () => {
+    it("should update one book by ID when PUT /api/library/userLibrary/:bookId is called", async () => {
         const user = await User.findOne({ email: "dtute0@stumbleupon.com" });
         const bookId = user.library[0]._id;
     
@@ -80,7 +80,7 @@ describe("Given there are initially some books saved", () => {
         };
     
         const response = await api
-          .put(`/bookhive/library/${bookId}`)
+          .put(`/api/library/userLibrary/${bookId}`)
           .set("Authorization", "bearer " + token)
           .send(updatedBook)
           .expect(200)
@@ -97,14 +97,14 @@ describe("Given there are initially some books saved", () => {
       });
 
 
-    it("should delete one book by ID when DELETE /bookhive/library/:id is called", async () => {
+    it("should delete one book by ID when DELETE /api/library/userLibrary/:id is called", async () => {
         const user = await User.findOne({ email: "dtute0@stumbleupon.com" });
         const bookId = user.library[0]._id;
 
         console.log("Book ID:", bookId);
 
         await api
-            .delete("/bookhive/library/" + bookId)
+          .delete(`/api/library/userLibrary/${bookId}`)
             .set("Authorization", "bearer " + token)
             .expect(204);
 
