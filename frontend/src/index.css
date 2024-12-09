@@ -63,9 +63,14 @@ a:hover {
   transform: scale(1.05);
 }
 
-p {
+li {
   font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   color: #803503;
+}
+
+p {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  color: #1f0d01;
 }
 
 strong {
