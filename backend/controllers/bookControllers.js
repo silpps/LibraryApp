@@ -76,41 +76,6 @@ const addBookToLibrary = async (req, res) => {
 };
 
 
-
-const addBookToWishlist = async (req, res) => {
-
-  const userId = req.user._id;
-  const user = await User.findById(userId);
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-  //No validation for req.body. Consider validating fields like title, author, etc.
-  const {title, authors, description, language, category, image_link, rating, review, reading} = req.body
-  //Finds the user by the given id
-  console.log(user)
-  try {
-    const newBook = {
-      title,
-      authors,
-      description,
-      language,
-      category,
-      image_link,
-      rating,
-      review,
-      reading: reading || false
-    };// Spread the request body into the new book object
-    console.log(newBook)
-    //Adds the book to the user's library
-    user.wishlist.push(newBook)
-    await user.save()
-    res.status(201).json(newBook); // Returns the newly created book with a 201 status.
-  } catch (error) {
-    //Error handling is present, but it could be more specific.
-    res.status(400).json({ message: "Failed to add book", error: error.message });
-  }
-};
-
 const getUserLibrary = async (req, res) => {
   const id = req.user._id;
 
@@ -130,51 +95,6 @@ const getUserLibrary = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve user's library", error: error.message });
-  }
-};
-
-const getUserWishlist = async (req, res) => {
-  const { id } = req.body; 
-
-  // Validate the provided user ID
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: "Invalid user ID" });
-  }
-
-  try {
-    const user = await User.findById(id);
-    
-    if (user) {
-      res.status(200).json({ wishlist: user.wishlist });
-      console.log("getUserWishlist successful")
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve user's wishlist", error: error.message });
-  }
-};
-
-// Controller function to get a book by ID
-// GET /books/:bookId
-const getBookById = async (req, res) => {
-  const { bookId } = req.params;
-
-  // id validation. ID validation is performed here to prevent invalid MongoDB ObjectId errors.
-  // maybe consider using a dedicated middleware to handle validation for all routes with ObjectId. That would reduse code duplication.
-  if (!mongoose.Types.ObjectId.isValid(bookId)) {
-    return res.status(400).json({ message: "Invalid book ID" });
-  }
-
-  try {
-    const book = await Book.findById(bookId);
-    if (book) {
-      res.status(200).json(book);
-    } else {
-      res.status(404).json({ message: "Book not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve book" });
   }
 };
 
@@ -217,42 +137,6 @@ const updateBook = async (req, res) => {
   }
 };
 
-const updateBookInWishlist = async (req, res) => {
-  const { bookId } = req.params;
-  const userId = req.user._id; // Assuming the user's ID is available in req.user
-
-  // ID validation
-  if (!mongoose.Types.ObjectId.isValid(bookId)) {
-    return res.status(400).json({ message: "Invalid book ID" });
-  }
-
-  try {
-    // Find the user by their ID
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Find the book in the user's library
-    const bookIndex = user.wishlist.findIndex(book => book._id.toString() === bookId);
-    if (bookIndex === -1) {
-      return res.status(404).json({ message: "Book not found in user's wishlist" });
-    }
-
-    // Update the book details
-    const updatedBook = {
-      ...user.library[bookIndex]._doc,
-      ...req.body,
-    };
-
-    user.wishlist[bookIndex] = updatedBook;
-    await user.save();
-
-    res.status(200).json(updatedBook);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to update book", error: error.message });
-  }
-};
 
 // Controller function to delete a book by ID
 // DELETE /books/:bookId
@@ -287,6 +171,128 @@ const deleteBook = async (req, res) => {
   }
 };
 
+
+// Controller function to get a book by ID
+// GET /books/:bookId
+const getBookById = async (req, res) => {
+  const { bookId } = req.params;
+
+  // id validation. ID validation is performed here to prevent invalid MongoDB ObjectId errors.
+  // maybe consider using a dedicated middleware to handle validation for all routes with ObjectId. That would reduse code duplication.
+  if (!mongoose.Types.ObjectId.isValid(bookId)) {
+    return res.status(400).json({ message: "Invalid book ID" });
+  }
+
+  try {
+    const book = await Book.findById(bookId);
+    if (book) {
+      res.status(200).json(book);
+    } else {
+      res.status(404).json({ message: "Book not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve book" });
+  }
+};
+
+//WISHLIST CONTROLLERS
+// Controller function to add a book to the user's wishlist
+const addBookToWishlist = async (req, res) => {
+
+  const userId = req.user._id;
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  //No validation for req.body. Consider validating fields like title, author, etc.
+  const {title, authors, description, language, category, image_link, rating, review, reading} = req.body
+  //Finds the user by the given id
+  console.log(user)
+  try {
+    const newBook = {
+      title,
+      authors,
+      description,
+      language,
+      category,
+      image_link,
+      rating,
+      review,
+      reading: reading || false
+    };// Spread the request body into the new book object
+    console.log(newBook)
+    //Adds the book to the user's library
+    user.wishlist.push(newBook)
+    await user.save()
+    res.status(201).json(newBook); // Returns the newly created book with a 201 status.
+  } catch (error) {
+    //Error handling is present, but it could be more specific.
+    res.status(400).json({ message: "Failed to add book", error: error.message });
+  }
+};
+
+const getUserWishlist = async (req, res) => {
+  const id = req.user._id;
+
+  // Validate the provided user ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    const user = await User.findById(id);
+    
+    if (user) {
+      res.status(200).json({ wishlist: user.wishlist });
+      console.log("getUserWishlist successful")
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve user's wishlist", error: error.message });
+  }
+};
+
+//Update a book in the user's wishlist
+const updateBookInWishlist = async (req, res) => {
+  const { bookId } = req.params;
+  const userId = req.user._id; // Assuming the user's ID is available in req.user
+
+  // ID validation
+  if (!mongoose.Types.ObjectId.isValid(bookId)) {
+    return res.status(400).json({ message: "Invalid book ID" });
+  }
+
+  try {
+    // Find the user by their ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Find the book in the user's library
+    const bookIndex = user.wishlist.findIndex(book => book._id.toString() === bookId);
+    if (bookIndex === -1) {
+      return res.status(404).json({ message: "Book not found in user's wishlist" });
+    }
+
+    // Update the book details
+    const updatedBook = {
+      ...user.wishlist[bookIndex]._doc,
+      ...req.body,
+    };
+
+    user.wishlist[bookIndex] = updatedBook;
+    await user.save();
+
+    res.status(200).json(updatedBook);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update book", error: error.message });
+  }
+};
+
+
+// Delete a book from the wishlist
 const deleteBookInWishlist = async (req, res) => {
   const { bookId } = req.params;
   const userId = req.user._id; // Assuming the user's ID is available in req.user
