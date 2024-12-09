@@ -16,6 +16,7 @@ const Library = () => {
     const [update, setUpdate] = useState(true); //tein tällasen koska 
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
+    const [readingStatusFilter, setReadingStatusFilter] = useState("all")
     const [genreFilter, setGenreFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
@@ -112,11 +113,14 @@ const Library = () => {
         allBooks.filter((book) => {
           return (
             (!genreFilter ||book.category.includes(genreFilter)) &&
-            (!authorFilter || book.authors === authorFilter)
+            (!authorFilter || book.authors === authorFilter) &&
+            (readingStatusFilter === 'all' ||
+              (readingStatusFilter === 'reading' && book.reading === true) ||
+              (readingStatusFilter === 'notReading' && book.reading === false))
           );
         })
       );
-    }, [allBooks, genreFilter, authorFilter]);
+    }, [allBooks, genreFilter, authorFilter, readingStatusFilter]);
   
     //handler for deleting a book
     const handleDelete = (id) => {
@@ -180,6 +184,20 @@ const Library = () => {
                         ))}
                         </select>
                     </div>
+                    <div className="filter">
+                        <label htmlFor="readingStatus"><strong>Reading Status:</strong></label>
+                        <select
+                          id="readingStatus"
+                          value={readingStatusFilter}
+                          onChange={(e) => setReadingStatusFilter(e.target.value)}
+                        >
+                          <option value="all">All</option>
+                          <option value="reading">Currently Reading</option>
+                          <option value="notReading">Not Reading</option>
+                        </select>
+                    </div>
+
+                    
                     <button onClick={() => {
                         setGenreFilter(''); 
                         setAuthorFilter('');}
