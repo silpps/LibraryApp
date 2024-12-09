@@ -15,9 +15,16 @@ connectDB();
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use(express.static('view')); // Serve static assets
+
 app.use('/api/users', userRouter);
 //the book path is for now called library. consider changing paths again when adding wishlist and readinglist
 app.use('/api/library', bookRouter);
+
+// Handle all other routes with the React app
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/view/index.html');
+});
 
 module.exports = app;
 // // Start the server
