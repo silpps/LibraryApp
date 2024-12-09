@@ -90,10 +90,6 @@
     font-size: 1rem;
 }
 
-.add-book-btn:hover {
-    background-color: #662b1d;
-}
-
 /* Media Queries for Responsive Design */
 @media (max-width: 1024px) { /* Tablet */
     h1 {

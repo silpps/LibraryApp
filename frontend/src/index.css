@@ -60,6 +60,7 @@ a {
 }
 a:hover {
   color:#a84604;
+  transform: scale(1.05);
 }
 
 p {
@@ -111,7 +112,8 @@ button {
 }
 
 button:hover {
-  border-color: #a84604;
+  background-color: #a84604;
+  transform: scale(1.05);
 }
 
 button:focus,

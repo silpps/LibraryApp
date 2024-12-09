@@ -11,6 +11,11 @@
     background-color:#f3e8de94;
     padding: 15px;
 }
+
+.single-book:hover {
+    transform: scale(1.02);
+}
+
 .single-book .title-row {
     display: flex;
     justify-content: space-between;
@@ -46,7 +51,7 @@
 }
 
 .single-book .stars {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 

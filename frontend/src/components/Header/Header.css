@@ -69,11 +69,13 @@
     color: #803504;
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, font-size 0.3s ease, transform 0.2s ease;
 }
 
 .nav-links li a:hover {
-    color: #080300;
+    color:#662b1d;
+    font-size: 1.3rem;
+    transform: scale(1.02);
 }
 
 .dropdown-toggle {

@@ -158,7 +158,7 @@ const Library = () => {
                 <div className="filters-div">
                     <h2>Filters</h2>
                     <div className='filter'>
-                        <label htmlFor="genre"><strong>Genre:</strong></label>
+                        <label htmlFor="genre"><strong>Genre:  </strong></label>
                         <select
                         id="genre"
                         value={genreFilter}
@@ -174,7 +174,7 @@ const Library = () => {
                     </div>
 
                     <div className='filter'>
-                        <label htmlFor="author"><strong>Author:</strong></label>
+                        <label htmlFor="author"><strong>Author:  </strong></label>
                         <select id="author" value={authorFilter} onChange={(e) => setAuthorFilter(e.target.value)}>
                         <option value="">All Authors</option>
                         {authors.map((author) => (
