@@ -20,8 +20,13 @@ const Header = ({ isLoggedIn, logOut }) => {
       navigate('/about'); 
     };
   
-    const goToProfile = () => {
+    const goToProfileOrLogIn = () => {
+      if (isLoggedIn) {
       navigate('/profile'); 
+      }
+      else {
+        navigate('/');
+      }
     }
   
     const goToSignUp = () => {
@@ -34,7 +39,7 @@ const Header = ({ isLoggedIn, logOut }) => {
 
   return (
     <header className="header">
-      <div className="logo" onClick={goToProfile}>
+      <div className="logo" onClick={goToProfileOrLogIn}>
         <img src={bookpng} alt="Logo" />
         <h1>Bookhive</h1>
       </div>
