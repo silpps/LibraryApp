@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 require("dotenv").config()
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.ACCESS_TOKEN, { expiresIn: '3d' });
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
 }
 
 // Gets all users (admin rights required)
