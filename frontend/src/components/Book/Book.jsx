@@ -33,9 +33,12 @@ const Book = ({book, onClick}) => {
 
     return (
         <div onClick={onClick} className="single-book">
+            <div className="title-row">
             <div className='title'>
                 <h3>{book.title}</h3>
                 <p>by {book.authors}</p>
+            </div>
+                {book.reading && <strong className='reading'>READING</strong>}
             </div>
             <div className='info'>
                 <p>{trimReview(book.review, maxReviewLength)}</p>

@@ -1,4 +1,3 @@
-import wishlistData from '../../WishListData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../../components/Book/Book';
 import BookDetails from '../../modals/BookDetails/BookDetails';
@@ -217,7 +216,6 @@ const Wishlist = () => {
                 <AddBookForm
                 onAddBook={addNewBook}
                 closeModal={() => setNewBookModal(false)}
-                allowRatingAndReview={false}
                 />
             )} 
 

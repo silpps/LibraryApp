@@ -1,4 +1,3 @@
-import booksData from '../../BookData.json';
 import React, { useState, useEffect } from 'react';
 import Book from '../../components/Book/Book';
 import BookDetails from '../../modals/BookDetails/BookDetails';
@@ -139,14 +138,6 @@ const Library = () => {
       const handleAddBook = () => {
         setNewBookModal(true);
       };
-    
-      //sorge ku kommentoin tänki pois niin mut pakko et tulee vähän selkeyttä. ruoskikaa torilla jos haluutte -v
-      // const addNewBook = (newBook) => {
-      //   if (newBook) {
-      //       setAllBooks([...allBooks, newBook]);
-      //       setNewBookModal(false);
-      //   }
-      // };
 
     return (
         <div className='library'>
@@ -234,7 +225,6 @@ const Library = () => {
                 <AddBookForm
                 onAddBook={() => setUpdate(true)}
                 closeModal={() => setNewBookModal(false)}
-                allowRatingAndReview={true}
                 />
           )} 
 
