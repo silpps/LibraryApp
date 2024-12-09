@@ -51,7 +51,9 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     //Take the id and token from the request
     const id = userData.id
 
-    const categoryArray = category.split(',').map(item => item.trim());
+    const categoryArray = category.includes(',')
+      ? category.split(',').map(item => item.trim())
+      : category;
 
     const newBook = {
       title,
@@ -129,13 +131,13 @@ return(
       <h2>{location.pathname === '/library' ? 'Add to Library' : 'Add to Wishlist'}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
-          <label>Authors: <input type="text" name="authors" onChange={(e) => setAuthors(e.target.value)} /></label>
-          <button onClick={searchBook}>Search</button>
-          <label>Description: <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
-          <label>Language: <input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
-          <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
-          <label>Image Link: <input type="text" name="imageLink" onChange={(e) => setImageLink(e.target.value)}/></label>
+          <label>Title: <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
+          <label>Authors: <input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
+          <button type="button" onClick={searchBook}>Search</button>
+          <label>Description: <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/></label>
+          <label>Language: <input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
+          <label>Category: <input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
+          <label>Image Link: <input type="text" name="imageLink" value={imageLink ? imageLink : ''} onChange={(e) => setImageLink(e.target.value)}/></label>
           {location.pathname === '/library' && (
             <>
             <label>
