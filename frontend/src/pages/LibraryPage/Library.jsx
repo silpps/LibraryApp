@@ -99,7 +99,7 @@ const Library = () => {
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
   
     useEffect(() => {
-        const uniqueGenres = [...new Set(books.map((book) => book.category))];
+        const uniqueGenres = [...new Set(books.flatMap((book) => book.category))];
         const uniqueAuthors = [...new Set(books.map((book) => book.authors))];
         setGenres(uniqueGenres); 
         setAuthors(uniqueAuthors); 
@@ -111,7 +111,7 @@ const Library = () => {
       setBooks(
         allBooks.filter((book) => {
           return (
-            (!genreFilter || book.category === genreFilter) &&
+            (!genreFilter ||book.category.includes(genreFilter)) &&
             (!authorFilter || book.authors === authorFilter)
           );
         })
