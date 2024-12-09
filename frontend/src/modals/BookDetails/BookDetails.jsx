@@ -6,6 +6,7 @@ import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
 const BookDetails = ({ book, onClose, onDelete }) => {
+    const location = useLocation();
 
     const handleDelete = () => {
         deleteBook();
