@@ -1,5 +1,5 @@
 .container body{
-    background-image: url('../../assets/syksytausta.jpg');
+    background-image: url('../../assets/background_fall.jpg');
     background-size: cover;
 
 }
@@ -70,9 +70,39 @@ h1 {
 .sign-up-link {
     align-self: center;
 }
+@media (max-width: 1060px) {
+    .container {
+        margin-top: 7rem;
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .description {
+        font-size: 1.2em;
+    }
+
+    .form input {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+
+    .error-message, .success-message {
+        font-size: 12px;
+    }
+}
 
 @media screen and (max-width: 768px) {
     .container {
+        margin-top: 5rem;
         padding: 15px;
         max-width: 90%; 
     }
@@ -103,6 +133,7 @@ h1 {
 /* For Mobile Devices (max-width: 480px) */
 @media screen and (max-width: 480px) {
     .container {
+        margin-top: 6rem;
         padding: 10px;
         width: 100%;
     }
@@ -137,6 +168,7 @@ h1 {
 /* For Extra Small Mobile Devices (max-width: 375px) */
 @media screen and (max-width: 375px) {
     .container {
+        margin-top: 5rem;
         padding: 8px;
     }
 
