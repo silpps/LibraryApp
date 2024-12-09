@@ -1,42 +1,37 @@
 #root {
     width: 100%; 
-    background-color: #FFEFE1;
-  }
-  body {
-    background-color: #FFEFE1;
-  }
+}
 
-.library h1 {
+.library h1, .wishlist h1 {
     color: #803503;
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.library h2 {
+.library h2, .wishlist h2 {
     color: #803503;
     text-align: center;
 }
 
-.lib-content {
+.lib-content, .wishlist-content {
     display: flex;
     flex-wrap: wrap; 
     gap: 1rem;
     justify-content: center; 
 }
 
-.lib-content button {
+.lib-content button, .wishlist-content button {
     margin: auto;
     padding: 8px 16px;
     border: none;
     cursor: pointer;
     margin: 1rem;
-  }
-  
+}
 
 .filters-div,
-.profile-div,
 .books-div,
-.add-book-div {
+.add-book-div,
+.profile-div {
     border: 1px solid #803503;
     border-radius: 6px;
     margin: 2rem;
@@ -65,21 +60,18 @@
 
 .filter label {
     padding-right: 3px;
+    text-align: left;
 }
 
 .filter select {
-    background-color: blanchedalmond;
+    background-color: #f3e8de94;
     border: 1px solid #803503;
     border-radius: 8px;
     min-width: none;
-    max-width: 50%;
+    max-width: 60%;
     text-align: center;
     font-size: 15px;
 }
-
-.filter select:hover {
-    background-color: bisque;
-  }
 
 .books-div {
     width: 50%;
@@ -96,15 +88,18 @@
     border-radius: 5px;
     margin-bottom: 20px;
     font-size: 1rem;
-  }
-  
-  .add-book-btn:hover {
-    background-color: #662b1d;
-  }
+}
 
-  
-  /* Media Queries for Responsive Design */
+.add-book-btn:hover {
+    background-color: #662b1d;
+}
+
+/* Media Queries for Responsive Design */
 @media (max-width: 1024px) { /* Tablet */
+    h1 {
+        margin-top: 5rem;
+    }
+
     .left-div {
         width: 100%; /* Take full width on tablets */
         margin-bottom: 1rem;
@@ -116,15 +111,21 @@
 }
 
 @media (max-width: 768px) { /* Mobile */
+    h1 {
+        margin-top: 4rem;
+    }
+
     .filters-div, 
     .library-div, 
-    .books-div{
+    .books-div,
+    .profile-div {
         margin: 1rem;
     }
 
     .filter {
-        justify-content: flex-start;
-        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Center items vertically */
+        text-align: center; /* Center text */
     }
 
     .filter label {
@@ -165,7 +166,11 @@
 }
 
 @media (max-width: 480px) { /* Small Mobile */
-    .lib-content {
+    h1 {
+        margin-top: 4rem;
+    }
+
+    .lib-content, .wishlist-content {
         flex-direction: column;
     }
 
@@ -174,7 +179,17 @@
         margin: 0.5rem 0;
     }
 
-    .lib-content h1, .lib-content h2 {
+    .filter {
+        justify-content: center;
+        align-items: center; /* Center items vertically */
+        text-align: center; /* Center text */
+    }
+
+    .filter select {
+        width: 100%;
+    }
+
+    .lib-content h1, .lib-content h2, .wishlist-content h1, .wishlist-content h2 {
         font-size: 1.2rem;
     }
 

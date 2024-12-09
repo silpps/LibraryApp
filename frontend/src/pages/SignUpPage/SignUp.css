@@ -4,7 +4,6 @@
 
 }
 
-
 .container   {
     display: flex;
     flex-direction: column;
@@ -30,7 +29,6 @@
     margin: 5px 0 15px 0;
     border: 1px solid #803503;
     border-radius: 15px;
-    background-color: #f3e8de94;
     width: 90%;
 }
 
@@ -49,13 +47,11 @@
 .description {
     text-align: left;
     margin: 0 0 0 0;
-    color: #803503;
     font-size: 1.2em;
 }
 
 h1 {
     text-align: center;
-    color: #803503;
     margin-top: 0;
     font-size: 2em;
 }
@@ -66,8 +62,6 @@ h1 {
     max-width: 100px;
     align-self: center;
     cursor: pointer;
-    background-color: #803503;
-    color: #FFEFE1;
     padding: 10px 20px;
     border-radius: 5px;
     max-width: 200px;

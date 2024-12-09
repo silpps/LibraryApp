@@ -34,12 +34,17 @@
 
   color-scheme: light dark;
   color:#2b1201;
-  background-color: #FFEFE1;
-
+  background-color: transparent;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #FFEFE1;
+  width: 100%;
 }
 
 strong {
@@ -75,8 +80,14 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-h1, h2, h3 {
+h1, h2 {
   font-family: 'Cardo', serif;
+  color: #803503;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-family: 'Josefin Sans Bold', Arial, Helvetica, sans-serif;
   color: #803503;
 }
 
@@ -91,7 +102,7 @@ button {
   margin: 0.5rem;
   font-size: 12px;
   background-color: #803503;
-  color: #FFEFE1;
+  color: #faf6f3;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -114,6 +125,7 @@ textarea {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #803503;
+  background-color: #f3e8de94;
 }
 
 input {
@@ -122,6 +134,8 @@ input {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #803503;
+  border-radius: 15px;
+  background-color: #f3e8de94;
 }
 
 label {
@@ -136,7 +150,13 @@ select {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #803503;
+  background-color: #f3e8de94;
 }
+
+form {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+}
+
 
 /* ei viel dark mode
 
