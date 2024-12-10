@@ -1,7 +1,22 @@
 import React from 'react';
 import './About.css';
+import {useNavigate} from 'react-router-dom';
 
-const About = ({ isLoggedIn, moveToHelp, moveToProfile, moveToLogin }) => {
+const About = ({ isLoggedIn}) => {
+  const navigate = useNavigate();
+
+  const moveToHelp = () => {
+    navigate('/help');
+  };
+
+  const moveToProfile = () => {
+    navigate('/profile');
+  };
+
+  const moveToLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <div className="about-container">
       <h2>About BookHive</h2>
