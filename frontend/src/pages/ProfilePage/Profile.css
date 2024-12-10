@@ -25,7 +25,8 @@
     border-radius: 12px;
     padding: 10px; 
     background-color: #FFFBFB;
-    align-self: center; 
+    align-self: start; 
+    margin-top: 1.25rem;
 }
 
 .profile-buttons-div {
