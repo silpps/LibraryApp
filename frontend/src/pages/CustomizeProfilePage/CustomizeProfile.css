@@ -82,6 +82,11 @@ form h3 {
     width: 80%;
 }
 
+.change-password-link {
+    text-align: center;
+    margin-top: 2rem;
+
+}
 /* tablet */
 @media (max-width: 768px) {
     .customize-profile-container {

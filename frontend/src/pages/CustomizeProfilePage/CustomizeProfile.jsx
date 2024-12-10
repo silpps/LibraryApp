@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './CustomizeProfile.css';
 
 import pfp1 from '../../assets/bh_pfp_1.jpg';
@@ -167,6 +167,11 @@ const CustomizeProfile = () => {
               <img src={pfp3} alt="Profile 3" className="profile-pic-option" />
             </label>
           </div>
+          {location.pathname === '/settings' && (
+          <div className="change-password-link">
+          <p>Want to change password? <Link to="/change-password">Click here!</Link></p>
+        </div>
+          )}
           <div className="button-container">
             <button type="submit">Save</button>
             <button type="button" onClick={cancelHandler}>Cancel</button>
