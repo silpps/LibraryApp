@@ -10,6 +10,7 @@ import Help from './pages/HelpPage/Help.jsx';
 import About from './pages/AboutPage/About.jsx';
 import Wishlist from './pages/WishlistPage/Wishlist.jsx';
 import CustomizeProfile from './pages/CustomizeProfilePage/CustomizeProfile.jsx';
+import ChangePassword from './pages/ChangePassword/ChangePassword.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/help" element={<Help isLoggedIn={isLoggedIn} />} />
             <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
             <Route path="/login" element={<LogIn onLogin={handleLogIn} />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/wishlist" element={<Wishlist />} />
           </Routes>
         </div>

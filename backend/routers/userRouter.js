@@ -6,7 +6,8 @@ const {
     createUser,
     updateUser,
     deleteUser,
-    login
+    login,
+    changePassword
   } = require("../controllers/userControllers")
 
 const { authorizeUsersAccess } = require("../middleware/auth");
@@ -32,5 +33,9 @@ router.delete("/profile/settings/:userId", deleteUser);
 
 //Login you knobheads
 router.post("/login", login)
+
+//Change password
+router.put("/change-password", authorizeUsersAccess, changePassword);
+
 
 module.exports = router;

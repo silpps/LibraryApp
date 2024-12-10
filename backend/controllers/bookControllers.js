@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 // Controller function to get all books
 // GET /library
+
 const getAllBooks = async (req, res) => {
   try {
     // this line fetches all books and sorts them by createdAt timestamp in descending order.
@@ -15,7 +16,7 @@ const getAllBooks = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve books" });
   }
-};
+}; 
 
 //Controller for fetching the three most recent books
 // GET /library/recent
@@ -85,7 +86,7 @@ const addBookToLibrary = async (req, res) => {
   }
 };
 
-
+/*
 const getUserLibrary = async (req, res) => {
   const id = req.user._id;
 
@@ -104,6 +105,49 @@ const getUserLibrary = async (req, res) => {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve user's library", error: error.message });
+  }
+};   */
+
+const getUserLibrary = async (req, res) => {
+  const id = req.user._id;
+
+  // Validate the provided user ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    const { page = 1, limit = 3 } = req.query;
+
+    // Parse pagination parameters
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+
+    // Fetch the user
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let library = user.library || [];
+    if (!Array.isArray(library)) {
+      return res.status(400).json({ message: "Library is not properly formatted" });
+    }
+
+    // Reverse the order of the library array to get the most recent books first
+    library = library.reverse();
+
+    const paginatedLibrary = library.slice((pageNumber - 1) * limitNumber, pageNumber * limitNumber);
+    const totalPages = Math.ceil(library.length / limitNumber);
+
+    return res.status(200).json({
+      library: paginatedLibrary,
+      totalPages,
+    });
+  } catch (error) {
+    console.error("Error fetching user's library:", error);
     res.status(500).json({ message: "Failed to retrieve user's library", error: error.message });
   }
 };
@@ -249,15 +293,36 @@ const getUserWishlist = async (req, res) => {
   }
 
   try {
+    const { page = 1, limit = 3 } = req.query;
+
+    // Parse pagination parameters
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+
+    // Fetch the user
     const user = await User.findById(id);
-    
-    if (user) {
-      res.status(200).json({ wishlist: user.wishlist });
-      console.log("getUserWishlist successful")
-    } else {
-      res.status(404).json({ message: "User not found" });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    let wishlist = user.wishlist || [];
+    if (!Array.isArray(wishlist)) {
+      return res.status(400).json({ message: "Wishlist is not properly formatted" });
+    }
+
+    // Reverse the order of the wishlist array to get the most recent books first
+    wishlist = wishlist.reverse();
+
+    const paginatedWishlist = wishlist.slice((pageNumber - 1) * limitNumber, pageNumber * limitNumber);
+    const totalPages = Math.ceil(wishlist.length / limitNumber);
+
+    return res.status(200).json({
+      wishlist: paginatedWishlist,
+      totalPages,
+    });
   } catch (error) {
+    console.error("Error fetching user's wishlist:", error);
     res.status(500).json({ message: "Failed to retrieve user's wishlist", error: error.message });
   }
 };
@@ -402,6 +467,6 @@ module.exports = {
     searchBooks,
     addBookToWishlist,
     updateBookInWishlist,
-    deleteBookInWishlist
+    deleteBookInWishlist,
 };
   
