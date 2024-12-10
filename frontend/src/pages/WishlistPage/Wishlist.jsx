@@ -72,7 +72,7 @@ const Library = () => {
       <h1>My Wishlist</h1>
       <div className="lib-content">
         <div className="left-div">
-          <div className="filter-div">
+          <div className="filters-div">
             <Filter updateFilters={fetchBooks} />
           </div>
           <div className="profile-div">

@@ -77,7 +77,7 @@ const Library = () => {
       <div className="lib-content">
         <div className="left-div">
 
-          <div className="filter-div">
+          <div className="filters-div">
             <Filter onFilterChange={handleFilterChange} />
           </div>
           <div className="profile-div">
