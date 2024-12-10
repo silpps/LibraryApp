@@ -1,54 +1,103 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; 
-  }
-  
-  /* modal-content (the modal itself) */
-  .modal-content {
-    align-items: center;
-    text-align: center;
-    font-size: 18px;
-    background-color: #FFEFE1;
-    padding: 10px;
-    border-radius: 8px;
-    width: 40%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  
-  .modal-buttons {
-    display: flex;
-    justify-content: space-between;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
 
-  .modal-content h2 {
-    margin-bottom: 0;
-    color: #803503;
-  }
+.modal-content {
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
+  background-color: #FFEFE1;
+  padding: 10px;
+  border-radius: 8px;
+  width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  overflow-y: auto;
+}
 
-  .modal-content strong {
-    color: #803503;
-  }
+.modal-content p {
+  color: #1f0d01;
+}
 
-  .modal-content .stars {
-    font-size: 2rem;
-  }
-  
-  .modal-content button {
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    margin: 1rem;
-  }
-  
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-content h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.modal-content strong {
+  color: #803503;
+  padding-right: 3px;
+}
+
+.modal-content .stars {
+  font-size: 2rem;
+}
+
+.modal-content button {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.title-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.title-row h2 {
+  flex: 1;
+  text-align: center;
+}
+
+.now-reading {
+  color: #803503;
+  position: absolute;
+  right: 0;
+  padding-top: 2rem;
+  padding-right: 1rem;
+  font-family:'Josefin Sans Bold', Arial, Helvetica, sans-serif;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.star {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.star.filled {
+  color: #FFD700;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); 
+}
+
+.star:hover {
+  color: #FFD700;
+  transform: scale(1.2);
+}

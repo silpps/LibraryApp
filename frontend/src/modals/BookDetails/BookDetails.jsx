@@ -5,6 +5,7 @@ import './BookDetails.css';
 const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   const location = useLocation();
   const [isEditing, setIsEditing] = useState(false);
+  const [hoverRating, setHoverRating] = useState(0);
   const [editedBook, setEditedBook] = useState({
     title: book.title || '',
     authors: book.authors || '',
@@ -111,9 +112,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-    if (window.confirm("Are you sure you want to save changes?")) {
-      editBook();
-    }
+    editBook();
   };
 
   const moveBookToLibrary = async () => {
@@ -180,12 +179,19 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
       stars.push(
-        <span key={i} style={{ color: i < rating ? '#FFD700' : '#ccc' }}>
+        <span key={i} style={{ color: i < rating ? '#FFD700' : '#ccc', textShadow: '0 0 2px rgba(0, 0, 0, 0.8)' }}>
           ★
         </span>
       );
     }
     return stars;
+    };
+
+    const handleStarClick = (rating) => {
+      setEditedBook((prevBook) => ({
+        ...prevBook,
+        rating: rating,
+      }));
     };
 
   return (
@@ -195,7 +201,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
           <form onSubmit={handleEditSubmit}>
             <h2>Edit Book Details</h2>
             <label>
-              Title:
+              <strong>Title: </strong>
               <input
                 type="text"
                 name="title"
@@ -204,7 +210,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
               />
             </label>
             <label>
-              Author:
+              <strong>Author: </strong>
               <input
                 type="text"
                 name="author"
@@ -213,7 +219,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
               />
             </label>
             <label>
-              Category:
+            <strong>Category: </strong>
               <input
                 type="text"
                 name="category"
@@ -222,7 +228,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
               />
             </label>
             <label>
-              Language:
+              <strong>Language: </strong>
               <input
                 type="text"
                 name="language"
@@ -233,7 +239,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
             {location.pathname === '/library' && (
               <>
                 <label>
-                  Add to readinglist:
+                  <strong>On my readinglist: </strong>
                   <input 
                   type="checkbox" 
                   name="reading"
@@ -241,18 +247,23 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
                   onChange={handleEditChange}/>
                 </label>
                 <label>
-                  Rating:
-                  <input
-                    type="number"
-                    name="rating"
-                    value={editedBook.rating}
-                    onChange={handleEditChange}
-                    min="1"
-                    max="5"
-                  />
+                  <strong>Rating: </strong>
+                  <div className="star-rating">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span
+                        key={star}
+                        className={`star ${star <= (hoverRating || editedBook.rating) ? 'filled' : ''}`}
+                        onClick={() => handleStarClick(star)}
+                        onMouseEnter={() => setHoverRating(star)}
+                        onMouseLeave={() => setHoverRating(0)}
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
                 </label>
                 <label>
-                  Review:
+                  <strong>Review: </strong>
                   <textarea
                     name="review"
                     value={editedBook.review}
@@ -270,11 +281,15 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
           </form>
         ) : (
           <>
-            <h2>{editedBook.title}</h2>
-            <p>by {editedBook.authors}</p>
-            {location.pathname === '/library' && editedBook.reading && (
-            <p>Now reading</p>
-          )}
+            <div className="title-row">
+              <h2>{editedBook.title}</h2>
+              {location.pathname === '/library' && editedBook.reading && (
+                <span className="now-reading">Now reading!</span>
+              )}
+            </div>
+            <p>
+              by {editedBook.authors}
+            </p>
             <p>
               <strong>Category:</strong> {editedBook.category}
             </p>

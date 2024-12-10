@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Book from '../../components/Book/Book';
 import BookDetails from '../../modals/BookDetails/BookDetails';
 import AddBookForm from '../../modals/AddBookForm/AddBookForm';
-import './Wishlist.css';
+import '../LibraryPage/Library.css'; // Use the same CSS file as Library
 import { Link, useNavigate } from 'react-router-dom';
 
 const Wishlist = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
     const [allBooks, setAllBooks] = useState([]);
     const [books, setBooks] = useState([]);
+    const [update, setUpdate] = useState(true); //tein tällasen koska 
     const [authors, setAuthors] = useState([]);
     const [genres, setGenres] = useState([]);
-    const [update, setUpdate] = useState(true); //tein tällasen koska 
+    const [readingStatusFilter, setReadingStatusFilter] = useState("all")
     const [genreFilter, setGenreFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
     const [newBookModal, setNewBookModal] = useState(false);
-
     const [currentPage, setCurrentPage] = useState(1);
     const booksPerPage = 4;
   
@@ -39,6 +39,7 @@ const Wishlist = () => {
       }
     };
 
+    //hakee alussa kaikki kirjat
     useEffect(() => {
       const fetchBooks = async () => {
        
@@ -64,17 +65,23 @@ const Wishlist = () => {
             const data = await res.json();
             console.log(data)
             setAllBooks(data.wishlist);
+            console.log(data.wishlist.length)
             console.log(allBooks)
+
         } catch (error) {
           console.error('Error fetching books:', error);
         }
+
+  
       };
       fetchBooks();
       setUpdate(false);
 
     }, [update]);
 
+
     //päivittää aina genre ja author listat kun kirjalista päivittyy (kirja poistetaan tai lisätään)
+  
     useEffect(() => {
         const uniqueGenres = [...new Set(books.flatMap((book) => book.category))];
         const uniqueAuthors = [...new Set(books.map((book) => book.authors))];
@@ -85,31 +92,33 @@ const Wishlist = () => {
     
     //päivittää kirjalistan sitä mukaan mitä valitaan filtereistä
     useEffect(() => {
-        setBooks(
-          allBooks.filter((book) => {
-            return (
-              (!genreFilter || book.category.includes(genreFilter)) &&
-              (!authorFilter || book.authors === authorFilter)
-            );
-          })
-        );
-      }, [allBooks, genreFilter, authorFilter]);
+      setBooks(
+        allBooks.filter((book) => {
+          return (
+            (!genreFilter ||book.category.includes(genreFilter)) &&
+            (!authorFilter || book.authors === authorFilter) &&
+            (readingStatusFilter === 'all' ||
+              (readingStatusFilter === 'reading' && book.reading === true) ||
+              (readingStatusFilter === 'notReading' && book.reading === false))
+          );
+        })
+      );
+    }, [allBooks, genreFilter, authorFilter, readingStatusFilter]);
+  
+    //handler for deleting a book
+    const handleDelete = (id) => {
+      const updatedBooks = allBooks.filter((book) => book.id !== id); 
+      setAllBooks(updatedBooks); 
+    };
+
+    const handleUpdate = (updatedBook) => {
+      const updatedBooks = allBooks.map((book) =>
+        book._id === updatedBook._id ? updatedBook : book
+      );
+      setAllBooks(updatedBooks);
+    };
     
-
-      // handler for deleting a book
-      const handleDelete = (id) => {
-        const updatedBooks = allBooks.filter((book) => book.id !== id); 
-        setAllBooks(updatedBooks); 
-      };
-      
-      const handleUpdate = (updatedBook) => {
-        const updatedBooks = allBooks.map((book) =>
-          book._id === updatedBook._id ? updatedBook : book
-        );
-        setAllBooks(updatedBooks);
-      };
-
-      //handlers for opening and closing the book details modal
+    // handlers for opening and closing the book details modal
       const handleBookClick = (book) => {
         setSelectedBook(book);
       };
@@ -118,21 +127,21 @@ const Wishlist = () => {
         setSelectedBook(null);
       };
 
-      //handlers add book modaalille, modaali viel rikki tekee tyhjii kirjoi.
+
+      //handlers for add book modaal
       const handleAddBook = () => {
         setNewBookModal(true);
       };
 
-
     return (
         <div className='wishlist'>
             <h1>My Wishlist</h1>
-            <div className='wishlist-content'>
+            <div className='lib-content'>
                 <div className="left-div">
                 <div className="filters-div">
                     <h2>Filters</h2>
                     <div className='filter'>
-                        <label htmlFor="genre"><strong>Filter by Genre:</strong></label>
+                        <label htmlFor="genre"><strong>Genre:  </strong></label>
                         <select
                         id="genre"
                         value={genreFilter}
@@ -148,7 +157,7 @@ const Wishlist = () => {
                     </div>
 
                     <div className='filter'>
-                        <label htmlFor="author"><strong>Filter by Author:</strong></label>
+                        <label htmlFor="author"><strong>Author:  </strong></label>
                         <select id="author" value={authorFilter} onChange={(e) => setAuthorFilter(e.target.value)}>
                         <option value="">All Authors</option>
                         {authors.map((author) => (
@@ -164,27 +173,27 @@ const Wishlist = () => {
                         }>Reset Filters</button>
                 </div>
 
-                <div className='library-div'>
-                    <h2>Back to</h2>
-                    <Link to = "/library">
-                    <button>Library</button>
-                    </Link>
+                <div className='profile-div'>
+                    <h2>Go to</h2>
                     <Link to="/profile">
                     <button>Profile</button>
+                    </Link>
+                    <Link to="/library">
+                    <button>Library</button>
                     </Link>
                 </div>
             </div >
 
             <div className="books-div">
               <div className="books-div-top">
-                <h2>My collection</h2>
-                <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
-              </div>
-              <div>
-              {currentBooks.map((book) => (
-                <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
-              ))}
-              </div>
+                  <h2>My collection</h2>
+                  <button className="add-book-btn" onClick={handleAddBook}>Add Book</button>
+                </div>
+                <div> 
+                {currentBooks.map((book) => (
+                  <Book key={book.id} book={book} onClick={() => handleBookClick(book)} />
+                ))}
+                </div>
               <div className="pagination">
                 <button onClick={goToPrevPage} disabled={currentPage === 1}>
                   Previous
@@ -197,7 +206,6 @@ const Wishlist = () => {
                 </button>
               </div>
             </div>
-        </div>
 
         {selectedBook && (
             <BookDetails
@@ -213,8 +221,9 @@ const Wishlist = () => {
                 onAddBook={() => setUpdate(true)}
                 closeModal={() => setNewBookModal(false)}
                 />
-            )} 
+          )} 
 
+          </div>
         </div>
     );
   };

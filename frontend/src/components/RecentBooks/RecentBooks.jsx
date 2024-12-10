@@ -9,7 +9,7 @@ import '../../pages/ProfilePage/Profile.css';
 //    .slice(0, 3); 
 
 
-const RecentBooks = () => {
+const RecentBooks = ({ onBookClick }) => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -54,7 +54,9 @@ const RecentBooks = () => {
             <h2>Recently Added</h2>
             {books.length === 0 && <p>No books found</p>}
             {books.map((book) => (
-                <Book key={book.id} book={book} />
+                <div key={book.id} onClick={() => onBookClick(book)}>
+                  <Book book={book} />
+                </div>
             ))}
         </div>
     );

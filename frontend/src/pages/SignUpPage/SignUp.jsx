@@ -15,10 +15,6 @@ const SignUp = ({ onLogin }) => {
     formSubmitted,
     successMessage,
     errorMessage,
-    handleUsernameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleConfirmPasswordChange,
     handleSubmit,
   } = useSignUp(onLogin);
 
@@ -28,19 +24,15 @@ const SignUp = ({ onLogin }) => {
       <form className="form" onSubmit={handleSubmit}>
         <p className="description">Username</p>
         <input
-          type="text"
+          {...username}
           placeholder="Enter your username"
-          value={username}
-          onChange={handleUsernameChange}
           required
         />
 
         <p className="description">Email</p>
         <input
-          type="email"
+          {...email}
           placeholder="Enter your email"
-          value={email}
-          onChange={handleEmailChange}
           className={emailValid ? 'valid' : 'invalid'}
           required
         />
@@ -50,10 +42,8 @@ const SignUp = ({ onLogin }) => {
 
         <p className="description">Password</p>
         <input
-          type="password"
+          {...password}
           placeholder="Enter your password"
-          value={password}
-          onChange={handlePasswordChange}
           className={strongPassword ? 'valid' : 'invalid'}
           required
         />
@@ -67,10 +57,8 @@ const SignUp = ({ onLogin }) => {
 
         <p className="description">Confirm Password</p>
         <input
-          type="password"
+          {...confirmPassword}
           placeholder="Re-enter your password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
           className={passwordMatch ? 'valid' : 'invalid'}
           required
         />

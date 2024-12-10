@@ -1,31 +1,82 @@
+@font-face {
+  font-family: 'Cardo';
+  src: url('/src/fonts/Cardo/Cardo-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/src/fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans Bold';
+  src: url('/src/fonts/Josefin_Sans/static/JosefinSans-Bold.ttf') format('truetype');
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Parisienne';
+  src: url('/src/fonts/Parisienne/Parisienne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   width: 100%;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Josefin Sans', 'Josefin Sans Bold', 'Cardo', 'Parisienne', system-ui, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   justify-content: center;
 
   color-scheme: light dark;
   color:#2b1201;
-  background-color: #FFEFE1;
-
+  background-color: transparent;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  background-color: #FFEFE1;
+  width: 100%;
+}
+
 strong {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   color:#803503;
 }
 
 a {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   font-weight: 500;
   color: #803503;
   text-decoration: inherit;
 }
 a:hover {
   color:#a84604;
+  transform: scale(1.05);
+}
+
+li {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  color: #803503;
+}
+
+p {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  color: #1f0d01;
+}
+
+strong {
+  font-family: 'Josefin Sans Bold', Arial, Helvetica, sans-serif;
+  color: #803503;
+  font-weight: 700;
 }
 
 body {
@@ -35,7 +86,14 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-h1, h2, h3 {
+h1, h2 {
+  font-family: 'Cardo', serif;
+  color: #803503;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-family: 'Josefin Sans Bold', Arial, Helvetica, sans-serif;
   color: #803503;
 }
 
@@ -45,11 +103,12 @@ h1 {
 }
 
 button {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   cursor: pointer;
   margin: 0.5rem;
   font-size: 12px;
   background-color: #803503;
-  color: #FFEFE1;
+  color: #faf6f3;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -58,13 +117,53 @@ button {
 }
 
 button:hover {
-  border-color: #a84604;
+  background-color: #a84604;
+  transform: scale(1.05);
 }
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+textarea {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #803503;
+  background-color: #f3e8de94;
+}
+
+input {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #803503;
+  border-radius: 15px;
+  background-color: #f3e8de94;
+}
+
+label {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: #803503;
+}
+
+select {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #803503;
+  background-color: #f3e8de94;
+}
+
+form {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+}
+
 
 /* ei viel dark mode
 
