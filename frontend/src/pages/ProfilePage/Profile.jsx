@@ -111,11 +111,10 @@ const Profile = () => {
       </div>
 
       <div className="profile-buttons-div">
-        <button onClick={goToLibrary}>Library</button>
-        <button onClick={goToWishlist}>Wishlist</button>
+        <button onClick={goToLibrary} className="library-button">Library</button>
+        <button onClick={goToWishlist} className="wishlist-button">Wishlist</button>
       </div>
 
-      {/* Modal to show book details */}
       {isModalOpen && (
         <BookDetails
           book={selectedBook}
