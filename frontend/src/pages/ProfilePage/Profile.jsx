@@ -21,6 +21,8 @@ const Profile = () => {
   const [error, setError] = useState('');
   const [selectedBook, setSelectedBook] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [recentBooks, setRecentBooks] = useState([]);
+  const [update, setUpdate] = useState(true);
   
   const navigate = useNavigate();
 
@@ -48,9 +50,8 @@ const Profile = () => {
 
         setUsername(data.username);
         setDescription(data.description);
-        setBookwormLevel(data.bookwormLevel);
+        setBookwormLevel(data.library.length);
         setProfilePicture(data.profilePicture || 'bh_pfp_1');
-    
       } catch (error) {
         console.error('Error fetching profile data:', error);
         setError(error.message);
@@ -58,9 +59,13 @@ const Profile = () => {
         setIsLoading(false);
       }
     };
-
+    setUpdate(false);
     fetchProfileData();
-  }, []);
+  }, [update]);
+
+  const triggerBookUpdate = () => {
+    setUpdate(true); 
+  };
 
   // Profile picture selection logic
   const profileImage =
@@ -91,6 +96,16 @@ const Profile = () => {
     setSelectedBook(null);
   };
 
+  const handleUpdate = () => {
+    closeModal();
+    triggerBookUpdate();
+  };
+
+  const handleDelete = () => {
+    triggerBookUpdate();
+    closeModal();
+  };
+
   return (
     <div className="profile-page">
       <h1>{username}'s profile</h1>
@@ -107,7 +122,7 @@ const Profile = () => {
       </div>
 
       <div className="recently-added-div">
-        <RecentBooks onBookClick={openBookDetails} />
+        <RecentBooks books={recentBooks} onBookClick={openBookDetails} onUpdate= {triggerBookUpdate} />
       </div>
 
       <div className="profile-buttons-div">
@@ -119,6 +134,8 @@ const Profile = () => {
         <BookDetails
           book={selectedBook}
           onClose={closeModal} 
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
         />
       )}
     </div>

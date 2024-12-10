@@ -6,13 +6,7 @@ import '../../pages/ProfilePage/Profile.css';
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
-
-// const recentBooks = booksData
-//   .sort((a, b) => b.id - a.id) 
-//    .slice(0, 3); 
-
-
-const RecentBooks = ({ onBookClick }) => {
+const RecentBooks = ({ onBookClick, onUpdate }) => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -38,19 +32,17 @@ const RecentBooks = ({ onBookClick }) => {
             body: JSON.stringify(id)
             });
             const data = await res.json();
-            console.log(data)
             const recentBooks = data.library
            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
            .slice(0, 3); 
             setBooks(recentBooks);
-            console.log(recentBooks)
         } catch (error) {
           console.error('Error fetching books:', error);
         }
       };
       fetchBooks();
+    }, [onUpdate]);
 
-    }, []);
 
     return (
         <div>

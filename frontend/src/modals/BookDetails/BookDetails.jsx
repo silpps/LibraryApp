@@ -52,8 +52,12 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const token = userData.token;
 
       const path = location.pathname === '/library'
-        ? `${apiUrl}/library/${book._id}`
-        : `${apiUrl}/library/userWishlist/${book._id}`;
+      ? `${apiUrl}/library/${book._id}`
+      : location.pathname === '/wishlist'
+      ? `${apiUrl}/library/userWishlist/${book._id}`
+      : location.pathname === '/profile'
+      ? `${apiUrl}/library/${book._id}`
+      :'';
 
       const res = await fetch(path, {
         method: "DELETE",
@@ -89,8 +93,13 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const token = userData.token;
 
       const path = location.pathname === '/library'
-        ? `${apiUrl}/library/${book._id}`
-        : `${apiUrl}/library/userWishlist/${book._id}`;
+      ? `${apiUrl}/library/${book._id}`
+      : location.pathname === '/wishlist'
+      ? `${apiUrl}/library/userWishlist/${book._id}`
+      : location.pathname === '/profile'
+      ? `${apiUrl}/library/${book._id}`
+      :'';
+
 
       const res = await fetch(path, {
         method: "PUT",
