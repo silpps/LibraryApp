@@ -8,9 +8,14 @@
     border: 1px solid #803503;
     border-radius: 6px;
     margin: 0.5rem;
-    background-color: #FFFBFB;
+    background-color:#f3e8de94;
     padding: 15px;
 }
+
+.single-book:hover {
+    transform: scale(1.02);
+}
+
 .single-book .title-row {
     display: flex;
     justify-content: space-between;
@@ -42,10 +47,11 @@
 .single-book p {
     font-size: 16px;
     margin: 0;
+    color: #1f0d01;
 }
 
 .single-book .stars {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 

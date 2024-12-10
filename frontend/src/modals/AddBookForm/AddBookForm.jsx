@@ -12,7 +12,8 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
   const [imageLink, setImageLink] = useState(null);
-  const [rating, setRating] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
   const [review, setReview] = useState(null);
   const [reading, setReadingList] = useState(false);
   const [error, setError] = useState(''); 
@@ -126,24 +127,41 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     }
   };
 
+  const handleStarClick = (rating) => {
+    setRating(rating);
+  };
+
 return(
   <div className="modal">
     <div className="modal-content">
       <h2>{location.pathname === '/library' ? 'Add to Library' : 'Add to Wishlist'}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label>Title: <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
-          <label>Authors: <input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
+          <label><strong>Title: </strong><input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
+          <label><strong>Authors: </strong><input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
           <button type="button" onClick={searchBook}>Search</button>
-          <label>Language: <input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
-          <label>Category: <input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
-          <label>Image Link: <input type="text" name="imageLink" value={imageLink ? imageLink : ''} onChange={(e) => setImageLink(e.target.value)}/></label>
+          <label><strong>Language: </strong><input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
+          <label><strong>Genre: </strong><input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
           {location.pathname === '/library' && (
             <>
             <label>
-              <input type="checkbox" onChange={(e) => setReadingList(e.target.checked)}/>Add to Reading List</label>
-              <label>Rating:<input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/> </label>
-              <label>Review:<textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
+              <strong>Add to readinglist: </strong>
+              <input type="checkbox" onChange={(e) => setReadingList(e.target.checked)}/></label>
+              <label><strong>Rating: </strong>
+                <div className="star-rating">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      className={`star ${star <= (hoverRating || rating) ? 'filled' : ''}`}
+                      onClick={() => handleStarClick(star)}
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div> </label>
+              <label><strong>Review:  </strong><textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
             </>
           )}
           <button type="submit">Add Book</button>

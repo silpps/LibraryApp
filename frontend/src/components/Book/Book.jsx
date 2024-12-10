@@ -22,7 +22,7 @@ const Book = ({book, onClick}) => {
       const stars = [];
       for (let i = 0; i < 5; i++) {
         stars.push(
-          <span key={i} style={{ color: i < rating ? '#FFD700' : '#ccc' }}>
+          <span key={i} style={{ color: i < rating ? '#FFD700' : '#ccc', textShadow: '0 0 2px rgba(0, 0, 0, 0.8)'}}>
             ★
           </span>
         );
