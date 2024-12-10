@@ -110,11 +110,11 @@ const Wishlist = () => {
     }, [allBooks, genreFilter, authorFilter, readingStatusFilter]);
   
     //handler for deleting a book
-    const handleDelete = (id) => {
+    const handleDelete = () => {
       setUpdate(true)
     };
 
-    const handleUpdate = (updatedBook) => {
+    const handleUpdate = () => {
       setUpdate(true)
     };
     
