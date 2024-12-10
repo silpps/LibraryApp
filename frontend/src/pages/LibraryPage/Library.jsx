@@ -196,7 +196,8 @@ const Library = () => {
                     
                     <button onClick={() => {
                         setGenreFilter(''); 
-                        setAuthorFilter('');}
+                        setAuthorFilter('');
+                        setReadingStatusFilter('all');}
                         }>Reset Filters</button>
                 </div>
 
