@@ -3,7 +3,7 @@ import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
 
-const Filter = ({ updateFilters, onFilterChange }) => {
+const Filter = ({ onFilterChange }) => {
     const [categoryFilter, setCategoryFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [readingStatusFilter, setReadingStatusFilter] = useState('all');
@@ -42,7 +42,7 @@ const Filter = ({ updateFilters, onFilterChange }) => {
             }
         };
         fetchFilterData();
-    }, [updateFilters]);
+    }, []);
 
     const handleCategoryChange = (e) => {
         setCategoryFilter(e.target.value);
@@ -57,6 +57,13 @@ const Filter = ({ updateFilters, onFilterChange }) => {
       const handleReadingStatusChange = (e) => {
         setReadingStatusFilter(e.target.value);
         onFilterChange({ category: categoryFilter, author: authorFilter, readingStatus: e.target.value });
+      };
+
+      const handleResetFilters = () => {
+        setCategoryFilter('');
+        setAuthorFilter('');
+        setReadingStatusFilter('all');
+        onFilterChange({ category: '', author: '', readingStatus: 'all' });
       };
 
     return (
@@ -94,9 +101,7 @@ const Filter = ({ updateFilters, onFilterChange }) => {
                             </select>
                     </div>
 
-                    <button onClick={() => {
-                        setCategoryFilter(''); 
-                        setAuthorFilter('');}
+                    <button onClick={handleResetFilters
                         }>Reset Filters</button>
                 </div>
     );
