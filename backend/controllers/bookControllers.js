@@ -20,9 +20,20 @@ const getAllBooks = async (req, res) => {
 //Controller for fetching the three most recent books
 // GET /library/recent
 const getRecentBooks = async (req, res) => {
+  const id = req.user._id;
+  // Validate the provided user ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
   try {
-    const books = await Book.find({}).sort({ createdAt: -1 }).limit(3);
-    res.status(200).json(books);
+    const user = await User.findById(id);
+    if (user) {
+      const books = user.library.sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
+      res.status(200).json(books);
+      console.log("get recent successful")
+    } else {
+      return res.status(404).json({ message: "User not found" });
+    }
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve recent books" });
   }

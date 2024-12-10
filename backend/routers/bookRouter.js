@@ -31,6 +31,8 @@ router.post("/userLibrary", authorizeUsersAccess, getUserLibrary)
 //Get User's wishlist when moving to it
 router.post("/userWishlist", authorizeUsersAccess, getUserWishlist)
 
+router.get('/recentBooks', authorizeUsersAccess, getRecentBooks)
+
 // POST /books
 router.post('/userLibrary/addToLibrary',authorizeUsersAccess, addBookToLibrary);
 
