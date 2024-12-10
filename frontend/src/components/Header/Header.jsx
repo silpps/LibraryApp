@@ -53,7 +53,7 @@ const Header = ({ isLoggedIn, logOut }) => {
           </li>
           {isLoggedIn && (
             <li>
-              <a onClick={logOut}>Log Out</a>
+              <a onClick={ () => {logOut(); navigate('/login');}}>Log Out</a>
             </li>
           )}
           {!isLoggedIn && location.pathname !== '/signup' && (
