@@ -11,7 +11,7 @@ export default function useLogIn(onLogin) {
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault(); 
     const loginDetails = { email: email.value, password: password.value };
 
     try {
@@ -20,19 +20,18 @@ export default function useLogIn(onLogin) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginDetails),
       });
-
       const userData = await res.json();
       if (res.ok) {
         localStorage.setItem('userData', JSON.stringify(userData));
-        onLogin(); // Perform any additional login actions
+        onLogin(); 
         navigate('/profile');
-        console.log('Logged in successfully');
+        console.log('Logged in successfully ' + loginDetails.email);
       } else {
-        setShowError(true); // Display error message
+        setShowError(true); 
       }
     } catch (error) {
       console.error('Error during login:', error);
-      setShowError(true); // Handle fetch/network errors
+      setShowError(true); 
     }
   };
 

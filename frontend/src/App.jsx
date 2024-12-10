@@ -10,7 +10,6 @@ import Help from './pages/HelpPage/Help.jsx';
 import About from './pages/AboutPage/About.jsx';
 import Wishlist from './pages/WishlistPage/Wishlist.jsx';
 import CustomizeProfile from './pages/CustomizeProfilePage/CustomizeProfile.jsx';
-import { ProfileProvider } from './context/ProfileContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
   };
 
   return (
-    <ProfileProvider>
       <Router>
         <Header isLoggedIn={isLoggedIn} logOut={logOut} />
         <div>
@@ -50,7 +48,6 @@ function App() {
         </div>
         <Footer />
       </Router>
-    </ProfileProvider>
   );
 }
 
