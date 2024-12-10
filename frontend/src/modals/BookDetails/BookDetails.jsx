@@ -265,7 +265,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
                 maxLength="30"
               />
             </label>
-            {location.pathname === '/library' && (
+            {(location.pathname === '/library' || location.pathname === '/profile') && (
               <>
                 <label>
                   On my readinglist: 
