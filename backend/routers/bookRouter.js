@@ -27,9 +27,10 @@ const { authorizeUsersAccess } = require("../middleware/auth");
 // GET /books
 //router.get('/', getAllBooks);
 //Get user's library when moving to library
-router.post("/userLibrary", authorizeUsersAccess, getUserLibrary)
+router.get("/userLibrary", authorizeUsersAccess, getUserLibrary)
+
 //Get User's wishlist when moving to it
-router.post("/userWishlist", authorizeUsersAccess, getUserWishlist)
+router.get("/userWishlist", authorizeUsersAccess, getUserWishlist)
 
 // POST /books
 router.post('/userLibrary/addToLibrary',authorizeUsersAccess, addBookToLibrary);

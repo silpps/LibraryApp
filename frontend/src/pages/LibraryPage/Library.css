@@ -2,23 +2,23 @@
     width: 100%; 
 }
 
-.library h1, .wishlist h1 {
+.library h1 {
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.library h2, .wishlist h2 {
+.library h2 {
     text-align: center;
 }
 
-.lib-content, .wishlist-content {
+.lib-content {
     display: flex;
     flex-wrap: wrap; 
     gap: 1rem;
     justify-content: center; 
 }
 
-.lib-content button, .wishlist-content button {
+.lib-content button button {
     margin: auto;
     padding: 8px 16px;
     border: none;
@@ -158,7 +158,7 @@
         margin-top: 4rem;
     }
 
-    .lib-content, .wishlist-content {
+    .lib-content{
         flex-direction: column;
     }
 
@@ -177,7 +177,7 @@
         width: 100%;
     }
 
-    .lib-content h1, .lib-content h2, .wishlist-content h1, .wishlist-content h2 {
+    .lib-content h1, .lib-content h2 {
         font-size: 1.2rem;
     }
 
