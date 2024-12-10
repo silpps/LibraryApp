@@ -4,6 +4,7 @@ import './Profile.css';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import RecentBooks from '../../components/RecentBooks/RecentBooks';
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
+import BookDetails from '../../modals/BookDetails/BookDetails'; 
 
 import pfp1 from '../../assets/bh_pfp_1.jpg';
 import pfp2 from '../../assets/bh_pfp_2.jpg';
@@ -18,6 +19,8 @@ const Profile = () => {
   const [profilePicture, setProfilePicture] = useState('bh_pfp_1');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedBook, setSelectedBook] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   
   const navigate = useNavigate();
 
@@ -78,6 +81,15 @@ const Profile = () => {
     navigate('/settings');
   };
 
+  const openBookDetails = (book) => {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedBook(null);
+  };
 
   return (
     <div className="profile-page">
@@ -95,13 +107,21 @@ const Profile = () => {
       </div>
 
       <div className="recently-added-div">
-        <RecentBooks />
+        <RecentBooks onBookClick={openBookDetails} />
       </div>
 
       <div className="profile-buttons-div">
         <button onClick={goToLibrary}>Library</button>
         <button onClick={goToWishlist}>Wishlist</button>
       </div>
+
+      {/* Modal to show book details */}
+      {isModalOpen && (
+        <BookDetails
+          book={selectedBook}
+          onClose={closeModal} 
+        />
+      )}
     </div>
   );
 };
