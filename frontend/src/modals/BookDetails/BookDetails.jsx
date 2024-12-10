@@ -49,7 +49,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const userData = JSON.parse(userDataString);
       const token = userData.token;
 
-      const path = location.pathname === (location.pathname === '/library' || location.pathname === '/profile')
+      const path = (location.pathname === '/library' || location.pathname === '/profile')
         ? `${apiUrl}/library/userLibrary/${book._id}`
         : `${apiUrl}/library/userWishlist/${book._id}`;
 
@@ -86,7 +86,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const userData = JSON.parse(userDataString);
       const token = userData.token;
 
-      const path = location.pathname === (location.pathname === '/library' || location.pathname === '/profile')
+      const path = (location.pathname === '/library' || location.pathname === '/profile')
         ? `${apiUrl}/library/userLibrary/${book._id}`
         : `${apiUrl}/library/userWishlist/${book._id}`;
 
