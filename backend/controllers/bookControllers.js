@@ -118,7 +118,7 @@ const getUserLibrary = async (req, res) => {
   }
 
   try {
-    const { page = 1, limit = 3, author, category, reading} = req.query;
+    const { page = 1, limit = 3 } = req.query;
 
     // Parse pagination parameters
     const pageNumber = parseInt(page, 10);
@@ -134,18 +134,6 @@ const getUserLibrary = async (req, res) => {
     let library = user.library || [];
     if (!Array.isArray(library)) {
       return res.status(400).json({ message: "Library is not properly formatted" });
-    }
-
-    // Apply filters
-    if (author) {
-      library = library.filter(book => book.authors.includes(author));
-    }
-    if (category) {
-      library = library.filter(book => book.category === category);
-    }
-    if (reading === 'reading' || reading === 'not-reading') {
-      const isReading = reading === 'reading';
-      library = library.filter(book => book.reading === isReading);
     }
 
     // Reverse the order of the library array to get the most recent books first

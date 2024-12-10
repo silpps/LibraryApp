@@ -14,9 +14,6 @@ const Library = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBook, setSelectedBook] = useState(null);
   const [newBookModal, setNewBookModal] = useState(false);
-  const [authorFilter, setAuthorFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [readingStatusFilter, setReadingStatusFilter] = useState('all');
   const booksPerPage = 3;
 
   const fetchBooks = async () => {
@@ -30,9 +27,6 @@ const Library = () => {
       const queryParams = new URLSearchParams({
         page: currentPage,
         limit: booksPerPage,
-        author: authorFilter,
-        category: categoryFilter,
-        readingStatus: readingStatusFilter
       });
   
       const res = await fetch(`${apiUrl}/library/userLibrary?${queryParams.toString()}`, {
@@ -58,13 +52,6 @@ const Library = () => {
     fetchBooks();
   }, [currentPage]);
 
-  const updateWithFilter = async (category, author, readingStatus) => {
-    setCategoryFilter(category);
-    setAuthorFilter(author);
-    setReadingStatusFilter(readingStatus);
-    await fetchBooks();
-  };
-
   const goToNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
@@ -79,16 +66,14 @@ const Library = () => {
   const closeSelectedBook = () => setSelectedBook(null);
   const handleAddBook = () => setNewBookModal(true);
 
-
   return (
     <div className="library">
       <h1>My Library</h1>
       <div className="lib-content">
         <div className="left-div">
-          <div className="filters-div">
-            <Filter updateFilters={fetchBooks}
-            onFilterChange={updateWithFilter}
-             />
+
+          <div className="filter-div">
+            <Filter updateFilters={fetchBooks} />
           </div>
           <div className="profile-div">
             <h2>Go to</h2>

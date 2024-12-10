@@ -46,17 +46,17 @@ const Filter = ({ updateFilters, onFilterChange }) => {
 
     const handleCategoryChange = (e) => {
         setCategoryFilter(e.target.value);
-        onFilterChange(categoryFilter, authorFilter, readingStatusFilter);
+        onFilterChange({ category: e.target.value, author: authorFilter, readingStatus: readingStatusFilter });
       };
     
       const handleAuthorChange = (e) => {
         setAuthorFilter(e.target.value);
-        onFilterChange(categoryFilter, authorFilter, readingStatusFilter);
+        onFilterChange({ category: categoryFilter, author: e.target.value, readingStatus: readingStatusFilter });
       };
     
       const handleReadingStatusChange = (e) => {
         setReadingStatusFilter(e.target.value);
-        onFilterChange(categoryFilter, authorFilter, readingStatusFilter);
+        onFilterChange({ category: categoryFilter, author: authorFilter, readingStatus: e.target.value });
       };
 
     return (
@@ -96,9 +96,7 @@ const Filter = ({ updateFilters, onFilterChange }) => {
 
                     <button onClick={() => {
                         setCategoryFilter(''); 
-                        setAuthorFilter('');
-                        setReadingStatusFilter('all');
-                        onFilterChange('', '', 'all');}
+                        setAuthorFilter('');}
                         }>Reset Filters</button>
                 </div>
     );
