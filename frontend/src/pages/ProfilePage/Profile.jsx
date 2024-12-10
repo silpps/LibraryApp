@@ -47,8 +47,7 @@ const Profile = () => {
         setDescription(data.description);
         setBookwormLevel(data.bookwormLevel);
         setProfilePicture(data.profilePicture || 'bh_pfp_1');
-        console.log('Profile profilePicture state: ', profilePicture, " data.profilePicture", data.profilePicture, " data: ", data);
-
+    
       } catch (error) {
         console.error('Error fetching profile data:', error);
         setError(error.message);
@@ -59,10 +58,6 @@ const Profile = () => {
 
     fetchProfileData();
   }, []);
-
-  useEffect(() => {
-    console.log('Updated profilePicture state:', profilePicture);
-  }, [profilePicture]);
 
   // Profile picture selection logic
   const profileImage =
@@ -86,6 +81,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
+      <h1>{username}'s profile</h1>
       <div className="profile-card-div">
         <ProfileCard 
           username={username} 

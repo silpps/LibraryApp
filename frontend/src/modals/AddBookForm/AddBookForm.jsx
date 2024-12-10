@@ -12,9 +12,10 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
-  const [imageLink, setImageLink] = useState('');
-  const [rating, setRating] = useState('');
-  const [review, setReview] = useState('');
+  const [imageLink, setImageLink] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [review, setReview] = useState(null);
   const [reading, setReadingList] = useState(false);
   const [error, setError] = useState(''); 
 
@@ -29,11 +30,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     if (!category) missingFields.push('Genre');
     if (!description) missingFields.push('Description');
     if (!language) missingFields.push('Language');
-    if (location.pathname === '/library') {
-      if (!imageLink) missingFields.push('Image Link');
-      if (!rating) missingFields.push('Rating');
-      if (!review) missingFields.push('Review');
-    }
 
     // if there are missing fields, show an error message
     if (missingFields.length > 0) {
@@ -56,13 +52,15 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     //Take the id and token from the request
     const id = userData.id
 
+    const categoryArray = category.split(',').map(item => item.trim());
+
     const newBook = {
       title,
       authors,
-      category: [category],
+      category: categoryArray,
       language,
       description,
-      imageLink: location.pathname === '/library'  ? imageLink : null, // Use placeholder if imageLink is empty
+      imageLink,
       rating: location.pathname === '/library' ? rating : null,
       review: location.pathname === '/library' ? review : null,
       reading,
@@ -75,7 +73,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   };
 
   const addBook = async (newBook) => {
-
 
     //For authorization
     const userDataString = localStorage.getItem("userData")
@@ -110,24 +107,41 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     }
   };
 
+  const handleStarClick = (rating) => {
+    setRating(rating);
+  };
+
 return(
   <div className="modal">
     <div className="modal-content">
       <h2>{location.pathname === '/library' ? 'Add to Library' : 'Add to Wishlist'}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label>Title: <input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
-          <label>Authors: <input type="text" name="authors" onChange={(e) => setAuthors(e.target.value)} /></label>
-          <label>Description: <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
-          <label>Language: <input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
-          <label>Genre: <input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
+          <label><strong>Title: </strong><input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
+          <label><strong>Authors: </strong><input type="text" name="authors" onChange={(e) => setAuthors(e.target.value)} /></label>
+          <label><strong>Description: </strong><input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
+          <label><strong>Language: </strong><input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
+          <label><strong>Genre: </strong><input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
           {location.pathname === '/library' && (
             <>
             <label>
-              <input type="checkbox" onChange={(e) => setReadingList(e.target.checked)}/>Add to Reading List</label>
-              <label>Image Link: <input type="text" name="imageLink" onChange={(e) => setImageLink(e.target.value)}/></label>
-              <label>Rating:<input type="number" name="rating" min="1" max="5" onChange={(e) => setRating(e.target.value)}/> </label>
-              <label>Review:<textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
+              <strong>Add to readinglist: </strong>
+              <input type="checkbox" onChange={(e) => setReadingList(e.target.checked)}/></label>
+              <label><strong>Rating: </strong>
+                <div className="star-rating">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      className={`star ${star <= (hoverRating || rating) ? 'filled' : ''}`}
+                      onClick={() => handleStarClick(star)}
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div> </label>
+              <label><strong>Review:  </strong><textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
             </>
           )}
           <button type="submit">Add Book</button>

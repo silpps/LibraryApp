@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+
 import '../../pages/SignUpPage/SignUp.css';
 import { Link } from 'react-router-dom';
-import background from '../../assets/syksytausta.jpg';
-import useLogIn from '../../hooks/useLogIn';
+import useLogIn from '../../hooks/useLogin';
 
 const LogIn = ({ onLogin }) => {
   const {
@@ -11,12 +10,6 @@ const LogIn = ({ onLogin }) => {
     showError,
     handleLogIn,
   } = useLogIn(onLogin);
-
-  useEffect(() => {
-    document.body.style.backgroundImage = `url(${background})`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-  }, []);
 
   return (
     <div className="container">
