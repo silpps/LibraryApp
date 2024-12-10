@@ -5,9 +5,6 @@ import AddBookForm from '../../modals/AddBookForm/AddBookForm';
 import './Library.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-//this is temporary until we decide all the final routing paths etc.
-import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}`;
 
 const Library = () => {
     const navigate = useNavigate();

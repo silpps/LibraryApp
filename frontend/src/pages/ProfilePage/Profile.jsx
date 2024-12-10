@@ -3,13 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import './Profile.css';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import RecentBooks from '../../components/RecentBooks/RecentBooks';
-import { REACT_APP_API_URL } from '../../utils/apiConfig';
 
 import pfp1 from '../../assets/bh_pfp_1.jpg';
 import pfp2 from '../../assets/bh_pfp_2.jpg';
 import pfp3 from '../../assets/bh_pfp_3.jpg';
 
-const apiUrl = `${REACT_APP_API_URL}`;
+
 
 const Profile = () => {
   const [username, setUsername] = useState('');

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './AddBookForm.css'
-//this is temporary until we decide all the final routing paths etc.
-import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}`;
 
 const AddBookForm = ({ onAddBook, closeModal }) => {
   const location = useLocation();

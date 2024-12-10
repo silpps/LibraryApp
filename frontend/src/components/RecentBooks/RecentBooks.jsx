@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
 import '../../pages/ProfilePage/Profile.css';
 
-//this is temporary until we decide all the final routing paths etc.
-import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}`;
 
 
 // const recentBooks = booksData

@@ -4,10 +4,6 @@ import BookDetails from '../../modals/BookDetails/BookDetails';
 import AddBookForm from '../../modals/AddBookForm/AddBookForm';
 import './Wishlist.css';
 import { Link, useNavigate } from 'react-router-dom';
-//Paths may change later
-import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}`;
-
 
 const Wishlist = () => {
   const navigate = useNavigate();

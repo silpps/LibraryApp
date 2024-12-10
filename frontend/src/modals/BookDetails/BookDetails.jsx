@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './BookDetails.css';
-import { REACT_APP_API_URL } from '../../utils/apiConfig';
-const apiUrl = `${REACT_APP_API_URL}`;
 
 const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   const location = useLocation();
