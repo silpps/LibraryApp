@@ -4,7 +4,7 @@ import BookDetails from '../../modals/BookDetails/BookDetails';
 import AddBookForm from '../../modals/AddBookForm/AddBookForm';
 import './Library.css';
 import { Link } from 'react-router-dom';
-
+import Filter from '../../components/Filter/Filter';
 import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
@@ -71,6 +71,10 @@ const Library = () => {
       <h1>My Library</h1>
       <div className="lib-content">
         <div className="left-div">
+
+          <div className="filter-div">
+            <Filter updateFilters={fetchBooks} />
+          </div>
           <div className="profile-div">
             <h2>Go to</h2>
             <Link to="/profile">

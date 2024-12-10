@@ -451,6 +451,54 @@ const searchBooks = async (req, res) => {
   }
 };
 
+const getCatergoriesAndAuthors = async (req, res) => {
+  const libType = req.params.libType;
+  const userId = req.user._id; // Assuming the user's ID is available in req.user
+
+  // ID validation
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+  if (libType === "lib") {
+    try {
+      // Find the user by their ID
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const categories = user.library.map(book => book.category);
+      const authors = user.library.map(book => book.authors);
+      const filters = {
+        categories: [...new Set(categories.flat())], // Remove duplicates and flatten array
+        authors: [...new Set(authors.flat())], // Remove duplicates and flatten array
+      };
+
+      res.status(200).json(filters);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to retrieve categories and authors", error: error.message });
+    }
+  }
+  else if (libType === "wish") {
+    try {
+      // Find the user by their ID
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const categories = user.wishlist.map(book => book.category);
+      const authors = user.wishlist.map(book => book.authors);
+      const filters = {
+        categories: [...new Set(categories.flat())], // Remove duplicates and flatten array
+        authors: [...new Set(authors.flat())], // Remove duplicates and flatten array
+      };
+
+      res.status(200).json(filters);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to retrieve categories and authors", error: error.message });
+    }
+  }
+};
+
   
 // Export all controller functions
 module.exports = {
@@ -468,5 +516,5 @@ module.exports = {
     addBookToWishlist,
     updateBookInWishlist,
     deleteBookInWishlist,
+    getCatergoriesAndAuthors,
 };
-  

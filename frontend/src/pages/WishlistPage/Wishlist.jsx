@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Book from '../../components/Book/Book';
 import BookDetails from '../../modals/BookDetails/BookDetails';
 import AddBookForm from '../../modals/AddBookForm/AddBookForm';
+import Filter from '../../components/Filter/Filter';
 import '../LibraryPage/Library.css';
 import { Link } from 'react-router-dom';
 
@@ -71,6 +72,9 @@ const Library = () => {
       <h1>My Wishlist</h1>
       <div className="lib-content">
         <div className="left-div">
+          <div className="filter-div">
+            <Filter updateFilters={fetchBooks} />
+          </div>
           <div className="profile-div">
             <h2>Go to</h2>
             <Link to="/profile">

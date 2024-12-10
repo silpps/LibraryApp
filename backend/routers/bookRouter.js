@@ -15,7 +15,8 @@ const {
   getUserWishlist,
   addBookToWishlist,
   updateBookInWishlist,
-  deleteBookInWishlist
+  deleteBookInWishlist,
+  getCatergoriesAndAuthors
 } = require('../controllers/bookControllers');
 
 const { authorizeUsersAccess } = require("../middleware/auth");
@@ -37,6 +38,8 @@ router.get('/recentBooks', authorizeUsersAccess, getRecentBooks)
 // POST /books
 router.post('/userLibrary/addToLibrary',authorizeUsersAccess, addBookToLibrary);
 
+router.get('/userLibrary/filter/:libType',authorizeUsersAccess, getCatergoriesAndAuthors)
+
 // GET /books/:bookId
 router.get('/userLibrary/:bookId', getBookById);
 
@@ -45,6 +48,8 @@ router.put('/userLibrary/:bookId',authorizeUsersAccess, updateBook);
 
 // DELETE /books/:bookId
 router.delete('/userLibrary/:bookId',authorizeUsersAccess, deleteBook);
+
+
 
 // SEARCH books
 // GET /books/search?query=<value>
