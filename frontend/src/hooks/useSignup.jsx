@@ -38,7 +38,7 @@ export default function useSignUp(onLogin) {
 
     try {
       const newUser = { username: username.value, email: email.value, password: password.value };
-      const signupRes = await fetch(`${REACT_APP_API_URL}/signup`, {
+      const signupRes = await fetch(`${REACT_APP_API_URL}/users/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser),
@@ -50,7 +50,7 @@ export default function useSignUp(onLogin) {
       }
 
       // Automatically login the user
-      const loginRes = await fetch(`${REACT_APP_API_URL}/login`, {
+      const loginRes = await fetch(`${REACT_APP_API_URL}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.value, password: password.value }),

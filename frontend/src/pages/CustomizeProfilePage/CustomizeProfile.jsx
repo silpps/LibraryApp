@@ -28,7 +28,7 @@ const CustomizeProfile = () => {
         const userData = JSON.parse(userDataString);
         const token = userData.token;
 
-        const res = await fetch(`${REACT_APP_API_URL}/profile`, {
+        const res = await fetch(`${REACT_APP_API_URL}/users/profile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const CustomizeProfile = () => {
       const userData = JSON.parse(userDataString);
       const token = userData.token;
 
-      const res = await fetch(`${REACT_APP_API_URL}/profile/settings`, {
+      const res = await fetch(`${REACT_APP_API_URL}/users/profile/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

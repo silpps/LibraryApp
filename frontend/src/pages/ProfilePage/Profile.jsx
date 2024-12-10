@@ -21,6 +21,7 @@ const Profile = () => {
   const [error, setError] = useState('');
   const [selectedBook, setSelectedBook] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [updateRecentBooks, setUpdateRecentBooks] = useState(false); // State to trigger re-fetch of recent books
   
   const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ const Profile = () => {
         const userData = JSON.parse(userDataString);
         const token = userData.token;
 
-        const res = await fetch(`${apiUrl}/profile`, {
+        const res = await fetch(`${apiUrl}/users/profile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -86,6 +87,15 @@ const Profile = () => {
     setIsModalOpen(true);
   };
 
+  //handler for deleting a book
+  const handleDelete = (id) => {
+    setUpdateRecentBooks(true);
+  };
+
+  const handleUpdate = () => {
+    setUpdateRecentBooks(true);
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedBook(null);
@@ -107,7 +117,7 @@ const Profile = () => {
       </div>
 
       <div className="recently-added-div">
-        <RecentBooks onBookClick={openBookDetails} />
+        <RecentBooks onBookClick={openBookDetails} update={updateRecentBooks} setUpdate={setUpdateRecentBooks} />
       </div>
 
       <div className="profile-buttons-div">
@@ -118,7 +128,9 @@ const Profile = () => {
       {isModalOpen && (
         <BookDetails
           book={selectedBook}
-          onClose={closeModal} 
+          onClose={closeModal}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate} 
         />
       )}
     </div>

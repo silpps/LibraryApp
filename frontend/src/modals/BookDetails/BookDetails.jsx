@@ -11,7 +11,6 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   const [editedBook, setEditedBook] = useState({
     title: book.title || '',
     authors: book.authors || '',
-    description: book.description || '',
     language: book.language || '',
     category: book.category || '',
     imageLink: book.imageLink || null,
@@ -24,7 +23,6 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
     setEditedBook({
       title: book.title || '',
       authors: book.authors || '',
-      description: book.description || '',
       language: book.language || '',
       category: book.category || '',
       imageLink: book.imageLink || null,
@@ -51,8 +49,8 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const userData = JSON.parse(userDataString);
       const token = userData.token;
 
-      const path = location.pathname === '/library'
-        ? `${apiUrl}/library/${book._id}`
+      const path = location.pathname === (location.pathname === '/library' || location.pathname === '/users/profile')
+        ? `${apiUrl}/library/userLibrary/${book._id}`
         : `${apiUrl}/library/userWishlist/${book._id}`;
 
       const res = await fetch(path, {
@@ -88,8 +86,8 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       const userData = JSON.parse(userDataString);
       const token = userData.token;
 
-      const path = location.pathname === '/library'
-        ? `${apiUrl}/library/${book._id}`
+      const path = location.pathname === (location.pathname === '/library' || location.pathname === '/users/profile')
+        ? `${apiUrl}/library/userLibrary/${book._id}`
         : `${apiUrl}/library/userWishlist/${book._id}`;
 
       const res = await fetch(path, {
@@ -142,7 +140,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
       }
 
       // Add to library
-      const addRes = await fetch(`${apiUrl}/library/userLibrary/addBookToLibrary`, {
+      const addRes = await fetch(`${apiUrl}/library/userLibrary/addToLibrary`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -240,15 +238,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
                 onChange={handleEditChange}
               />
             </label>
-            <label>
-              <strong>Description: </strong>
-              <textarea
-                name="description"
-                value={editedBook.description}
-                onChange={handleEditChange}
-              />
-            </label>
-            {location.pathname === '/library' && (
+            {(location.pathname === '/library' || location.pathname === '/profile') && (
               <>
                 <label>
                   <strong>On my readinglist: </strong>
@@ -295,7 +285,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
           <>
             <div className="title-row">
               <h2>{editedBook.title}</h2>
-              {location.pathname === '/library' && editedBook.reading && (
+              {(location.pathname === '/library' || location.pathname === '/profile') && editedBook.reading && (
                 <span className="now-reading">Now reading!</span>
               )}
             </div>
@@ -308,10 +298,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
             <p>
               <strong>Language:</strong> {editedBook.language}
             </p>
-            <p>
-              <strong>Description:</strong> {editedBook.description}
-            </p>
-            {location.pathname === '/library' && (
+            {(location.pathname === '/library' || location.pathname === '/profile') && (
               <>
                 <div className="stars">{colourStars(editedBook.rating)}</div>
                 {editedBook.review && (

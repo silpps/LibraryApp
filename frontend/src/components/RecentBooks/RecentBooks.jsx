@@ -12,7 +12,7 @@ const apiUrl = `${REACT_APP_API_URL}`;
 //    .slice(0, 3); 
 
 
-const RecentBooks = ({ onBookClick }) => {
+const RecentBooks = ({ onBookClick, update, setUpdate }) => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -49,8 +49,9 @@ const RecentBooks = ({ onBookClick }) => {
         }
       };
       fetchBooks();
+      setUpdate(false); // Reset the update state after fetching books
 
-    }, []);
+    }, [update, setUpdate]);
 
     return (
         <div>

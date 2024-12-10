@@ -76,7 +76,7 @@ const Library = () => {
               bookwormLevel: data.library.length
             }
 
-            await fetch(`${apiUrl}/profile/settings`, {
+            await fetch(`${apiUrl}/users/profile/settings`, {
               method: 'PUT',
               headers: {
                   'Content-Type': 'application/json',
@@ -123,16 +123,12 @@ const Library = () => {
     }, [allBooks, genreFilter, authorFilter, readingStatusFilter]);
   
     //handler for deleting a book
-    const handleDelete = (id) => {
-      const updatedBooks = allBooks.filter((book) => book.id !== id); 
-      setAllBooks(updatedBooks); 
+    const handleDelete = () => {
+      setUpdate(true)
     };
 
-    const handleUpdate = (updatedBook) => {
-      const updatedBooks = allBooks.map((book) =>
-        book._id === updatedBook._id ? updatedBook : book
-      );
-      setAllBooks(updatedBooks);
+    const handleUpdate = () => {
+      setUpdate(true)
     };
     
     // handlers for opening and closing the book details modal

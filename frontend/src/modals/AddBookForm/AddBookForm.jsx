@@ -9,7 +9,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
   const location = useLocation();
   const [title, setTitle] = useState('');
   const [authors, setAuthors] = useState('');
-  const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
   const [imageLink, setImageLink] = useState(null);
@@ -28,7 +27,6 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     if (!title) missingFields.push('Title');
     if (!authors) missingFields.push('Authors');
     if (!category) missingFields.push('Genre');
-    if (!description) missingFields.push('Description');
     if (!language) missingFields.push('Language');
 
     // if there are missing fields, show an error message
@@ -52,14 +50,15 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     //Take the id and token from the request
     const id = userData.id
 
-    const categoryArray = category.split(',').map(item => item.trim());
+    const categoryArray = category.includes(',')
+      ? category.split(',').map(item => item.trim())
+      : category;
 
     const newBook = {
       title,
       authors,
       category: categoryArray,
       language,
-      description,
       imageLink,
       rating: location.pathname === '/library' ? rating : null,
       review: location.pathname === '/library' ? review : null,
@@ -84,8 +83,8 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     const token = userData.token
 
     const path = location.pathname === '/library'
-      ? `${apiUrl}/library/userLibrary/addBookToLibrary`
-      : `${apiUrl}/library/userWishlist/addBookToWishlist`;
+      ? `${apiUrl}/library/userLibrary/addToLibrary`
+      : `${apiUrl}/library/userWishlist/addToWishlist`;
 
 
     try {
@@ -107,6 +106,27 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
     }
   };
 
+  const searchBook = async () => {
+    try{
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title || ''}+inauthor:${authors || ''}&orderBy=relevance&maxResults=10`);
+      const data = await res.json();
+      if (!data.items) {
+        throw new Error('No books found');
+      } else {
+      console.log("data",data);
+      const bookData = data.items[0].volumeInfo;
+      console.log("book data", bookData);
+      setTitle(bookData.title || '');
+      setAuthors(bookData.authors[0] || '');
+      setLanguage(bookData.language || '');
+      setCategory(bookData.categories || '');
+      setImageLink(bookData.imageLinks.thumbnail || '');
+      }
+    } catch (error) {
+      console.error('Error searching book:', error);
+    }
+  };
+
   const handleStarClick = (rating) => {
     setRating(rating);
   };
@@ -117,11 +137,11 @@ return(
       <h2>{location.pathname === '/library' ? 'Add to Library' : 'Add to Wishlist'}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label><strong>Title: </strong><input type="text" name="title" onChange={(e) => setTitle(e.target.value)}/></label>
-          <label><strong>Authors: </strong><input type="text" name="authors" onChange={(e) => setAuthors(e.target.value)} /></label>
-          <label><strong>Description: </strong><input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/></label>
-          <label><strong>Language: </strong><input type="text" name="language" onChange={(e) => setLanguage(e.target.value)}/></label>
-          <label><strong>Genre: </strong><input type="text" name="category" onChange={(e) => setCategory(e.target.value)} /></label>
+          <label><strong>Title: </strong><input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
+          <label><strong>Authors: </strong><input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
+          <button type="button" onClick={searchBook}>Search</button>
+          <label><strong>Language: </strong><input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
+          <label><strong>Genre: </strong><input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
           {location.pathname === '/library' && (
             <>
             <label>
