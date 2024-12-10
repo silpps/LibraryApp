@@ -26,7 +26,7 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
 
     if (!title) missingFields.push('Title');
     if (!authors) missingFields.push('Authors');
-    if (!category) missingFields.push('Genre');
+    if (!category) missingFields.push('Category');
     if (!language) missingFields.push('Language');
 
     // if there are missing fields, show an error message
@@ -137,11 +137,11 @@ return(
       <h2>{location.pathname === '/library' ? 'Add to Library' : 'Add to Wishlist'}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label><strong>Title: </strong><input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/></label>
-          <label><strong>Authors: </strong><input type="text" name="authors" value={authors} onChange={(e) => setAuthors(e.target.value)} /></label>
+          <label><strong>Title: </strong><input type="text" name="title" value={title} maxLength="30" onChange={(e) => setTitle(e.target.value)}/></label>
+          <label><strong>Authors: </strong><input type="text" name="authors" value={authors} maxLength="80" onChange={(e) => setAuthors(e.target.value)} /></label>
           <button type="button" onClick={searchBook}>Search</button>
-          <label><strong>Language: </strong><input type="text" name="language" value={language} onChange={(e) => setLanguage(e.target.value)}/></label>
-          <label><strong>Genre: </strong><input type="text" name="category" value={category} onChange={(e) => setCategory(e.target.value)} /></label>
+          <label><strong>Language: </strong><input type="text" name="language" value={language} maxLength="30"  onChange={(e) => setLanguage(e.target.value)}/></label>
+          <label><strong>category: </strong><input type="text" name="category" value={category} maxLength="60" onChange={(e) => setCategory(e.target.value)} /></label>
           {location.pathname === '/library' && (
             <>
             <label>
@@ -161,7 +161,7 @@ return(
                     </span>
                   ))}
                 </div> </label>
-              <label><strong>Review:  </strong><textarea name="review" onChange={(e) => setReview(e.target.value)}></textarea></label>
+              <label><strong>Review:  </strong><textarea name="review" maxLength="30" onChange={(e) => setReview(e.target.value)}></textarea></label>
             </>
           )}
           <button type="submit">Add Book</button>

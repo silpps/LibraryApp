@@ -22,7 +22,7 @@ const Library = () => {
     const [selectedBook, setSelectedBook] = useState(null);
     const [newBookModal, setNewBookModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const booksPerPage = 4;
+    const booksPerPage = 3;
   
     // Calculate the books to display on the current page
     const indexOfLastBook = currentPage * booksPerPage;

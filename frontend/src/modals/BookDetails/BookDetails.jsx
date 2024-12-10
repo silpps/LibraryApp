@@ -8,6 +8,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   const location = useLocation();
   const [isEditing, setIsEditing] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
+  const [error, setError] = useState('');
   const [editedBook, setEditedBook] = useState({
     title: book.title || '',
     authors: book.authors || '',
@@ -114,7 +115,28 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-    editBook();
+    // Validation check
+    let missingFields = [];
+
+    if (!editedBook.title) missingFields.push('Title');
+    if (!editedBook.authors) missingFields.push('Authors');
+    if (!editedBook.category) missingFields.push('Category');
+    if (!editedBook.language) missingFields.push('Language');
+
+    // if there are missing fields, show an error message
+    if (missingFields.length > 0) {
+      if (missingFields.length === 1) {
+        setError(`Please fill in the missing field: ${missingFields[0]}`);
+      } else {
+        setError(`Please fill in the following fields: ${missingFields.join(', ')}`);
+      }
+      return;
+    }
+
+    setError('');
+    if (window.confirm("Are you sure you want to save changes?")) {
+      editBook();
+    }
   };
 
   const moveBookToLibrary = async () => {
@@ -199,54 +221,60 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {isEditing ? (
+      {isEditing ? (
           <form onSubmit={handleEditSubmit}>
             <h2>Edit Book Details</h2>
+            {error && <p className="error">{error}</p>}
             <label>
-              <strong>Title: </strong>
+              Title: 
               <input
                 type="text"
                 name="title"
                 value={editedBook.title}
                 onChange={handleEditChange}
+                maxLength="30"
               />
             </label>
             <label>
-              <strong>Author: </strong>
+              Authors: 
               <input
                 type="text"
-                name="author"
+                name="authors"
                 value={editedBook.authors}
                 onChange={handleEditChange}
+                maxLength="30"
               />
             </label>
             <label>
-            <strong>Category: </strong>
+              Category: 
               <input
                 type="text"
                 name="category"
                 value={editedBook.category}
                 onChange={handleEditChange}
+                maxLength="30"
               />
             </label>
             <label>
-              <strong>Language: </strong>
+              Language: 
               <input
                 type="text"
                 name="language"
                 value={editedBook.language}
                 onChange={handleEditChange}
+                maxLength="30"
               />
             </label>
-            {(location.pathname === '/library' || location.pathname === '/profile') && (
+            {location.pathname === '/library' && (
               <>
                 <label>
-                  <strong>On my readinglist: </strong>
+                  On my readinglist: 
                   <input 
-                  type="checkbox" 
-                  name="reading"
-                  checked={editedBook.reading}
-                  onChange={handleEditChange}/>
+                    type="checkbox" 
+                    name="reading"
+                    checked={editedBook.reading}
+                    onChange={handleEditChange}
+                  />
                 </label>
                 <label>
                   <strong>Rating: </strong>
@@ -270,6 +298,7 @@ const BookDetails = ({ book, onClose, onDelete, onUpdate }) => {
                     name="review"
                     value={editedBook.review}
                     onChange={handleEditChange}
+                    maxLength="30"
                   />
                 </label>
               </>
