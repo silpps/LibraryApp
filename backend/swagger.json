@@ -1,0 +1,291 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Bookhive API",
+      "version": "1.0.0",
+      "description": "API for managing user libraries, wishlists, and profiles for Bookhive application. All routes except signup and login require authentication."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:4000/api",
+        "description": "Local development server"
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "schemas": {
+        "Book": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "authors": { "type": "string" },
+            "language": { "type": "string" },
+            "category": { "type": "array", "items": { "type": "string" } },
+            "image_link": { "type": "string", "nullable": true },
+            "rating": { "type": "number", "minimum": 0, "maximum": 5, "nullable": true },
+            "review": { "type": "string", "nullable": true },
+            "reading": { "type": "boolean", "default": false }
+          },
+          "required": ["title", "authors", "language", "category"]
+        },
+        "User": {
+          "type": "object",
+          "properties": {
+            "username": { "type": "string" },
+            "password": { "type": "string" },
+            "email": { "type": "string" },
+            "profilePicture": { "type": "string", "nullable": true },
+            "bookwormLevel": { "type": "number", "minimum": 0, "default": 0 },
+            "favoriteGenres": { "type": "array", "items": { "type": "string" }, "nullable": true },
+            "description": { "type": "string", "nullable": true },
+            "library": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/Book" },
+              "minItems": 0
+            },
+            "wishlist": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/Book" },
+              "minItems": 0
+            }
+          },
+          "required": ["username", "password", "email"]
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "paths": {
+      "/users/signup": {
+        "post": {
+          "summary": "Create a new user account",
+          "tags": ["User"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "User created successfully" },
+            "400": { "description": "Bad request" }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "summary": "Authenticate user and return JWT token",
+          "tags": ["User"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": { "type": "string" },
+                    "password": { "type": "string" }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Authentication successful, JWT returned" },
+            "400": { "description": "Bad request" }
+          }
+        }
+      },
+      "/users/profile/settings": {
+        "put": {
+          "summary": "Update user profile settings",
+          "tags": ["User"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Profile updated successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User not found" }
+          }
+        }
+      },
+      "/library/userLibrary": {
+        "post": {
+          "summary": "Retrieve user's library",
+          "tags": ["Library"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": { "description": "Library retrieved successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User not found" }
+          }
+        }
+      },
+      "/library/userLibrary/addToLibrary": {
+        "post": {
+          "summary": "Add a book to user's library",
+          "tags": ["Library"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Book added successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User not found" }
+          }
+        }
+      },
+      "/library/userLibrary/{bookId}": {
+        "put": {
+          "summary": "Update a book in user's library",
+          "tags": ["Library"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "bookId",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "string" }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Book updated successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User or book not found" }
+          }
+        },
+        "delete": {
+          "summary": "Delete a book from user's library",
+          "tags": ["Library"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "bookId",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "string" }
+            }
+          ],
+          "responses": {
+            "204": { "description": "Book deleted successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User or book not found" }
+          }
+        }
+      },
+      "/library/userWishlist": {
+        "post": {
+          "summary": "Retrieve user's wishlist",
+          "tags": ["Wishlist"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": { "description": "Wishlist retrieved successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User not found" }
+          }
+        }
+      },
+      "/library/userWishlist/addToWishlist": {
+        "post": {
+          "summary": "Add a book to user's wishlist",
+          "tags": ["Wishlist"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Book added successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User not found" }
+          }
+        }
+      },
+      "/library/userWishlist/{bookId}": {
+        "put": {
+          "summary": "Update a book in user's wishlist",
+          "tags": ["Wishlist"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "bookId",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "string" }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Book updated successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User or book not found" }
+          }
+        },
+        "delete": {
+          "summary": "Delete a book from user's wishlist",
+          "tags": ["Wishlist"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "bookId",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "string" }
+            }
+          ],
+          "responses": {
+            "204": { "description": "Book deleted successfully" },
+            "400": { "description": "Bad request" },
+            "404": { "description": "User or book not found" }
+          }
+        }
+      }
+    }
+  }
+  
