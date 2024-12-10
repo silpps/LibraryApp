@@ -37,3 +37,16 @@
   text-align: center;
   margin: 0;
 }
+
+@media (prefers-color-scheme: dark) {
+
+  .about-container button {
+    background-color: #381508;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .about-container button:hover {
+    background-color: #180a01;
+  }
+
+}

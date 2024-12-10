@@ -3,13 +3,11 @@
 }
 
 .library h1, .wishlist h1 {
-    color: #803503;
     text-align: center;
     margin-bottom: 1rem;
 }
 
 .library h2, .wishlist h2 {
-    color: #803503;
     text-align: center;
 }
 
@@ -47,10 +45,6 @@
     height: fit-content;
 }
 
-.filters-div strong {
-    color: #803503;
-}
-
 .filter {
     padding: 3px;
     margin: 0.5rem;
@@ -59,13 +53,11 @@
 }
 
 .filter label {
-    padding-right: 3px;
+    padding-right: 4px;
     text-align: left;
 }
 
 .filter select {
-    background-color: #f3e8de94;
-    border: 1px solid #803503;
     border-radius: 8px;
     min-width: none;
     max-width: 60%;
@@ -97,7 +89,7 @@
     }
 
     .left-div {
-        width: 100%; /* Take full width on tablets */
+        width: 100%;
         margin-bottom: 1rem;
     }
 
@@ -120,12 +112,12 @@
 
     .filter {
         justify-content: center;
-        align-items: center; /* Center items vertically */
-        text-align: center; /* Center text */
+        align-items: center; 
+        text-align: center; 
     }
 
     .filter label {
-        padding-right: 0;
+        padding-right: 0.5rem;
         margin-bottom: 0.2rem;
     }
 
@@ -177,8 +169,8 @@
 
     .filter {
         justify-content: center;
-        align-items: center; /* Center items vertically */
-        text-align: center; /* Center text */
+        align-items: center; 
+        text-align: center; 
     }
 
     .filter select {
@@ -193,4 +185,16 @@
         font-size: 0.8rem;
         padding: 6px 12px;
     }
+}
+
+@media (prefers-color-scheme: dark) {
+    .filters-div,
+    .books-div,
+    .add-book-div,
+    .profile-div {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
 }

@@ -135,3 +135,25 @@
     .profile-card p {
         font-size: 14px;
     }
+
+
+@media (prefers-color-scheme: dark) {
+    .profile-card {
+        border: 1px solid #180a01;
+        background-color: #381508;
+    }
+
+    .profile-pic {
+        border: 2px solid #2b1201;
+    }
+
+
+    .profile-card p {
+        border: 1px solid #180a01;
+        background-color: #2b1201;
+    }
+
+    .bookwormlevel {
+        border: none;
+    }
+}

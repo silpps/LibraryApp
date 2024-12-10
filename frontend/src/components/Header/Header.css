@@ -84,7 +84,7 @@
 
 .dropdown-modal {
   position: fixed;
-  top: 4.5rem; /* Position below the header */
+  top: 3rem; 
   right: 0;
   background-color: #DDB79E;
   width: 100%;
@@ -92,7 +92,7 @@
   border-bottom-right-radius: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
-  z-index: 999; /* Ensure the modal is above other content */
+  z-index: 999;
 }
 
 .dropdown-modal .nav-links {
@@ -112,13 +112,12 @@
 
 .dropdown-modal .nav-links a:hover {
   color: #080300;
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
 
-  .nav-links {
-    gap: 1rem;
+  .dropdown-modal {
+    top: 1rem;
   }
 
   .nav-links li a {
@@ -126,12 +125,12 @@
   }
 
   .nav-links {
-    margin-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 3rem;
     display: none;
     flex-direction: column;
-    gap: 1rem;
     position: absolute;
-    top: 4.5rem;
+    top: 3rem;
     right: 0;
     background-color: #DDB79E;
     width: 100%;
@@ -168,6 +167,10 @@
 }
 
 @media (max-width: 480px) {
+
+  .dropdown-modal {
+    top: 0;
+  }
 
   .logo {
     margin-bottom: 0;
@@ -219,6 +222,7 @@
   .nav-links li a {
     font-size: 1rem;
     text-align: center;
+    margin-bottom: 2rem;
   }
 
   .dropdown-toggle {
@@ -237,6 +241,7 @@
 
   .dropdown-toggle img:hover {
     transform: scale(1.1);
+    cursor: pointer;
   }
 
   .nav-links.active {
@@ -247,4 +252,55 @@
 
 body {
   overflow: hidden; /* Prevent scrolling */
+}
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #662b1d);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .header {
+    background-color: #1f0d01;
+  }
+
+  .nav-links li a {
+    color: #DDB79E;
+  }
+
+  .dropdown-modal {
+    background-color: transparent;
+  }
+
+  .dropdown-modal .nav-links li a {
+    color: #DDB79E;
+  }
+
+  .nav-links {
+    background-color: #1f0d01;
+  }
+
+  .dropdown-toggle img {
+    filter: invert(1);
+  }
+
+  .logo:hover {
+    filter: drop-shadow(0 0 2em #FFFBFB);
+  }
+
+  .dropdown-modal .nav-links a:hover {
+    color: #803503;
+    cursor: pointer;
+  }
+
+  .dropdown-toggle {
+    background-color: #381508;
+  }
 }

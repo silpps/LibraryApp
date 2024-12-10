@@ -168,3 +168,21 @@
         display: flex;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+
+    .recently-added-div {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+    .profile-page button {
+        background-color: #381508;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-page button:hover {
+        background-color: #180a01;
+    }
+}

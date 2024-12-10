@@ -8,7 +8,7 @@
     border: 1px solid #803503;
     border-radius: 6px;
     margin: 0.5rem;
-    background-color:#f3e8de94;
+    background-color:#FFEFE1;
     padding: 15px;
 }
 
@@ -29,7 +29,6 @@
 }
 
 .reading {
-    color: #803503;
     align-self: flex-start;
 }
 
@@ -108,5 +107,32 @@
 
     .single-book .stars {
         font-size: 1.1rem; /* Smaller stars */
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .single-book {
+        background-color:  #2b1201;
+        border: 1px solid #180a01;
+    }
+
+    .single-book h3 {
+        color: #f7e1d3;
+    }
+
+    .single-book .title p {
+        color: #f7e1d3;
+    }
+
+    .single-book .info {
+        color: #f7e1d3;
+    }
+
+    .single-book p {
+        color: #f7e1d3;
+    }
+
+    .single-book .stars {
+        color: #f3e8de;
     }
 }

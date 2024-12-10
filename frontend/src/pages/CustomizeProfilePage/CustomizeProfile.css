@@ -128,3 +128,22 @@ form h3 {
         padding-right: 1rem;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .customize-profile-container {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+    .profile-pic-option {
+        border: 1px solid #180a01;
+    }
+
+    textarea {
+        background-color: #2b1201;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+}

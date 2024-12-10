@@ -1,7 +1,7 @@
-.container body{
+body.container {
     background-image: url('../../assets/background_fall.jpg');
     background-size: cover;
-
+    background-color: transparent;
 }
 
 .container   {
@@ -196,5 +196,26 @@ h1 {
 
     .error-message, .success-message {
         font-size: 11px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+
+    .container {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+    .container p {
+        color:#f7e1d3;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .success-message {
+        color: green;
     }
 }

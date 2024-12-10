@@ -15,7 +15,6 @@
   align-items: center;
   text-align: center;
   font-size: 18px;
-  background-color: #FFEFE1;
   padding: 10px;
   border-radius: 8px;
   width: 80%;
@@ -41,7 +40,6 @@
 }
 
 .modal-content strong {
-  color: #803503;
   padding-right: 3px;
 }
 
@@ -70,7 +68,6 @@
 }
 
 .now-reading {
-  color: #803503;
   position: absolute;
   right: 0;
   padding-top: 2rem;
@@ -100,4 +97,22 @@
 .star:hover {
   color: #FFD700;
   transform: scale(1.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background-color: #381508 !important; 
+  }
+
+  .modal-content p {
+    color: #FFEFE1;
+  }
+
+  .star {
+    color: #FFEFE1;
+  }
+
+  .star.filled {
+    color: #FFD700;
+  }
 }
