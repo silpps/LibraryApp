@@ -60,7 +60,7 @@ const createUser = async (req, res) => {
     if (usernameInUse){
       throw Error("This username is already in use")
     }
-    const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[], description:"This is my description"})
+    const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[], description:""})
     await newUser.save()
     const token = createToken(newUser._id);
     res.status(201).json({id:newUser._id, token})

@@ -120,10 +120,10 @@ const AddBookForm = ({ onAddBook, closeModal }) => {
       setAuthors(bookData.authors[0] || '');
       setLanguage(bookData.language || '');
       setCategory(bookData.categories || '');
-      setImageLink(bookData.imageLinks.thumbnail || '');
+      setImageLink(bookData.imageLinks.thumbnail ? bookData.imageLinks.thumbnail : null);
       }
     } catch (error) {
-      console.error('Error searching book:', error);
+      setError('No books found from the search');
     }
   };
 
