@@ -30,7 +30,7 @@ const getRecentBooks = async (req, res) => {
     if (user) {
       const books = user.library.sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
       res.status(200).json(books);
-      console.log("get recent successful")
+      console.log("Get recent successful")
     } else {
       return res.status(404).json({ message: "User not found" });
     }

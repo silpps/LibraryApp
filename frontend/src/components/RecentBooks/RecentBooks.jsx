@@ -20,22 +20,16 @@ const RecentBooks = ({ onBookClick, onUpdate }) => {
           }
           //Given data is converted to a JS object
           const userData = JSON.parse(userDataString)
-          //Take the id and token from the request
-          const id = {id:userData.id}
           const token = userData.token
           //The token is attached to the authorization element of the request
-          const res = await fetch(`${apiUrl}/library/userLibrary`, {
-            method: "POST",
+          const res = await fetch(`${apiUrl}/library/recentBooks`, {
+            method: "GET",
             headers: {"Content-Type": "application/json",
                       "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(id)
+            }
             });
             const data = await res.json();
-            const recentBooks = data.library
-           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
-           .slice(0, 3); 
-            setBooks(recentBooks);
+            setBooks(data);
         } catch (error) {
           console.error('Error fetching books:', error);
         }
