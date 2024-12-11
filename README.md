@@ -11,6 +11,6 @@
 
 ## Self-assessments 
 
-- [Frontend](https://github.com/silpps/LibraryApp/main/fe_assessment.md)
-- [Backend](https://github.com/silpps/LibraryApp/main/be_assessment.md) 
+- [Frontend](https://github.com/silpps/LibraryApp/blob/main/fe_assessment.md)
+- [Backend](https://github.com/silpps/LibraryApp/blob/main/be_assessment.md) 
 
