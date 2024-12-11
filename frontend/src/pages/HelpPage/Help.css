@@ -27,15 +27,6 @@ p {
 }
 
 @media (prefers-color-scheme: dark) {
-    .help-div button {
-        background-color: #381508;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-    
-      .help-div button:hover {
-        background-color: #180a01;
-      }
-
     .help-div {
         background-color: #381508;
         color: #FFEFE1;
