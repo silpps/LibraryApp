@@ -897,7 +897,7 @@ export default AddBookForm;
 This component demonstrates effective use of React's state management and routing capabilities to create a flexible and user-friendly form. The conditional rendering of fields and functionality based on the path ensures relevance to both contexts (`/library` and `/wishlist`). With minor optimizations in error handling, abstraction, and UI, this component can serve as a robust part of a larger application. 
 
 ## A few words from us about the code
-In my opinion, some of the code couldve been refactored (into components/hooks for example) but we had very limited time, so our focus was on having all the necessary pages/components functional and ready. 
+In our opinion, some of the code couldve been refactored (into components/hooks for example) but we had very limited time, so our focus was on having all the necessary pages/components functional and ready.
 
 
 
