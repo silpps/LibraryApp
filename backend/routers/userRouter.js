@@ -29,7 +29,7 @@ router.get("/profile", authorizeUsersAccess, getUserById);
 router.put("/profile/settings", authorizeUsersAccess, updateUser);
 
 // Is called from the delete profile button in profile settings
-router.delete("/profile/settings/:userId", deleteUser);
+router.delete("/profile/settings/:userId",authorizeUsersAccess, deleteUser);
 
 //Login you knobheads
 router.post("/login", login)

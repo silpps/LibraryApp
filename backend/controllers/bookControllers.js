@@ -312,7 +312,7 @@ const getUserWishlist = async (req, res) => {
   }
 
   try {
-    const { page = 1, limit = 3 } = req.query;
+    const { page = 1, limit = 3, category, author, readingStatus } = req.query;
 
     // Parse pagination parameters
     const pageNumber = parseInt(page, 10);
@@ -326,8 +326,26 @@ const getUserWishlist = async (req, res) => {
     }
 
     let wishlist = user.wishlist || [];
+
     if (!Array.isArray(wishlist)) {
       return res.status(400).json({ message: "Wishlist is not properly formatted" });
+    }
+
+    if (category) {
+      wishlist = wishlist.filter(book => book.category.includes(category));
+    }
+    if (author) {
+      wishlist = wishlist.filter(book => book.authors.includes(author));
+    }
+    if (readingStatus) {
+      console.log("reading status:", readingStatus);
+      if (readingStatus === 'reading') {
+        wishlist = wishlist.filter(book => book.reading === true);
+      } else if (readingStatus === 'notReading') {
+        wishlist = wishlist.filter(book => book.reading === false);
+      } else {
+        wishlist = wishlist;
+      }
     }
 
     // Reverse the order of the wishlist array to get the most recent books first
