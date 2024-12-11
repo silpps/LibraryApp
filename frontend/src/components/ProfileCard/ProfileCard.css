@@ -20,6 +20,7 @@
     display: block;
     margin-bottom: 10px;
     margin: auto;
+    border: 2px solid #803504;
     
 }
 
@@ -36,7 +37,7 @@
     border: 1px solid #803503;
     border-radius: 6px;
     padding: 10px;
-    font-size: 14px;
+    font-size: 1rem;
     text-align: left;
     margin: 10px;
     height: auto;
@@ -44,6 +45,13 @@
     overflow-wrap: break-word;
 }
 
+.profile-card p.user-info {
+    font-size: 1rem; 
+}
+
+.profile-card strong {
+    font-size: 1rem;
+}
 .bookwormlevel{
     border: 1px solid #803503;
     padding: 8px;
@@ -53,32 +61,10 @@
     justify-content: center; 
     align-items: center;
 }
-
-
-/*Mobile */
-@media (max-width: 768px) {
-    .profile-card {
-        width: 90%; 
-        margin: 20px; 
-    }
-
-    .profile-pic {
-        width: 80px; 
-    }
-
-    .profile-card h1 {
-        font-size: 18px; 
-    }
-
-    .profile-card p {
-        font-size: 12px;
-    }
-}
-
 /* Tablets */
 @media (max-width: 1024px) {
     .profile-card {
-        width: 80%;
+        width: 100%;
     }
 
     .profile-pic {
@@ -90,7 +76,43 @@
     }
 
     .profile-card p {
-        font-size: 13px;
+        font-size: 0.9rem;
+    }
+
+    .profile-card strong {
+        font-size: 0.9rem;
+    }
+
+    .profile-card p.user-info {
+        font-size: 0.9rem;
+    }
+}
+
+
+/*Mobile */
+@media (max-width: 768px) {
+    .profile-card {
+        width: 95%; 
+    }
+
+    .profile-pic {
+        width: 80px; 
+    }
+
+    .profile-card h1 {
+        font-size: 18px; 
+    }
+
+    .profile-card p {
+        font-size: 0.7rem;
+    }
+
+    .profile-card strong {
+        font-size: 0.7rem;
+    }
+
+    .profile-card p.user-info {
+        font-size: 0.7rem;
     }
 }
 
@@ -113,3 +135,25 @@
     .profile-card p {
         font-size: 14px;
     }
+
+
+@media (prefers-color-scheme: dark) {
+    .profile-card {
+        border: 1px solid #180a01;
+        background-color: #381508;
+    }
+
+    .profile-pic {
+        border: 2px solid #2b1201;
+    }
+
+
+    .profile-card p {
+        border: 1px solid #180a01;
+        background-color: #2b1201;
+    }
+
+    .bookwormlevel {
+        border: none;
+    }
+}

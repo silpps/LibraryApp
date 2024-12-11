@@ -1,28 +1,16 @@
-import profilepic from '../../assets/profilepic.jpg';
+import React from 'react';
 import './ProfileCard.css';
-import { useEffect } from 'react';
 
-function ProfileCard ({username, description}) {
-    const bookWormLevel = 5;
+const ProfileCard = ({ username, description, bookwormLevel, profilePicture }) => {
 
-    useEffect(() => {
-        document.body.style.backgroundImage = "none";
-        document.body.style.backgroundColor = '#FFEFE1';
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-        
-    }, []);
+  return (
+    <div className="profile-card">
+      <img src={profilePicture} alt="profile" className="profile-pic" />
+      <h1>{username}</h1>
+      <p className="user-info"><strong>Bookworm Level: </strong><span className="bookwormlevel">{bookwormLevel}</span></p>
+      <p className="user-info"><strong>Description: </strong>{description}</p>
+    </div>
+  );
+};
 
-    
-    return (
-        <div className="profile-card">
-            <img src={profilepic} alt="profile" className="profile-pic"/>
-            <h1>{username}</h1>
-            <p>
-                Bookworm Level: <span className="bookwormlevel">&nbsp;{bookWormLevel}&nbsp;</span></p>
-            <p>Description: {description}</p>
-        </div>
-    )
-}
-
-export default ProfileCard
+export default ProfileCard;

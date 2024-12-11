@@ -1,55 +1,169 @@
+body {
+  background-image: url('/frontend/src/assets/background_fall.jpg');
+  background-size: cover;
+  background-color: transparent;
+}
+
+
+@font-face {
+  font-family: 'Cardo';
+  src: url('/src/fonts/Cardo/Cardo-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/src/fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans Bold';
+  src: url('/src/fonts/Josefin_Sans/static/JosefinSans-Bold.ttf') format('truetype');
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Parisienne';
+  src: url('/src/fonts/Parisienne/Parisienne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
+  --background-color: #FFEFE1;
+  --text-color: #2b1201;
+  --strong-color: #803503;
+  --link-color: #803503;
+  --link-hover-color: #a84604;
+  --button-background-color: #803503;
+  --button-text-color: #faf6f3;
+  --button-hover-background-color: #a84604;
+  --input-background-color: #f3e8de94;
+  --input-border-color: #803503;
+  --select-background-color:#f3e8de94;
+
   width: 100%;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Josefin Sans', 'Josefin Sans Bold', 'Cardo', 'Parisienne', system-ui, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   justify-content: center;
 
   color-scheme: light dark;
-  color:#2b1201;
-  background-color: #FFEFE1;
-
+  color: var(--text-color);
+  background-color: transparent;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-strong {
-  color:#803503;
-}
-
-a {
-  font-weight: 500;
-  color: #803503;
-  text-decoration: inherit;
-}
-a:hover {
-  color:#a84604;
-}
-
 body {
+  background-image: url('./assets/bh_bg.png') !important;
+  background-size: cover;
+  background-color: transparent;
+  color: var(--text-color);
+  width: 100%;
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
-h1, h2, h3 {
-  color: #803503;
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #2b1201;
+    --text-color: #f7e1d3;
+    --strong-color: #f7e1d3;
+    --link-color: #f7e1d3;
+    --link-hover-color: #a84604;
+    --button-background-color: #2b1201;
+    --button-text-color: #f7e1d3;
+    --button-hover-background-color: #803503;
+    --input-background-color: #2b1201;
+    --input-border-color: #180a01;
+    --input-text-color: #f7e1d3;
+    --select-background-color: #2b1201;
+  }
+
+  select {
+    border: 1px solid #180a01 !important;
+  }
+
+  input {
+    border: 1px solid #180a01 !important;
+  }
+
+  textarea {
+    border: 1px solid #180a01 !important;
+  }
+
+  button {
+    border: 1px solid #180a01 !important;
+  }
+
+  body {
+    background-image: none !important;
+    background-color: var(--background-color) !important;
+  }
+
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+strong {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  color: var(--strong-color);
+}
+
+a {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color: var(--link-color);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--link-hover-color);
+  transform: scale(1.05);
+}
+
+li {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  color: var(--link-color);
+}
+
+p {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  color: var(--text-color);
+}
+
+strong {
+  font-family: 'Josefin Sans Bold', Arial, Helvetica, sans-serif;
+  color: var(--strong-color);
+  font-weight: 700;
+}
+
+h1, h2 {
+  font-family: 'Cardo', serif;
+  color: var(--strong-color);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-family: 'Josefin Sans Bold', Arial, Helvetica, sans-serif;
+  color: var(--strong-color);
 }
 
 button {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   cursor: pointer;
   margin: 0.5rem;
   font-size: 12px;
-  background-color: #803503;
-  color: #FFEFE1;
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -58,7 +172,8 @@ button {
 }
 
 button:hover {
-  border-color: #a84604;
+  background-color: var(--button-hover-background-color);
+  transform: scale(1.05);
 }
 
 button:focus,
@@ -66,18 +181,45 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* ei viel dark mode
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+textarea {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-background-color);
 }
-  */
+
+input {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 15px;
+  background-color: var(--input-background-color);
+}
+
+label {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: var(--strong-color);
+}
+
+select {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--select-background-color);
+  color: var(--text-color);
+}
+
+select:focus {
+  outline: none;
+}
+
+form {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+}

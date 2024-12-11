@@ -1,0 +1,154 @@
+.customize-profile-container h1 {
+    text-align: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.customize-profile-container {
+    width: 50%;
+    border: 4px solid #DDB79E;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    background-color: #fbf6ed;
+    color: #803504;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.customize-profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+}
+
+textarea {
+    width: 80%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #803504; 
+    border-radius: 5px; 
+    background-color: #f3e8de;
+}
+
+.description {
+    text-align: left;
+    color: #803503;
+}
+
+form h3 {
+    text-align: center; 
+    width: 80%;
+    margin-bottom: 1rem;
+}
+
+.profile-pic-options {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    width: 80%;
+    padding: 0 10%; 
+}
+
+.profile-pic-option {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%;
+    border: 2px solid #803504;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 4rem;
+}
+
+.info-text {
+    text-align: center;
+    width: 100%;
+}
+
+.characters-text {
+    text-align: right;
+    width: 80%;
+}
+
+.change-password-link {
+    text-align: center;
+    margin-top: 2rem;
+
+}
+/* tablet */
+@media (max-width: 768px) {
+    .customize-profile-container {
+        width: 70%;
+    }
+
+    .profile-pic-options {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .profile-pic-option {
+        width: 80px;
+        height: 80px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .characters-text {
+        padding-right: 2rem;
+    }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+    .customize-profile-container {
+        width: 90%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .profile-pic-option {
+        width: 60px;
+        height: 60px;
+    }
+
+    .characters-text {
+        padding-right: 1rem;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .customize-profile-container {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+    .profile-pic-option {
+        border: 1px solid #180a01;
+    }
+
+    textarea {
+        background-color: #2b1201;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+}

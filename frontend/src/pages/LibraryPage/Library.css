@@ -1,0 +1,213 @@
+#root {
+    width: 100%; 
+}
+
+.library h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.library h2 {
+    text-align: center;
+}
+
+.lib-content {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 1rem;
+    justify-content: center; 
+}
+
+.lib-content button button {
+    margin: auto;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin: 1rem;
+}
+
+.filters-div,
+.books-div,
+.add-book-div,
+.profile-div {
+    border: 1px solid #803503;
+    border-radius: 6px;
+    margin: 1.5rem;
+    background-color: #fbf6ed;
+    padding: 10px;
+}
+
+.left-div {
+    width: 25%;
+}
+
+.filters-div {
+    height: fit-content;
+    margin-bottom: 5.3rem;
+}
+
+.filter {
+    padding: 3px;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter label {
+    padding-right: 4px;
+    text-align: left;
+}
+
+.filter select {
+    border-radius: 8px;
+    min-width: none;
+    max-width: 60%;
+    text-align: center;
+    font-size: 15px;
+}
+
+.books-div {
+    width: 50%;
+    height: 537.5px;
+}
+
+.add-book-div {
+    height: fit-content;
+    text-align: center;
+}
+
+.add-book-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
+    .filters-div {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) { /* Tablet */
+    h1 {
+        margin-top: 5rem;
+    }
+
+    .left-div {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .books-div {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .filters-div {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) { /* Mobile */
+    h1 {
+        margin-top: 4rem;
+    }
+
+    .filters-div, 
+    .library-div, 
+    .books-div,
+    .profile-div {
+        margin: 1rem;
+    }
+
+    .filter {
+        justify-content: center;
+        align-items: center; 
+        text-align: center; 
+    }
+
+    .filter label {
+        padding-right: 0.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .filter select {
+        width: 100%; 
+    }
+
+    .books-div {
+        flex-direction: column; 
+        width: 100%;
+    }
+
+    .add-book-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+.books-div-top {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 1rem; 
+}
+
+.books-div-top h2 {
+    margin: 0; 
+}
+
+.add-book-div {
+    height: fit-content;
+    text-align: center;
+}
+
+}
+
+@media (max-width: 480px) { /* Small Mobile */
+    h1 {
+        margin-top: 4rem;
+    }
+
+    .lib-content{
+        flex-direction: column;
+    }
+
+    .books-div, .filters-div, .add-book-div, .profile-div {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .filter {
+        justify-content: center;
+        align-items: center; 
+        text-align: center; 
+    }
+
+    .filter select {
+        width: 100%;
+    }
+
+    .lib-content h1, .lib-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .add-book-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .filters-div,
+    .books-div,
+    .add-book-div,
+    .profile-div {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+}

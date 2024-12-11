@@ -2,7 +2,6 @@
  {
     "title": "The Alchemist",
     "authors": "Paulo Coelho",
-    "year": 1988,
     "language": "Portuguese",
     "category": "Fiction, Adventure",
     "image_link": "https://covers.openlibrary.org/b/id/8236525-L.jpg",
@@ -27,20 +26,12 @@ const bookSchema = new Schema({
     type: String,
     required: true,
   },
-  year: {
-    type: Number,
-    required: true,
-    validate: {         //validation for year making sure it is an integer
-    validator: Number.isInteger,
-    message: '{VALUE} is not an integer value'
-    }
-  },
   language: {
     type: String,
     required: true,
   },
   category: {
-    type: String,
+    type: Array,
     required: true,
   },
   image_link: {
@@ -56,6 +47,11 @@ const bookSchema = new Schema({
   review: {
     type: String,
     required: false,
+  },
+  reading:{
+    type: Boolean,
+    required: false,
+    default: false
   }
 }, { timestamps: true });
 
@@ -67,4 +63,9 @@ bookSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model('Book', bookSchema);
+const Book = mongoose.model("Book", bookSchema)
+
+module.exports = {
+  bookSchema,
+  Book,
+}

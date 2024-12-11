@@ -1,0 +1,216 @@
+
+.container   {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fbf6ed;
+    border: 6px solid #DDB79E;
+    border-radius: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+    padding: 20px;
+    width: 90%;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #803503;
+    border-radius: 15px;
+    width: 90%;
+}
+
+.error-message {
+    color: red;
+    font-size: 10px;
+    margin: 0;
+}
+
+.success-message {
+    color: green;
+    font-size: 10px;
+    margin: 0;
+}
+
+.description {
+    text-align: left;
+    margin: 0 0 0 0;
+    font-size: 1.2em;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0;
+    font-size: 2em;
+}
+
+
+.signin-button {
+    margin: 10px 0 0 0px;
+    max-width: 100px;
+    align-self: center;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    max-width: 200px;
+}
+
+.sign-up-link {
+    align-self: center;
+}
+@media (max-width: 1060px) {
+    .container {
+        margin-top: 7rem;
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .description {
+        font-size: 1.2em;
+    }
+
+    .form input {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+
+    .error-message, .success-message {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 5rem;
+        padding: 15px;
+        max-width: 90%; 
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .description {
+        font-size: 1.1em;
+    }
+
+    .form input {
+        font-size: 1em;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+
+    .error-message, .success-message {
+        font-size: 12px;
+    }
+}
+
+/* For Mobile Devices (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .container {
+        margin-top: 6rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    .description {
+        font-size: 1em;
+    }
+
+    .form input {
+        font-size: 0.9em;
+        padding: 7px;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+
+    .sign-up-link {
+        font-size: 0.9em;
+    }
+
+    .error-message, .success-message {
+        font-size: 12px;
+    }
+}
+
+/* For Extra Small Mobile Devices (max-width: 375px) */
+@media screen and (max-width: 375px) {
+    .container {
+        margin-top: 5rem;
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 1.4em;
+    }
+
+    .description {
+        font-size: 0.9em;
+    }
+
+    .form input {
+        font-size: 0.9em;
+        padding: 6px;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 10px 18px;
+    }
+
+    .sign-up-link {
+        font-size: 0.8em;
+    }
+
+    .error-message, .success-message {
+        font-size: 11px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+
+    .container {
+        background-color: #381508;
+        color: #FFEFE1;
+        border: 1px solid #180a01;
+    }
+
+    .container p {
+        color:#f7e1d3;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .success-message {
+        color: green;
+    }
+}

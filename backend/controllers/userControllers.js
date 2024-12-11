@@ -1,5 +1,12 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+require("dotenv").config()
+
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+}
 
 // Gets all users (admin rights required)
 const getAllUsers = async (req, res) => {
@@ -13,12 +20,50 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+
+//Login function
+const login = async (req, res) => {
+  try{
+    //Takes email, password from request
+  const {email, password}= req.body
+  //Find the user with the matching email
+  const registeredUser = await User.findOne({email})
+  //Checks if the passwords match
+  const passwordMatch = await bcrypt.compare(password, registeredUser.password)
+  if(!registeredUser){
+    throw Error("No user with linked email found")
+  }
+  if(!passwordMatch){
+    throw Error("Incorrect password")
+  }
+  const token = createToken(registeredUser._id);
+  res.json({
+    id:registeredUser._id,
+    token
+  })
+  } catch (error){
+    res.status(400).json({message:"Failed to log in", error:error.message})
+  }
+}
+
 // Creates a user upon signup (POST)
 //In this create operation as well as the update operation I was suggested to use validation such as Joi or validator.js libraries. This is something I'll look into next sprint
-const createUser = async  (req, res) => {
+const createUser = async (req, res) => {
   try{
-    const newUser = await User.create({...req.body})
-    res.status(201).json(newUser)
+    const {username, email, password} = req.body
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const emailInUse = await User.findOne({email})
+    if(emailInUse){
+      throw Error("This email is already in use")
+    }
+    const usernameInUse = await User.findOne({username})
+    if (usernameInUse){
+      throw Error("This username is already in use")
+    }
+    const newUser = new User({username, email, password:hashedPassword, library:[], wishlist:[], description:""})
+    await newUser.save()
+    const token = createToken(newUser._id);
+    res.status(201).json({id:newUser._id, token})
   } catch (error){
     res.status(400).json({message:"Failed to create user", error:error.message})
   }
@@ -26,7 +71,8 @@ const createUser = async  (req, res) => {
  
 // Gets all information of the user with the given id
 const getUserById = async (req, res) => {
-  const {userId} = req.params
+  const userId = req.user._id;
+  //Finds the user by the given id
 //Checks if the given id is valid as per mongoose, was also suggested by LLM to add this as middleware to routes instead of repeating it here. Will look into this later.
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid user ID", error:error.message });
@@ -46,7 +92,9 @@ const getUserById = async (req, res) => {
   }
 // Updates the given user's info
 const updateUser = async (req, res) => {
-  const {userId} = req.params
+  const userId = req.user._id;
+  //Finds the user by the given id
+  const user = await User.findById(userId)
 
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid user ID", error:error.message });
@@ -87,10 +135,43 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user._id; // The user ID is taken from the token
+
+  try {
+    // Find the user in the database
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the current password is correct
+    const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({ message: "Current password is incorrect." });
+    }
+
+    // Hash the new password before saving
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to change password.", error: error.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
+  login,
+  changePassword
 };

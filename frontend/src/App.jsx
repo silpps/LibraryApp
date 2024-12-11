@@ -1,72 +1,55 @@
 import { useState } from 'react';
 import './App.css';
 import Footer from './components/Footer/Footer';
-import SignUp from './components/SignUpPage/SignUp';
-import LogIn from './components/LogInPage/LogIn';
-import Profile from './components/Profile/Profile.jsx';
-import Settings from './components/Settings/Settings';
+import SignUp from './pages/SignUpPage/SignUp.jsx';
+import LogIn from './pages/LogInPage/LogIn.jsx';
+import Profile from './pages/ProfilePage/Profile.jsx';
 import Header from './components/Header/Header';
-import Library from './components/Library/Library';
-import Help from './components/Help/Help';
-import About from './components/About/About';
-import Wishlist from './components/Wishlist/Wishlist';
-import ReadingList from './components/ReadingList/ReadingList';
+import Library from './pages/LibraryPage/Library.jsx';
+import Help from './pages/HelpPage/Help.jsx';
+import About from './pages/AboutPage/About.jsx';
+import Wishlist from './pages/WishlistPage/Wishlist.jsx';
+import CustomizeProfile from './pages/CustomizeProfilePage/CustomizeProfile.jsx';
+import ChangePassword from './pages/ChangePassword/ChangePassword.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [username, setUsername] = useState('BookLover69');
-  const [description, setDescription] = useState('I love reading books!');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogIn = () => {
+  const [isFirstLogin, setIsFirstLogin] = useState(false);
+
+  const handleLogIn = (firstLogin = false) => {
     setIsLoggedIn(true);
+    setIsFirstLogin(firstLogin);
   };
 
   const logOut = () => {
-    setIsLoggedIn(false); 
+    setIsLoggedIn(false);
+    setIsFirstLogin(false);
+    localStorage.removeItem("userData");
+    console.log("Logged out ");
   };
-
-  const updateProfile = (newUsername, newDescription) => {
-    setUsername(newUsername);
-    setDescription(newDescription);
-  };
-
 
   return (
-    <Router>
-      <Header isLoggedIn={isLoggedIn} logOut={logOut} />
-      <div>
-        <Routes>
-          <Route path="*" element={<h1>404 Not Found</h1>} />
-          <Route path="/" element={<LogIn onLogin={handleLogIn} />}/>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/profile" element={isLoggedIn ? (
-            <Profile username={username} description={description} />) : (
-          <LogIn onLogin={handleLogIn} />)}
-          />
-          <Route
-            path="/settings"
-            element={
-              isLoggedIn ? (
-                <Settings
-                  username={username}
-                  description={description}
-                  onUpdate={updateProfile}
-                />
-              ) : (
-                <LogIn onLogin={handleLogIn} />
-              )
-            }
-          />
-          <Route path="/library" element={<Library />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/about" element={<About />} />
-          <Route path= "/login" element={<LogIn/>} />
-          <Route path="/wishlist" element={<Wishlist />}/>
-          <Route path="/readinglist" element={<ReadingList />}/>
-        </Routes>
+      <Router>
+        <Header isLoggedIn={isLoggedIn} logOut={logOut} />
+        <div>
+          <Routes>
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+            <Route path="/" element={<LogIn onLogin={handleLogIn} />} />
+            <Route path="/signup" element={<SignUp onLogin={handleLogIn} />} />
+            <Route path="/profile" element={isLoggedIn ? <Profile /> : <LogIn onLogin={handleLogIn} />} />
+            <Route path="/settings" element={isLoggedIn ? <CustomizeProfile/> : <LogIn onLogin={handleLogIn} />} />
+            <Route path="/customize-profile" element={isFirstLogin ? <CustomizeProfile /> : <LogIn onLogin={handleLogIn} />} />
+            <Route path="/library" element={isLoggedIn ? <Library /> : <LogIn onLogin={handleLogIn}/>} />
+            <Route path="/help" element={<Help isLoggedIn={isLoggedIn} />} />
+            <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
+            <Route path="/login" element={<LogIn onLogin={handleLogIn} />} />
+            <Route path="/change-password" element={isLoggedIn ? <ChangePassword /> : <LogIn onLogin={handleLogIn}/>} />
+            <Route path="/wishlist" element={isLoggedIn ? <Wishlist /> : <LogIn onLogin={handleLogIn}/>} />
+          </Routes>
+        </div>
         <Footer />
-      </div>
-    </Router>
+      </Router>
   );
 }
 
