@@ -2,6 +2,30 @@ p {
     margin-bottom: 1rem;
 }
 
+.help-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fbf6ed;
+  border: 6px solid #DDB79E;
+  border-radius: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  width: 90%;
+}
+
+.help-div button {
+  width: 7rem;
+}
+
+@media (max-width: 1024px) {
+    .help-div {
+       margin-top: 3rem;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .help-div button {
         background-color: #381508;
