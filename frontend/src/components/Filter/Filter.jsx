@@ -3,7 +3,7 @@ import { REACT_APP_API_URL } from '../../utils/apiConfig';
 const apiUrl = `${REACT_APP_API_URL}`;
 
 
-const Filter = ({ onFilterChange }) => {
+const Filter = ({ onFilterChange, refreshFilters }) => {
     const [categoryFilter, setCategoryFilter] = useState('');
     const [authorFilter, setAuthorFilter] = useState('');
     const [readingStatusFilter, setReadingStatusFilter] = useState('all');
@@ -42,7 +42,7 @@ const Filter = ({ onFilterChange }) => {
             }
         };
         fetchFilterData();
-    }, []);
+    }, [refreshFilters]);
 
     const handleCategoryChange = (e) => {
         setCategoryFilter(e.target.value);

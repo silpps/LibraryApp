@@ -15,6 +15,7 @@ const Library = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [newBookModal, setNewBookModal] = useState(false);
   const [filters, setFilters] = useState({ category: '', author: '', readingStatus: 'all' });
+  const [refreshFilters, setRefreshFilters] = useState(false);
   const booksPerPage = 3;
 
   const fetchBooks = async () => {
@@ -64,8 +65,14 @@ const Library = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const handleDelete = () => fetchBooks();
-  const handleUpdate = () => fetchBooks();
+  const handleDelete = () => {
+    fetchBooks();
+    setRefreshFilters(prev => !prev); // Toggle refreshFilters to trigger useEffect in Filter
+  };
+  const handleUpdate = () => {
+    fetchBooks();
+    setRefreshFilters(prev => !prev); // Toggle refreshFilters to trigger useEffect in Filter
+  };
   const handleBookClick = (book) => setSelectedBook(book);
   const closeSelectedBook = () => setSelectedBook(null);
   const handleAddBook = () => setNewBookModal(true);
@@ -78,7 +85,7 @@ const Library = () => {
         <div className="left-div">
 
           <div className="filters-div">
-            <Filter onFilterChange={handleFilterChange} />
+            <Filter onFilterChange={handleFilterChange} refreshFilters={refreshFilters} />
           </div>
           <div className="profile-div">
             <h2>Go to</h2>
@@ -127,7 +134,10 @@ const Library = () => {
 
         {newBookModal && (
           <AddBookForm
-            onAddBook={() => fetchBooks()}
+            onAddBook={() => {
+              fetchBooks();
+              setRefreshFilters(prev => !prev); // Toggle refreshFilters to trigger useEffect in Filter
+            }}
             closeModal={() => setNewBookModal(false)}
           />
         )}

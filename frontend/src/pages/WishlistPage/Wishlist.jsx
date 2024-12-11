@@ -15,6 +15,8 @@ const Library = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBook, setSelectedBook] = useState(null);
   const [newBookModal, setNewBookModal] = useState(false);
+  const [filters, setFilters] = useState({ category: '', author: '', readingStatus: 'all' });
+  const [refreshFilters, setRefreshFilters] = useState(false);
   const booksPerPage = 3;
 
   const fetchBooks = async () => {
@@ -28,6 +30,9 @@ const Library = () => {
       const queryParams = new URLSearchParams({
         page: currentPage,
         limit: booksPerPage,
+        category: filters.category,
+        author: filters.author,
+        readingStatus: filters.readingStatus,
       });
   
       const res = await fetch(`${apiUrl}/library/userWishlist?${queryParams.toString()}`, {
@@ -51,7 +56,7 @@ const Library = () => {
 
   useEffect(() => {
     fetchBooks();
-  }, [currentPage]);
+  }, [currentPage, filters]);
 
   const goToNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -61,11 +66,18 @@ const Library = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const handleDelete = () => fetchBooks();
-  const handleUpdate = () => fetchBooks();
+  const handleDelete = () => {
+    fetchBooks();
+    setRefreshFilters(prev => !prev);
+  };
+  const handleUpdate = () => {
+    fetchBooks();
+    setRefreshFilters(prev => !prev);
+  };
   const handleBookClick = (book) => setSelectedBook(book);
   const closeSelectedBook = () => setSelectedBook(null);
   const handleAddBook = () => setNewBookModal(true);
+  const handleFilterChange = (newFilters) => setFilters(newFilters);
 
   return (
     <div className="library">
@@ -73,7 +85,7 @@ const Library = () => {
       <div className="lib-content">
         <div className="left-div">
           <div className="filters-div">
-            <Filter updateFilters={fetchBooks} />
+            <Filter onFilterChange={handleFilterChange} refreshFilters={refreshFilters} />
           </div>
           <div className="profile-div">
             <h2>Go to</h2>
@@ -122,7 +134,10 @@ const Library = () => {
 
         {newBookModal && (
           <AddBookForm
-            onAddBook={() => fetchBooks()}
+            onAddBook={() => {
+              fetchBooks();
+              setRefreshFilters(prev => !prev); // Toggle refreshFilters to trigger useEffect in Filter
+            }}
             closeModal={() => setNewBookModal(false)}
           />
         )}
