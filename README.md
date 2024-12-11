@@ -7,10 +7,10 @@
 The final render page showcases the presented project; however, some of the route paths are not functional in this version. Second link provides a version where all paths work correctly.
 
 ## Frontend
-- link here
+- [Link to frontend](https://github.com/silpps/LibraryApp/tree/final-deploy/frontend)
 
 ## Backend
-- link here
+-[Link to backend](https://github.com/silpps/LibraryApp/tree/final-deploy/backend)
 
 ## Contribution, powerpoint
 - [all can be found in the powerpoint.](https://github.com/silpps/LibraryApp/blob/main/SPRINT%203%20FINAL.pdf)
