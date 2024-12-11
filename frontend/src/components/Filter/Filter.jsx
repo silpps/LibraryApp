@@ -20,8 +20,8 @@ const Filter = ({ onFilterChange, refreshFilters }) => {
         const token = userData.token;
 
         const path = location.pathname === '/library'
-        ? `${apiUrl}/library/userLibrary/filter/lib`
-        : `${apiUrl}/library/userLibrary/filter/wish`;
+        ? `${apiUrl}/library/filter/lib`
+        : `${apiUrl}/library/filter/wish`;
 
             try {
                 const res = await fetch(path, {
