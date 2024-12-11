@@ -22,4 +22,4 @@ The final render page showcases the presented project; however, some of the rout
 
 ## Api Documentation
 
-- Can be found here!
+- [Can be found here!](https://github.com/silpps/LibraryApp/blob/sprint3-join/backend/swagger.json)
