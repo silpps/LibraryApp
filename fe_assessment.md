@@ -635,14 +635,14 @@ export default Library;
    - Safeguards data fetching with error handling, providing meaningful console feedback for developers.
 
 4. **UI/UX Enhancements**:
-   - Pagination ensures users can easily navigate large book collections.
+   - Pagination and filtering ensures users can easily navigate large book collections.
    - The "Add Book" button and modals offer intuitive interaction for expanding the library.
 
 ---
 
 ### Areas for Improvement
 1. **Error Feedback**:
-   - Currently, errors are logged to the console but not displayed to the user. Including user-facing error messages would enhance clarity.
+   - Currently, book fetching errors are logged to the console but not displayed to the user. Including user-facing error messages would enhance clarity.
 
 2. **Pagination Usability**:
    - The pagination interface could include additional controls, such as "First" and "Last" buttons or direct page number links, to improve navigation.
@@ -655,8 +655,8 @@ export default Library;
 
 ---
 
-####*Key Takeaways
-The `Library` component is a robust and modular solution for managing a user's book collection. With its dynamic filtering, pagination, and use of modals, it creates an engaging experience. Minor improvements in UI, error visibility, and performance could make it even more polished and user-centric. The design effectively balances flexibility and maintainability, making it a strong component for a scalable application.
+### Key Takeaways
+The `Library` component is a robust and modular solution for managing a user's book collection. With its dynamic filtering, pagination, and use of modals, it creates an engaging experience. Minor improvements in UI, error visibility in fetching books, and performance could make it even more polished and user-centric. The design effectively balances flexibility and maintainability, making it a strong component for a scalable application.
 
 
 ## Add Book Form
