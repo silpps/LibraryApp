@@ -5,18 +5,6 @@ const mongoose = require("mongoose");
 // The LLM suggests that the error handling could be more specific. I should look into that.
 // The LLM also suggest me to consider adding validation for the request body and query parameters. It says that keeping validation on both the frontend and backend ensures that each layer of the application is responsible for its own data integrity.
 
-// Controller function to get all books
-// GET /library
-
-const getAllBooks = async (req, res) => {
-  try {
-    // this line fetches all books and sorts them by createdAt timestamp in descending order.
-  const books = await Book.find({}).sort({ createdAt: -1 });
-  res.status(200).json(books);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve books" });
-  }
-}; 
 
 //Controller for fetching the three most recent books
 // GET /library/recent
@@ -86,28 +74,6 @@ const addBookToLibrary = async (req, res) => {
   }
 };
 
-/*
-const getUserLibrary = async (req, res) => {
-  const id = req.user._id;
-
-  // Validate the provided user ID
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: "Invalid user ID" });
-  }
-
-  try {
-    const user = await User.findById(id);
-    
-    if (user) {
-      res.status(200).json({ library: user.library });
-      console.log("getUserLibrary successful")
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve user's library", error: error.message });
-  }
-};   */
 
 const getUserLibrary = async (req, res) => {
   const id = req.user._id;
@@ -437,56 +403,6 @@ const deleteBookInWishlist = async (req, res) => {
 
 //ADDITIONAL FUNCTIONALITIES
 
-//This version of the filter will show all the books that has given category. It also shows false results like non-fiction when fiction is searched. this should be fixed eventually.
-//This could be improved. Maybe consider modifying regex to match the category anywhere in the string and see if that works better.
-// Get books by category
-const filterBooksByCategory = async (req, res) => {
-  try {
-    const books = await Book.find({  category: { $regex: req.params.category, $options: "i" }  });
-
-    // If no books match the category return a messag notifying that
-    if (books.length === 0) {
-      return res.status(404).json({ message: `No books found for category: ${category}` });
-    }
-    res.status(200).json(books);
-  } catch (error) {
-    console.error("Error filtering books by category:", error); // Debugging line
-    res.status(500).json({ message: "Failed to filter books by category", error: error.message });
-  }
-};
-
-// Filter books by author
-const filterBooksByAuthor = async (req, res) => {
-  try {
-    const books = await Book.find({  authors: { $regex: req.params.author, $options: "i" }  }); // Regex match to start with 'Fiction' and case-insensitive
-    res.status(200).json(books);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to filter books by author", error: error.message });
-  }
-};
-
-// Search books (title, author and prioritize title matches)
-const searchBooks = async (req, res) => {
-  const { query } = req.query;
-  if (!query) {
-    return res.status(400).json({ message: "Query parameter is required" });
-  }
-
-  //consider different search options. 
-  //LLM suggsted that I should consider adding pagination to the search results to improve performance and user experience. I should look into that.
-  try {
-    const books = await Book.find({
-      $or: [
-        { title: { $regex: query, $options: "i" } },
-        { authors: { $regex: query, $options: "i" } },
-      ]
-    }).sort({ title: -1 }); // Sort results by title match (descending)
-
-    res.status(200).json(books);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to search books", error: error.message });
-  }
-};
 
 const getCatergoriesAndAuthors = async (req, res) => {
   const libType = req.params.libType;
@@ -539,7 +455,6 @@ const getCatergoriesAndAuthors = async (req, res) => {
   
 // Export all controller functions
 module.exports = {
-    getAllBooks,
     getUserLibrary,
     getUserWishlist,
     getRecentBooks,
@@ -547,9 +462,6 @@ module.exports = {
     addBookToLibrary,
     updateBook,
     deleteBook,
-    filterBooksByCategory,
-    filterBooksByAuthor,
-    searchBooks,
     addBookToWishlist,
     updateBookInWishlist,
     deleteBookInWishlist,

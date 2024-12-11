@@ -2,15 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getAllBooks,
   getRecentBooks,
-  getBookById,
   addBookToLibrary,
   updateBook,
   deleteBook,
-  filterBooksByCategory,
-  filterBooksByAuthor,
-  searchBooks,
   getUserLibrary,
   getUserWishlist,
   addBookToWishlist,
@@ -38,10 +33,8 @@ router.get('/recentBooks', authorizeUsersAccess, getRecentBooks)
 // POST /books
 router.post('/userLibrary/addToLibrary',authorizeUsersAccess, addBookToLibrary);
 
-router.get('/userLibrary/filter/:libType',authorizeUsersAccess, getCatergoriesAndAuthors)
+router.get('/filter/:libType',authorizeUsersAccess, getCatergoriesAndAuthors)
 
-// GET /books/:bookId
-router.get('/userLibrary/:bookId', getBookById);
 
 // PUT /books/:bookId
 router.put('/userLibrary/:bookId',authorizeUsersAccess, updateBook);
@@ -49,11 +42,6 @@ router.put('/userLibrary/:bookId',authorizeUsersAccess, updateBook);
 // DELETE /books/:bookId
 router.delete('/userLibrary/:bookId',authorizeUsersAccess, deleteBook);
 
-
-
-// SEARCH books
-// GET /books/search?query=<value>
-router.get('/search', searchBooks);
 
 //recent books
 // GET /books/recent
@@ -64,15 +52,6 @@ router.put("/userWishlist/:bookId", authorizeUsersAccess, updateBookInWishlist)
 router.delete("/userWishlist/:bookId", authorizeUsersAccess, deleteBookInWishlist)
 
 
-
-
-// FILTER books by category
-// GET /books/filter?category=<value>
-router.get('/filter/category/:category', filterBooksByCategory);
-
-// FILTER books by author
-// GET /books/filter?author=<value>
-router.get('/filter/author/:author', filterBooksByAuthor);
 
 
 module.exports = router;
