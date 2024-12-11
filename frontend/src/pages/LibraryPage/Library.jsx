@@ -73,7 +73,7 @@ const Library = () => {
 
   return (
     <div className="library">
-      <h1>My Library</h1>
+      <h1 className='page-title'>My Library</h1>
       <div className="lib-content">
         <div className="left-div">
 

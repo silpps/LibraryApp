@@ -40,12 +40,12 @@ function App() {
             <Route path="/profile" element={isLoggedIn ? <Profile /> : <LogIn onLogin={handleLogIn} />} />
             <Route path="/settings" element={isLoggedIn ? <CustomizeProfile/> : <LogIn onLogin={handleLogIn} />} />
             <Route path="/customize-profile" element={isFirstLogin ? <CustomizeProfile /> : <LogIn onLogin={handleLogIn} />} />
-            <Route path="/library" element={<Library />} />
+            <Route path="/library" element={isLoggedIn ? <Library /> : <LogIn onLogin={handleLogIn}/>} />
             <Route path="/help" element={<Help isLoggedIn={isLoggedIn} />} />
             <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
             <Route path="/login" element={<LogIn onLogin={handleLogIn} />} />
-            <Route path="/change-password" element={<ChangePassword />} />
-            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/change-password" element={isLoggedIn ? <ChangePassword /> : <LogIn onLogin={handleLogIn}/>} />
+            <Route path="/wishlist" element={isLoggedIn ? <Wishlist /> : <LogIn onLogin={handleLogIn}/>} />
           </Routes>
         </div>
         <Footer />

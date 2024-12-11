@@ -69,7 +69,7 @@ const Library = () => {
 
   return (
     <div className="library">
-      <h1>My Wishlist</h1>
+      <h1 className='page-title'>My Wishlist</h1>
       <div className="lib-content">
         <div className="left-div">
           <div className="filters-div">

@@ -108,7 +108,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <h1>{username}'s profile</h1>
+      <h1 className='page-title'>{username}'s profile</h1>
       <div className="profile-card-div">
         <ProfileCard 
           username={username} 
