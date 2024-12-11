@@ -74,4 +74,76 @@ describe("User Routes", () => {
             expect(result.body).toHaveProperty("error");
         });
     });
+
+    describe("PUT /api/users/change-password", () => {
+        let token = null;
+      
+        beforeAll(async () => {
+          // Signup the user and get the token for login
+          const signup = await api.post("/api/users/signup").send(userData);
+          const loginData = {
+            email: "dtute0@stumbleupon.com",
+            password: "oG3*8Lr&)sDT",
+          };
+          const login = await api.post("/api/users/login").send(loginData);
+          token = login.body.token;
+        });
+      
+        it("should change the password when the current password is correct", async () => {
+          const passwordChangeData = {
+            currentPassword: "oG3*8Lr&)sDT",
+            newPassword: "NewValidPassword123", 
+          };
+      
+          const result = await api
+            .put("/api/users/change-password")
+            .set("Authorization", `Bearer ${token}`)
+            .send(passwordChangeData);
+      
+          expect(result.status).toBe(200);
+          expect(result.body.message).toBe("Password changed successfully.");
+        });
+      
+        it("should return an error if the current password is incorrect", async () => {
+          const passwordChangeData = {
+            currentPassword: "incorrectPassword", 
+            newPassword: "NewValidPassword123", 
+          };
+      
+          const result = await api
+            .put("/api/users/change-password")
+            .set("Authorization", `Bearer ${token}`)
+            .send(passwordChangeData);
+      
+          expect(result.status).toBe(400);
+          expect(result.body.message).toBe("Current password is incorrect.");
+        });
+      
+        it("should return an error if the new password is invalid (e.g., too weak)", async () => {
+          const passwordChangeData = {
+            currentPassword: "oG3*8Lr&)sDT", 
+            newPassword: "123",
+          };
+      
+          const result = await api
+            .put("/api/users/change-password")
+            .set("Authorization", `Bearer ${token}`)
+            .send(passwordChangeData);
+      
+          expect(result.status).toBe(400);
+        });
+      
+        it("should return an error if the user is not authenticated", async () => {
+          const passwordChangeData = {
+            currentPassword: "oG3*8Lr&)sDT",
+            newPassword: "NewValidPassword123",
+          };
+      
+          const result = await api
+            .put("/api/users/change-password")
+            .send(passwordChangeData);
+      
+          expect(result.status).toBe(401);
+        });
+      });
 });
