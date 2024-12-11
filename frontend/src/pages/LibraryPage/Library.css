@@ -32,7 +32,7 @@
 .profile-div {
     border: 1px solid #803503;
     border-radius: 6px;
-    margin: 2rem;
+    margin: 1.5rem;
     background-color: #fbf6ed;
     padding: 10px;
 }
@@ -43,6 +43,7 @@
 
 .filters-div {
     height: fit-content;
+    margin-bottom: 5.3rem;
 }
 
 .filter {
@@ -67,7 +68,7 @@
 
 .books-div {
     width: 50%;
-    height: 537px;
+    height: 537.5px;
 }
 
 .add-book-div {
@@ -81,6 +82,12 @@
     border-radius: 5px;
     margin-bottom: 20px;
     font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
+    .filters-div {
+        margin-bottom: 1.5rem;
+    }
 }
 
 /* Media Queries for Responsive Design */
@@ -97,6 +104,10 @@
     .books-div {
         width: 100%;
         height: fit-content;
+    }
+
+    .filters-div {
+        margin-bottom: 1rem;
     }
 }
 
