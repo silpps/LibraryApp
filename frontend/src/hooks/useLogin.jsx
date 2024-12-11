@@ -22,8 +22,9 @@ export default function useLogIn(onLogin) {
       });
       const userData = await res.json();
       if (res.ok) {
+        console.log('userData:', userData);
         localStorage.setItem('userData', JSON.stringify(userData));
-        onLogin(); 
+        onLogin(userData); 
         navigate('/profile');
         console.log('Logged in successfully ' + loginDetails.email);
       } else {

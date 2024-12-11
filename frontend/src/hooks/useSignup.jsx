@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { REACT_APP_API_URL } from '../utils/apiConfig';
 import useField from './useField'; // Import the useField hook
+import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
+import { use } from 'react';
 
-export default function useSignUp(onLogin) {
+export default function useSignUp() {
+  const { login } = useAuth(); // Access login function from AuthContext
   const username = useField('text');
   const email = useField('email');
   const password = useField('password');
@@ -35,7 +38,7 @@ export default function useSignUp(onLogin) {
       setErrorMessage('Please fix the errors in the form before submitting.');
       return;
     }
-
+    console.log("inof", username.value, email.value, password.value);
     try {
       const newUser = { username: username.value, email: email.value, password: password.value };
       const signupRes = await fetch(`${REACT_APP_API_URL}/users/signup`, {
@@ -61,11 +64,16 @@ export default function useSignUp(onLogin) {
         throw new Error(loginError.message || 'Login failed.');
       }
 
+      // Get login data and set the context
       const loginData = await loginRes.json();
       localStorage.setItem('userData', JSON.stringify(loginData));
-      onLogin(true); // Handle login state
-      navigate('/customize-profile');
+
+      // Update context
+      login(loginData);
+
+      // Redirect user to the customize profile page
       setSuccessMessage('User created and logged in successfully!');
+      navigate('/customize-profile');
     } catch (error) {
       setErrorMessage(error.message);
     }

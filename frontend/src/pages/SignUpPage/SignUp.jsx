@@ -1,9 +1,9 @@
 import React from 'react';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
-import useSignUp from '../../hooks/useSignup';
+import useSignUp from '../../hooks/useSignUp'; // Corrected import path
 
-const SignUp = ({ onLogin }) => {
+const SignUp = () => {
   const {
     username,
     email,
@@ -16,7 +16,7 @@ const SignUp = ({ onLogin }) => {
     successMessage,
     errorMessage,
     handleSubmit,
-  } = useSignUp(onLogin);
+  } = useSignUp();
 
   return (
     <div className="container">

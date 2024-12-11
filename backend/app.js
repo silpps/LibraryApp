@@ -8,9 +8,11 @@ const bookRouter = require('./routers/bookRouter');
 const { unknownEndpoint,errorHandler } = require("./middleware/customMiddleware");
 const swaggerUI = require('swagger-ui-express');
 const swaggerSpec = require('./swagger.json');
+const cors = require('cors');
 
 const morgan = require("morgan")
 app.use(morgan("tiny"))
+app.use(cors())
 
 connectDB();
 

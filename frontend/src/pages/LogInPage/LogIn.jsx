@@ -1,15 +1,11 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext"; // Import the AuthContext
+import useLogIn from "../../hooks/useLogin"; // Import the useLogIn hook
+import { Link } from "react-router-dom";
 
-import '../../pages/SignUpPage/SignUp.css';
-import { Link } from 'react-router-dom';
-import useLogIn from '../../hooks/useLogin';
-
-const LogIn = ({ onLogin }) => {
-  const {
-    email,
-    password,
-    showError,
-    handleLogIn,
-  } = useLogIn(onLogin);
+function LogIn() {
+  const { login } = useContext(AuthContext); // Extract login method from AuthContext
+  const { email, password, showError, handleLogIn } = useLogIn(login);
 
   return (
     <div className="container">
@@ -27,6 +23,6 @@ const LogIn = ({ onLogin }) => {
       </p>
     </div>
   );
-};
+}
 
 export default LogIn;

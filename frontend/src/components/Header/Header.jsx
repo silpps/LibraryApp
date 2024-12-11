@@ -1,70 +1,59 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import bookpng from '../../assets/bookpng.webp';
+import { AuthContext } from '../../context/AuthContext';
+import { use } from 'react';
 
-const Header = ({ isLoggedIn, logOut }) => {
+const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-    const goToHelp = () => {
-      navigate('/help');  
-    };
-  
-    const goToAbout = () => {
-      navigate('/about'); 
-    };
-  
-    const goToProfileOrLogIn = () => {
-      if (isLoggedIn) {
-      navigate('/profile'); 
-      }
-      else {
-        navigate('/');
-      }
-    }
-  
-    const goToSignUp = () => {
-      navigate('/signup');
-    }
-  
-    const goToLogIn = () => {
-      navigate('/');
-    };
+  const goToPage = (path) => {
+    navigate(path);
+  };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
   return (
     <header className="header">
-      <div className="logo" onClick={goToProfileOrLogIn}>
+      <div className="logo" onClick={() => goToPage(isLoggedIn ? '/profile' : '/login')}>
         <img src={bookpng} alt="Logo" />
         <h1>Bookhive</h1>
       </div>
       <nav className="header-nav">
-      <ul className="nav-links">
+        <ul className="nav-links">
           <li>
-            <a onClick={goToAbout}>About</a> 
+            <a onClick={() => goToPage('/about')}>About</a>
           </li>
           <li>
-            <a onClick={goToHelp}>Help</a>
+            <a onClick={() => goToPage('/help')}>Help</a>
           </li>
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <li>
-              <a onClick={ () => {logOut(); navigate('/login');}}>Log Out</a>
+              <a onClick={handleLogout}>Log Out</a>
             </li>
-          )}
-          {!isLoggedIn && location.pathname !== '/signup' && (
-            <li>
-              <a onClick={goToSignUp}>Sign Up</a>
-            </li>
-          )}
-          {!isLoggedIn && location.pathname === '/signup' && (
-            <li>
-              <a onClick={goToLogIn}>Log In</a>
-            </li>
+          ) : (
+            <>
+              {location.pathname !== '/signup' && (
+                <li>
+                  <a onClick={() => goToPage('/signup')}>Sign Up</a>
+                </li>
+              )}
+              {location.pathname === '/signup' && (
+                <li>
+                  <a onClick={() => goToPage('/login')}>Log In</a>
+                </li>
+              )}
+            </>
           )}
         </ul>
       </nav>
@@ -74,28 +63,31 @@ const Header = ({ isLoggedIn, logOut }) => {
       {isDropdownOpen && (
         <div className="dropdown-modal">
           <ul className="nav-links">
-          <li>
-            <a onClick={goToAbout}>About</a> 
-          </li>
-          <li>
-            <a onClick={goToHelp}>Help</a>
-          </li>
-          {isLoggedIn && (
             <li>
-              <a onClick={logOut}>Log Out</a>
+              <a onClick={() => goToPage('/about')}>About</a>
             </li>
-          )}
-          {!isLoggedIn && location.pathname !== '/signup' && (
             <li>
-              <a onClick={goToSignUp}>Sign Up</a>
+              <a onClick={() => goToPage('/help')}>Help</a>
             </li>
-          )}
-          {!isLoggedIn && location.pathname === '/signup' && (
-            <li>
-              <a onClick={goToLogIn}>Log In</a>
-            </li>
-          )}
-        </ul>
+            {isLoggedIn ? (
+              <li>
+                <a onClick={handleLogout}>Log Out</a>
+              </li>
+            ) : (
+              <>
+                {location.pathname !== '/signup' && (
+                  <li>
+                    <a onClick={() => goToPage('/signup')}>Sign Up</a>
+                  </li>
+                )}
+                {location.pathname === '/signup' && (
+                  <li>
+                    <a onClick={() => goToPage('/login')}>Log In</a>
+                  </li>
+                )}
+              </>
+            )}
+          </ul>
         </div>
       )}
     </header>

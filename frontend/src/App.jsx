@@ -1,55 +1,88 @@
-import { useState } from 'react';
-import './App.css';
-import Footer from './components/Footer/Footer';
-import SignUp from './pages/SignUpPage/SignUp.jsx';
-import LogIn from './pages/LogInPage/LogIn.jsx';
-import Profile from './pages/ProfilePage/Profile.jsx';
-import Header from './components/Header/Header';
-import Library from './pages/LibraryPage/Library.jsx';
-import Help from './pages/HelpPage/Help.jsx';
-import About from './pages/AboutPage/About.jsx';
-import Wishlist from './pages/WishlistPage/Wishlist.jsx';
-import CustomizeProfile from './pages/CustomizeProfilePage/CustomizeProfile.jsx';
-import ChangePassword from './pages/ChangePassword/ChangePassword.jsx';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider} from "./context/AuthContext";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import LogIn from "./pages/LogInPage/LogIn";
+import SignUp from "./pages/SignUpPage/SignUp";
+import Profile from "./pages/ProfilePage/Profile";
+import Library from "./pages/LibraryPage/Library";
+import Wishlist from "./pages/WishlistPage/Wishlist";
+import Help from "./pages/HelpPage/Help";
+import About from "./pages/AboutPage/About";
+import CustomizeProfile from "./pages/CustomizeProfilePage/CustomizeProfile";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import RouteGuard from "./components/ProtectedRoute";
+import FirstLogin from "./components/FirstLogIn";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isFirstLogin, setIsFirstLogin] = useState(false);
-
-  const handleLogIn = (firstLogin = false) => {
-    setIsLoggedIn(true);
-    setIsFirstLogin(firstLogin);
-  };
-
-  const logOut = () => {
-    setIsLoggedIn(false);
-    setIsFirstLogin(false);
-    localStorage.removeItem("userData");
-    console.log("Logged out ");
-  };
-
   return (
+    <AuthProvider>
       <Router>
-        <Header isLoggedIn={isLoggedIn} logOut={logOut} />
+        <Header />
         <div>
           <Routes>
+            <Route path="/" element={<LogIn />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/profile"
+              element={
+                <RouteGuard>
+                  <Profile />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/library"
+              element={
+                <RouteGuard>
+                  <Library />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <RouteGuard>
+                  <Wishlist />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/help"
+              element={
+                <RouteGuard>
+                  <Help />
+                </RouteGuard>
+              }
+            />
+            <Route path="/" element={<About />} />
+            <Route
+              path="/settings"
+              element={
+                <RouteGuard>
+                  <CustomizeProfile />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/customize-profile"
+              element={<FirstLogin> <CustomizeProfile /> </FirstLogin>}
+            />
+            <Route
+              path="/change-password"
+              element={
+                <RouteGuard>
+                  <ChangePassword />
+                </RouteGuard>
+              }
+            />
             <Route path="*" element={<h1>404 Not Found</h1>} />
-            <Route path="/" element={<LogIn onLogin={handleLogIn} />} />
-            <Route path="/signup" element={<SignUp onLogin={handleLogIn} />} />
-            <Route path="/profile" element={isLoggedIn ? <Profile /> : <LogIn onLogin={handleLogIn} />} />
-            <Route path="/settings" element={isLoggedIn ? <CustomizeProfile/> : <LogIn onLogin={handleLogIn} />} />
-            <Route path="/customize-profile" element={isFirstLogin ? <CustomizeProfile /> : <LogIn onLogin={handleLogIn} />} />
-            <Route path="/library" element={isLoggedIn ? <Library /> : <LogIn onLogin={handleLogIn}/>} />
-            <Route path="/help" element={<Help isLoggedIn={isLoggedIn} />} />
-            <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
-            <Route path="/login" element={<LogIn onLogin={handleLogIn} />} />
-            <Route path="/change-password" element={isLoggedIn ? <ChangePassword /> : <LogIn onLogin={handleLogIn}/>} />
-            <Route path="/wishlist" element={isLoggedIn ? <Wishlist /> : <LogIn onLogin={handleLogIn}/>} />
           </Routes>
         </div>
         <Footer />
       </Router>
+    </AuthProvider>
   );
 }
 
