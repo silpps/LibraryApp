@@ -444,9 +444,9 @@ export default App;
 ```
 The main issue was that the user data, such as the profile picture, was applied globally across all users rather than being tied to a specific user. For instance, changes made to a profile picture would affect every user's profile, not just the currently logged-in user. Despite efforts to resolve this, the code was ultimately removed from the final project and replaced with useEffect and useState. This is definitely something to learn from and will guide future efforts to improve the understanding and proper implementation of useContext.
 
-### Library Page
+## Library Page
 
-#### Overview
+### Overview
 The (`Library`) component is a functional React component that serves as the primary interface for managing a user's library. It integrates several key features, including paginated book retrieval, filtering, and modals for adding and viewing book details. The component efficiently organizes state and logic to provide a cohesive user experience.
 
 ---
@@ -604,7 +604,7 @@ const Library = () => {
 export default Library;
 ```
 
-#### Key Features
+### Key Features
 1. **Book Management**:
    - Fetches and displays books from a backend API with pagination support.
    - Allows users to view detailed book information, edit and delete books (`BookDetails`) and add new books (`AddBookForm`).
@@ -640,7 +640,7 @@ export default Library;
 
 ---
 
-#### Areas for Improvement
+### Areas for Improvement
 1. **Error Feedback**:
    - Currently, errors are logged to the console but not displayed to the user. Including user-facing error messages would enhance clarity.
 
