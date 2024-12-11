@@ -13,7 +13,7 @@ The final render page showcases the presented project; however, some of the rout
 - link here
 
 ## Contribution, powerpoint
-- [all can be found in the powerpoint.](https://github.com/silpps/LibraryApp/blob/main/SPRINT_3.pdf)
+- [all can be found in the powerpoint.]([https://github.com/silpps/LibraryApp/blob/main/SPRINT_3.pdf)
 
 ## Self-assessments 
 
