@@ -63,5 +63,10 @@
   .about-container button:hover {
     background-color: #180a01;
   }
-
+  
+  .about-container {
+    background-color: #381508;
+    color: #FFEFE1;
+    border: 1px solid #180a01;
+  }
 }
