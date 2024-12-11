@@ -50,13 +50,22 @@ describe("Given there are initially some books saved", () => {
         );
       });
 
-    it("should return all books as JSON when POST /api/library/userWishlist is called", async () => {
+    it("should return all books as JSON when GET /api/library/userWishlist is called", async () => {
         await api
-            .post("/api/library/userWishlist")
+            .get("/api/library/userWishlist")
             .set("Authorization", "bearer " + token)
             .expect(200)
             .expect("Content-Type", /application\/json/);
     });
+
+    it("should return filtered books as JSON when GET /api/library/userWishlist is called", async () => {
+      await api
+          .get("/api/library/userWishlist")
+          .query({ category: "Fantasy" })
+          .set("Authorization", "bearer " + token)
+          .expect(200)
+          .expect("Content-Type", /application\/json/);
+  });
 
     it("should create a new book when POST /api/library/userWishlist/addToWishlist is called", async () => {
         const newBook = {
@@ -113,6 +122,14 @@ describe("Given there are initially some books saved", () => {
         const updatedUser = await User.findOne({ email: "dtute0@stumbleupon.com" });
         const bookCheck = updatedUser.wishlist.id(bookId);
         expect(bookCheck).toBeNull();
+    });
+
+    it("should return categories and authors as JSON when GET /api/library/filter/wish is called", async () => {
+        await api
+            .get("/api/library/filter/wish")
+            .set("Authorization", "bearer " + token)
+            .expect(200)
+            .expect("Content-Type", /application\/json/);
     });
 });
 
