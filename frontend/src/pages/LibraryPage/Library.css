@@ -67,6 +67,7 @@
 
 .books-div {
     width: 50%;
+    height: 537px;
 }
 
 .add-book-div {
@@ -95,6 +96,7 @@
 
     .books-div {
         width: 100%;
+        height: fit-content;
     }
 }
 
