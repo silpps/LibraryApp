@@ -8,16 +8,16 @@ const bookRouter = require('./routers/bookRouter');
 const { unknownEndpoint,errorHandler } = require("./middleware/customMiddleware");
 const swaggerUI = require('swagger-ui-express');
 const swaggerSpec = require('./swagger.json');
-const cors = require("cors");
 
 const morgan = require("morgan")
 app.use(morgan("tiny"))
 
-app.use(cors())
 connectDB();
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use(express.static('view')); // Serve static assets
+
 app.use('/api/users', userRouter);
 //the book path is for now called library. consider changing paths again when adding wishlist and readinglist
 app.use('/api/library', bookRouter);
